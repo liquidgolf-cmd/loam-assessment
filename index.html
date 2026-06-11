@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loam Strategy — Business Clarity for Small Business</title>
+<meta name="description" content="Find out what's actually holding your business back. A free quiz, a paid deep-dive assessment, and a 60-minute session with Mike Hill.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#141414;
+  --ink2:#1E1E1E;
+  --ink3:#2A2A2A;
+  --amber:#E8932A;
+  --amber-dim:rgba(232,147,42,.1);
+  --amber-border:rgba(232,147,42,.22);
+  --slate:#3D5A73;
+  --slate-dim:rgba(61,90,115,.12);
+  --cream:#F5F2ED;
+  --cream2:#EDE9E2;
+  --muted:rgba(245,242,237,.48);
+  --muted-dark:rgba(20,20,20,.5);
+  --rule:rgba(255,255,255,.07);
+  --rule-cream:rgba(20,20,20,.1);
+  --r:12px;--r-lg:18px;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(20,20,20,0);
+  transition:background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{background:rgba(20,20,20,.95);backdrop-filter:blur(12px);border-color:var(--rule);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-mark{width:32px;height:32px;background:var(--amber);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;color:var(--ink);transition:transform .2s;}
+.nav-logo:hover .nav-mark{transform:rotate(-5deg);}
+.nav-name{font-size:15px;font-weight:500;color:var(--cream);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-link{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:400;}
+.nav-link:hover{color:var(--cream);}
+.nav-cta{background:var(--amber);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border-radius:var(--r);border:none;cursor:pointer;text-decoration:none;transition:all .2s;}
+.nav-cta:hover{background:#d4831f;transform:translateY(-1px);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:120px 24px 80px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,147,42,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--amber);margin-bottom:28px;
+  border:1px solid var(--amber-border);
+  padding:6px 16px;border-radius:20px;
+  background:var(--amber-dim);
+}
+.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);}
+.hero-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(44px,8vw,88px);
+  line-height:1.0;letter-spacing:-.03em;
+  color:var(--cream);
+  margin-bottom:24px;
+  max-width:860px;
+}
+.hero-title .light{font-weight:300;}
+.hero-title .bold-italic{font-weight:600;font-style:italic;color:var(--amber);}
+.hero-sub{
+  font-size:clamp(16px,2.5vw,20px);
+  line-height:1.7;color:var(--muted);
+  max-width:520px;margin:0 auto 48px;font-weight:300;
+}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--amber);color:var(--ink);
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;
+  padding:16px 32px;border-radius:var(--r);border:none;cursor:pointer;
+  text-decoration:none;transition:all .25s;
+  box-shadow:0 4px 24px rgba(232,147,42,.3);
+}
+.btn-primary:hover{background:#d4831f;transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,147,42,.4);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--muted);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  padding:14px 24px;border-radius:var(--r);
+  border:1px solid var(--rule);cursor:pointer;
+  text-decoration:none;transition:all .2s;
+}
+.btn-ghost:hover{color:var(--cream);border-color:rgba(255,255,255,.2);}
+.hero-proof{
+  margin-top:64px;
+  font-size:12px;color:rgba(255,255,255,.2);
+  text-transform:uppercase;letter-spacing:.1em;font-weight:500;
+}
+
+/* ── SECTION WRAPPER ── */
+.section{padding:100px 24px;}
+.section-inner{max-width:1020px;margin:0 auto;}
+.section-eyebrow{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--amber);margin-bottom:16px;
+}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(32px,5vw,52px);
+  font-weight:300;line-height:1.1;
+  letter-spacing:-.02em;color:var(--cream);
+  margin-bottom:16px;
+}
+.section-title strong{font-weight:600;}
+.section-body{
+  font-size:17px;line-height:1.75;
+  color:var(--muted);max-width:540px;font-weight:300;
+}
+.divider{border:none;border-top:1px solid var(--rule);margin:0;}
+
+/* ── THE JOURNEY (signature path element) ── */
+.journey-section{background:var(--ink2);padding:100px 24px;}
+.journey-inner{max-width:1020px;margin:0 auto;}
+.journey-header{text-align:center;margin-bottom:72px;}
+
+.path-wrap{position:relative;display:flex;align-items:flex-start;gap:0;}
+.path-step{flex:1;position:relative;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.path-step.visible{opacity:1;transform:translateY(0);}
+.path-step:nth-child(2){transition-delay:.15s;}
+.path-step:nth-child(3){transition-delay:.3s;}
+.path-step:nth-child(4){transition-delay:.45s;}
+
+.path-connector{
+  position:absolute;top:20px;left:calc(50% + 28px);
+  width:calc(100% - 56px);height:1px;
+  background:linear-gradient(90deg, var(--amber) 0%, rgba(232,147,42,.2) 100%);
+  z-index:0;
+}
+.path-step:last-child .path-connector{display:none;}
+
+.path-node{
+  width:40px;height:40px;border-radius:50%;
+  border:2px solid var(--amber);
+  background:var(--ink2);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-family:'Fraunces',serif;font-size:15px;font-weight:600;
+  color:var(--amber);position:relative;z-index:1;
+}
+.path-step.free .path-node{background:var(--amber);color:var(--ink);}
+
+.path-card{
+  background:var(--ink3);border:1px solid var(--rule);
+  border-radius:var(--r-lg);padding:24px 20px;
+  text-align:left;margin:0 8px;
+  transition:border-color .2s,transform .2s;
+}
+.path-step:hover .path-card{border-color:var(--amber-border);transform:translateY(-3px);}
+
+.path-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  padding:4px 10px;border-radius:20px;margin-bottom:14px;
+}
+.badge-free{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);}
+.badge-paid{background:var(--slate-dim);color:#8AABCA;border:1px solid rgba(61,90,115,.25);}
+.badge-session{background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);border:1px solid var(--rule);}
+.badge-ongoing{background:rgba(255,255,255,.03);color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.06);}
+
+.path-name{
+  font-family:'Fraunces',serif;font-size:18px;font-weight:600;
+  color:var(--cream);margin-bottom:8px;letter-spacing:-.01em;
+}
+.path-desc{font-size:13px;line-height:1.65;color:var(--muted);margin-bottom:18px;}
+.path-detail{display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.path-detail-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,.4);}
+.path-detail-dot{width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:5px;}
+.path-price{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:600;
+  color:var(--cream);letter-spacing:-.02em;
+}
+.path-price-sub{font-size:11px;color:var(--muted);font-weight:400;margin-left:4px;}
+.path-link{
+  display:block;margin-top:16px;
+  font-size:13px;font-weight:600;color:var(--amber);
+  text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  transition:gap .2s;
+}
+.path-step:hover .path-link{gap:10px;}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--cream);color:var(--ink);padding:100px 24px;}
+.how-section .section-title{color:var(--ink);}
+.how-section .section-body{color:var(--muted-dark);}
+.how-section .section-eyebrow{color:var(--amber);}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;}
+.step-card{padding:32px 28px;background:#fff;border-radius:var(--r-lg);box-shadow:0 2px 20px rgba(20,20,20,.06);}
+.step-icon{font-size:28px;margin-bottom:16px;}
+.step-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;}
+.step-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em;}
+.step-body{font-size:14px;line-height:1.7;color:#555;}
+
+/* ── ABOUT MIKE ── */
+.mike-section{background:var(--ink);padding:100px 24px;}
+.mike-inner{max-width:1020px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center;}
+.mike-text{}
+.mike-quote{
+  font-family:'Fraunces',serif;
+  font-size:clamp(22px,3.5vw,32px);
+  font-weight:300;font-style:italic;
+  line-height:1.35;color:var(--cream);
+  margin-bottom:28px;letter-spacing:-.01em;
+}
+.mike-quote strong{font-weight:600;font-style:normal;color:var(--amber);}
+.mike-bio{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:28px;}
+.mike-credentials{display:flex;flex-direction:column;gap:10px;}
+.mike-cred{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);}
+.cred-dot{width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:6px;}
+.mike-card{
+  background:var(--ink2);border:1px solid var(--rule);
+  border-radius:var(--r-lg);padding:36px;
+  display:flex;flex-direction:column;gap:20px;
+}
+.mike-card-top{display:flex;align-items:center;gap:16px;}
+.mike-avatar{
+  width:64px;height:64px;border-radius:12px;
+  background:linear-gradient(135deg,var(--amber) 0%,#c4751a 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:28px;color:var(--ink);font-weight:600;
+  flex-shrink:0;
+}
+.mike-card-name{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--cream);}
+.mike-card-role{font-size:12px;color:var(--muted);margin-top:2px;}
+.mike-card-stat{border-top:1px solid var(--rule);padding-top:16px;display:flex;gap:24px;}
+.stat-item{}
+.stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--amber);line-height:1;}
+.stat-label{font-size:11px;color:var(--muted);margin-top:3px;}
+
+/* ── FAQ ── */
+.faq-section{background:var(--ink2);padding:100px 24px;}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:52px;}
+.faq-item{background:var(--ink3);border:1px solid var(--rule);border-radius:var(--r);padding:24px;}
+.faq-q{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:10px;letter-spacing:-.01em;}
+.faq-a{font-size:14px;line-height:1.7;color:var(--muted);}
+
+/* ── FINAL CTA ── */
+.cta-section{
+  background:var(--ink);padding:120px 24px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(232,147,42,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(36px,6vw,64px);
+  font-weight:300;letter-spacing:-.03em;
+  line-height:1.05;color:var(--cream);
+  margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto;
+}
+.cta-title em{font-style:italic;font-weight:600;color:var(--amber);}
+.cta-sub{font-size:17px;color:var(--muted);margin-bottom:44px;line-height:1.7;font-weight:300;}
+.cta-fine{font-size:12px;color:rgba(255,255,255,.2);margin-top:20px;}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);border-top:1px solid var(--rule);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-name{font-size:14px;font-weight:500;color:rgba(255,255,255,.4);}
+.footer-links{display:flex;gap:24px;}
+.footer-link{font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:rgba(255,255,255,.5);}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .hero{padding:100px 20px 60px;}
+  .path-wrap{flex-direction:column;gap:0;}
+  .path-connector{display:none;}
+  .path-card{margin:0 0 12px;}
+  .steps-grid{grid-template-columns:1fr;}
+  .mike-inner{grid-template-columns:1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+  footer{padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <div class="nav-mark">L</div>
+    <span class="nav-name">Loam Strategy</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#how-it-works">How it works</a>
+    <a class="nav-link" href="#journey">The path</a>
+    <a class="nav-link" href="#about">About Mike</a>
+    <a class="nav-cta" href="quiz.html">Take the free quiz</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>Business Clarity · AI Strategy · Small Business</div>
+  <h1 class="hero-title">
+    <span class="light">You already know something</span><br>
+    <span class="bold-italic">isn't working.</span>
+  </h1>
+  <p class="hero-sub">Most small businesses don't have a strategy problem. They have a clarity problem. Let's find yours — and fix it.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="quiz.html">
+      Take the Free Quiz — 3 min
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+    <a class="btn-ghost" href="#journey">See how it works →</a>
+  </div>
+  <div class="hero-proof">Loam Strategy · Mike Hill · 20+ years in business strategy</div>
+</section>
+
+<hr class="divider">
+
+<!-- THE JOURNEY -->
+<section class="journey-section" id="journey">
+  <div class="journey-inner">
+    <div class="journey-header reveal">
+      <div class="section-eyebrow">The Path Forward</div>
+      <h2 class="section-title">Start free. Go as deep<br><strong>as you need to.</strong></h2>
+      <p class="section-body" style="margin:0 auto;text-align:center;">Every engagement starts with a question. The answer tells us where to go next.</p>
+    </div>
+
+    <div class="path-wrap">
+
+      <!-- STEP 1 -->
+      <div class="path-step free reveal reveal-delay-1">
+        <div class="path-node">1</div>
+        <div class="path-connector"></div>
+        <div class="path-card">
+          <div class="path-badge badge-free">Free · 3 min</div>
+          <div class="path-name">Business Clarity Quiz</div>
+          <div class="path-desc">Eight questions. One honest result. Find out which of four blind spots is costing you the most right now.</div>
+          <div class="path-detail">
+            <div class="path-detail-row"><div class="path-detail-dot"></div>8 multiple choice questions</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Instant personalized result</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>One action you can take this week</div>
+          </div>
+          <div class="path-price">Free<span class="path-price-sub">always</span></div>
+          <a class="path-link" href="quiz.html">Take the quiz →</a>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="path-step reveal reveal-delay-2">
+        <div class="path-node">2</div>
+        <div class="path-connector"></div>
+        <div class="path-card">
+          <div class="path-badge badge-paid">Paid Assessment</div>
+          <div class="path-name">Full Business Assessment</div>
+          <div class="path-desc">A 20-30 minute AI-powered deep dive into your business. You choose the focus. You get a real report built around your situation.</div>
+          <div class="path-detail">
+            <div class="path-detail-row"><div class="path-detail-dot"></div>AI Tools, Business Health, or Brand Clarity</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Industry-aware questions</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Blind spots + action plan report</div>
+          </div>
+          <div class="path-price">Included<span class="path-price-sub">with session</span></div>
+          <a class="path-link" href="assessment.html">Start assessment →</a>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="path-step reveal reveal-delay-2">
+        <div class="path-node">3</div>
+        <div class="path-connector"></div>
+        <div class="path-card">
+          <div class="path-badge badge-session">Strategy Session</div>
+          <div class="path-name">60-Min Session with Mike</div>
+          <div class="path-desc">Sit down with Mike, walk through your report together, and leave with a clear plan — two or three things to actually do next.</div>
+          <div class="path-detail">
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Mike reviews your report before the call</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Personalized action plan built together</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Recording + written summary included</div>
+          </div>
+          <div class="path-price">$500–$1,000</div>
+          <a class="path-link" href="assessment.html">Book via assessment →</a>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="path-step reveal reveal-delay-3">
+        <div class="path-node">4</div>
+        <div class="path-card">
+          <div class="path-badge badge-ongoing">Ongoing · Optional</div>
+          <div class="path-name">Implementation Support</div>
+          <div class="path-desc">For businesses that want ongoing help actually doing the things the plan identified. Weekly or biweekly with Mike.</div>
+          <div class="path-detail">
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Weekly or biweekly check-ins</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Tool setup and AI implementation</div>
+            <div class="path-detail-row"><div class="path-detail-dot"></div>Accountability and momentum</div>
+          </div>
+          <div class="path-price">$500–$1,500<span class="path-price-sub">/mo</span></div>
+          <a class="path-link" href="mailto:mike@loamstrategy.com">Get in touch →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="section-inner">
+    <div class="reveal" style="max-width:560px;">
+      <div class="section-eyebrow">How It Works</div>
+      <h2 class="section-title">Three steps from<br><strong>stuck to clear.</strong></h2>
+      <p class="section-body">No long intake forms. No generic advice. A real conversation that surfaces what's actually going on — and what to do about it.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-icon">🎯</div>
+        <div class="step-num">First</div>
+        <div class="step-title">You tell us what to focus on</div>
+        <div class="step-body">AI tools, business health, brand clarity — or everything. The assessment adapts to your specific situation and industry. No generic questions.</div>
+      </div>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-icon">🤖</div>
+        <div class="step-num">Then</div>
+        <div class="step-title">An AI coach asks the hard questions</div>
+        <div class="step-body">Not a form. A real conversation. The coach pushes past polished answers to find what's actually going on underneath. Industry-aware, specific, honest.</div>
+      </div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-icon">📋</div>
+        <div class="step-num">Then</div>
+        <div class="step-title">You get a report built around you</div>
+        <div class="step-body">Your blind spots named. The gap between what you think the problem is and what it actually is. A Now / Soon / Later action plan. And a session with Mike to work through it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT MIKE -->
+<section class="mike-section" id="about">
+  <div class="mike-inner">
+    <div class="mike-text reveal">
+      <div class="section-eyebrow">About Mike Hill</div>
+      <div class="mike-quote">"Most businesses don't have a strategy problem. They have a <strong>clarity problem.</strong>"</div>
+      <p class="mike-bio">Mike Hill has spent 20+ years helping organizations simplify their message, fix their process, and figure out what to focus on. He's a brand strategist, storyteller, and problem-solver who leads with warmth and tells you the truth you need to hear — not the version that sounds good.</p>
+      <p class="mike-bio">Loam Strategy is built around one idea: that small businesses deserve the same quality of strategic thinking that big companies pay consultants millions for. Just without the fluff.</p>
+      <div class="mike-credentials">
+        <div class="mike-cred"><div class="cred-dot"></div>20+ years in marketing, design, and brand strategy</div>
+        <div class="mike-cred"><div class="cred-dot"></div>Founder of the HomeRun Method for business clarity</div>
+        <div class="mike-cred"><div class="cred-dot"></div>Faith, family, and community-driven — always</div>
+        <div class="mike-cred"><div class="cred-dot"></div>Grandfather, storyteller, and straight talker</div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="mike-card">
+        <div class="mike-card-top">
+          <div class="mike-avatar">M</div>
+          <div>
+            <div class="mike-card-name">Mike Hill</div>
+            <div class="mike-card-role">Founder, Loam Strategy</div>
+          </div>
+        </div>
+        <div style="font-size:13px;line-height:1.7;color:var(--muted);border-top:1px solid var(--rule);padding-top:18px;">
+          "I built this process because I kept watching good businesses fail not because the owner didn't work hard — but because nobody ever sat down with them and helped them see what was actually going on."
+        </div>
+        <div class="mike-card-stat">
+          <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Years in strategy</div></div>
+          <div class="stat-item"><div class="stat-num">100s</div><div class="stat-label">Businesses helped</div></div>
+          <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Honest conversation</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-inner">
+    <div class="reveal" style="max-width:500px;margin-bottom:52px;">
+      <div class="section-eyebrow">Common Questions</div>
+      <h2 class="section-title">What people<br><strong>usually ask.</strong></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <div class="faq-q">Is the quiz really free?</div>
+        <div class="faq-a">Yes. Eight questions, three minutes, and a real result — no email required, no catch. If it's useful you'll know it.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-q">What's the difference between the quiz and the full assessment?</div>
+        <div class="faq-a">The quiz identifies your primary blind spot and gives you one action to take. The assessment goes deep — an AI conversation across multiple areas, a full report, and a 60-minute session with Mike to build your actual plan.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-q">What happens in the 60-minute session?</div>
+        <div class="faq-a">Mike reviews your assessment report before the call. You spend the time walking through what came up, identifying one or two things to focus on, and building a specific action plan. You leave with something concrete.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-q">Do I need to be tech-savvy for the AI tools focus?</div>
+        <div class="faq-a">Not at all. That's the point. The assessment meets you where you are and recommends tools that fit your actual situation — not a wishlist of software you'll never use.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <div class="faq-q">What does ongoing support look like?</div>
+        <div class="faq-a">Weekly or biweekly sessions where Mike helps you actually implement what the plan called for — tool setup, process changes, accountability, and adjusting as you go. Priced based on scope.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <div class="faq-q">How do I know this is worth my time?</div>
+        <div class="faq-a">Start with the free quiz. Three minutes. If the result doesn't feel like it's describing your actual situation, nothing lost. If it does — you'll want to go further.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <div class="cta-title">The hardest part is admitting<br><em>something needs to change.</em></div>
+    <p class="cta-sub">You've already done that. The quiz takes three minutes.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="quiz.html">
+        Take the Free Quiz
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a class="btn-ghost" href="assessment.html">Go straight to the assessment →</a>
+    </div>
+    <div class="cta-fine">No email required for the quiz. Assessment includes your 60-min session with Mike.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="nav-mark" style="width:26px;height:26px;font-size:13px;">L</div>
+    <span class="footer-name">Loam Strategy © 2026</span>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="quiz.html">Free Quiz</a>
+    <a class="footer-link" href="assessment.html">Assessment</a>
+    <a class="footer-link" href="mailto:mike@loamstrategy.com">Contact Mike</a>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal, .path-step').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

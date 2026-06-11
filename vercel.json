@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "loam-strategy",
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "api/chat.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/chat", "dest": "/api/chat.js" },
+    { "src": "/quiz", "dest": "/quiz.html" },
+    { "src": "/assessment", "dest": "/assessment.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

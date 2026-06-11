@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Clarity Quiz — Loam Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#141414;
+  --bg2:#1C1C1C;
+  --amber:#E8932A;
+  --amber-dim:rgba(232,147,42,.12);
+  --slate:#3D5A73;
+  --cream:#F5F2ED;
+  --muted:rgba(245,242,237,.45);
+  --rule:rgba(255,255,255,.07);
+  --r:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+.hdr{padding:22px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
+.logo-name{font-size:14px;font-weight:500;color:var(--cream);}
+.hdr-right{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+
+/* PROGRESS */
+.progress-bar{height:2px;background:var(--rule);position:relative;}
+.progress-fill{height:100%;background:var(--amber);transition:width .5s ease;width:0%;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;}
+.card{width:100%;max-width:620px;}
+
+/* INTRO */
+.intro-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:20px;}
+.intro-title{font-family:'Fraunces',serif;font-size:clamp(36px,6vw,54px);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);margin-bottom:16px;}
+.intro-title strong{font-weight:600;}
+.intro-body{font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:36px;max-width:480px;}
+.intro-meta{display:flex;gap:24px;margin-bottom:44px;}
+.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
+.meta-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:15px 30px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;letter-spacing:-.01em;}
+.btn:hover{background:#d4831f;transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--rule);margin-left:12px;}
+.btn-ghost:hover{color:var(--cream);border-color:rgba(255,255,255,.2);transform:translateY(-1px);}
+
+/* QUESTION */
+.q-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;}
+.q-text{font-family:'Fraunces',serif;font-size:clamp(22px,4vw,30px);font-weight:300;line-height:1.25;color:var(--cream);margin-bottom:36px;letter-spacing:-.01em;}
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.opt{display:flex;align-items:center;gap:14px;background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all .2s;text-align:left;}
+.opt:hover{border-color:rgba(232,147,42,.4);background:rgba(232,147,42,.06);}
+.opt.selected{border-color:var(--amber);background:var(--amber-dim);}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--rule);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--muted);flex-shrink:0;transition:all .2s;}
+.opt.selected .opt-letter{background:var(--amber);color:var(--bg);}
+.opt-text{font-size:15px;color:var(--cream);line-height:1.4;}
+.q-nav{display:flex;align-items:center;gap:12px;}
+
+/* RESULT */
+.result-card{background:var(--bg2);border:1px solid var(--rule);border-radius:16px;overflow:hidden;}
+.result-top{padding:40px 40px 32px;background:linear-gradient(135deg,rgba(232,147,42,.15) 0%,rgba(232,147,42,.04) 100%);border-bottom:1px solid var(--rule);}
+.result-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:16px;}
+.result-diagnosis{font-family:'Fraunces',serif;font-size:clamp(32px,6vw,52px);font-weight:600;line-height:1.05;color:var(--cream);letter-spacing:-.02em;margin-bottom:16px;}
+.result-sub{font-size:15px;line-height:1.75;color:var(--muted);max-width:480px;}
+.result-body{padding:32px 40px;}
+.result-insight-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
+.result-insight{font-size:15px;line-height:1.75;color:var(--cream);margin-bottom:28px;padding-left:16px;border-left:2px solid var(--amber);}
+.result-tip-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;}
+.result-tip{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:32px;}
+.result-cta{background:linear-gradient(135deg,var(--bg) 0%,#1a1a1a 100%);border:1px solid rgba(232,147,42,.2);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.result-cta-text{}
+.result-cta-h{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:6px;}
+.result-cta-s{font-size:13px;color:var(--muted);line-height:1.5;}
+.hidden{display:none!important}
+
+@media(max-width:600px){
+  .hdr{padding:16px 20px}
+  .main{padding:40px 16px}
+  .result-top,.result-body{padding:24px 20px}
+  .result-cta{padding:20px}
+  .intro-meta{flex-direction:column;gap:12px}
+}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo">
+    <div class="logo-mark">L</div>
+    <span class="logo-name">Loam Strategy</span>
+  </div>
+  <span class="hdr-right">Business Clarity Quiz</span>
+</header>
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+
+<main class="main">
+  <div class="card">
+
+    <!-- INTRO -->
+    <div id="screen-intro">
+      <div class="intro-eyebrow">Free · 3 Minutes</div>
+      <h1 class="intro-title">What's actually<br><strong>holding your business back?</strong></h1>
+      <p class="intro-body">Eight questions. No fluff. You'll walk away knowing the one thing that's costing you the most time, money, or momentum right now.</p>
+      <div class="intro-meta">
+        <div class="meta-item"><div class="meta-dot"></div>8 questions</div>
+        <div class="meta-item"><div class="meta-dot"></div>3 minutes</div>
+        <div class="meta-item"><div class="meta-dot"></div>One clear result</div>
+      </div>
+      <button class="btn" onclick="startQuiz()">
+        Take the Quiz
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- QUESTION -->
+    <div id="screen-question" class="hidden">
+      <div class="q-num" id="q-num">Question 1 of 8</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="q-nav">
+        <button class="btn" id="next-btn" onclick="nextQuestion()" disabled style="opacity:.4;cursor:not-allowed;">
+          Continue →
+        </button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="screen-result" class="hidden">
+      <div class="result-card">
+        <div class="result-top">
+          <div class="result-eyebrow">Your Business Blind Spot</div>
+          <div class="result-diagnosis" id="result-diagnosis"></div>
+          <div class="result-sub" id="result-sub"></div>
+        </div>
+        <div class="result-body">
+          <div class="result-insight-label">What This Means</div>
+          <div class="result-insight" id="result-insight"></div>
+          <div class="result-tip-label">One Thing You Can Do This Week</div>
+          <div class="result-tip" id="result-tip"></div>
+          <div class="result-cta">
+            <div class="result-cta-text">
+              <div class="result-cta-h">Want the full picture?</div>
+              <div class="result-cta-s">A full Business Assessment goes deeper — tools, processes, blind spots, and a plan. Includes a 60-min session with Mike Hill.</div>
+            </div>
+            <button class="btn" onclick="window.location.href='assessment.html'">
+              Get the Full Assessment →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const QUESTIONS = [
+  {
+    text: "When you think about your typical work week, where does most of your time actually go?",
+    opts: ["Doing the actual work I'm supposed to be doing","Handling admin, emails, and scheduling","Putting out fires and fixing problems","Chasing clients or trying to get new ones"]
+  },
+  {
+    text: "What's the one thing that keeps getting pushed to tomorrow, week after week?",
+    opts: ["Building systems and processes","Marketing and growing the business","Hiring or managing people","Taking care of existing clients better"]
+  },
+  {
+    text: "If your business doubled in size tomorrow, what would break first?",
+    opts: ["I couldn't deliver the work — not enough capacity","The admin and operations would collapse","I'd lose track of clients and leads","I don't know — nothing is documented"]
+  },
+  {
+    text: "How would you describe how your business finds new clients right now?",
+    opts: ["Word of mouth — mostly referrals","I actively market and it works okay","I market but it's inconsistent","I don't have a real system — it just happens"]
+  },
+  {
+    text: "When a new client says yes, what happens next?",
+    opts: ["I have a clear onboarding process they go through","I figure it out as I go — it varies","It takes longer than it should to get started","Honestly it's a little chaotic"]
+  },
+  {
+    text: "How much of your business knowledge lives only in your head?",
+    opts: ["Almost all of it — nothing is written down","Some things are documented but most aren't","We have processes but they need work","Most things are documented and followed"]
+  },
+  {
+    text: "What does your relationship with technology in your business look like?",
+    opts: ["I use basic tools but nothing sophisticated","I have a lot of tools but they don't talk to each other","I'm pretty tech-savvy and always looking for better ways","I avoid new tools — too much to learn"]
+  },
+  {
+    text: "Honestly — what's the main thing stopping you from growing faster?",
+    opts: ["Not enough hours in the day","Not enough leads or new clients","Not enough money to invest","Not enough clarity on what to focus on"]
+  }
+];
+
+const RESULTS = {
+  capacity: {
+    diagnosis: "Capacity Ceiling",
+    sub: "You're doing too much yourself and it's becoming the lid on your business.",
+    insight: "Your business has likely outgrown what one person can manage without systems. You're not failing — you're full. The problem isn't effort, it's that effort alone can't scale. Every hour you spend doing work that could be delegated or automated is an hour not spent growing.",
+    tip: "Write down every task you did this week that someone else — or a tool — could have done. That list is your starting point."
+  },
+  operations: {
+    diagnosis: "Operations Gap",
+    sub: "Your business runs on you knowing things nobody else knows.",
+    insight: "When the process only exists in your head, every client interaction depends on your memory and your mood that day. That's not a business — that's a job. One documented process, even a rough one, is worth more than perfect work nobody can replicate.",
+    tip: "Pick your most repeated client task and write out every step, no matter how obvious it seems. That's your first system."
+  },
+  growth: {
+    diagnosis: "Growth Bottleneck",
+    sub: "You're good at the work but the business isn't growing the way you want.",
+    insight: "Most small businesses that plateau aren't there because the work is bad — they're there because lead generation is inconsistent. When business is good you stop marketing. When it slows you scramble. Breaking that cycle requires a simple, repeatable way to keep the pipeline moving even when you're busy.",
+    tip: "Block 30 minutes every Monday for one outreach action — one email, one post, one conversation. Consistency beats campaigns."
+  },
+  clarity: {
+    diagnosis: "Clarity Gap",
+    sub: "You're working hard but not always sure what to work on.",
+    insight: "This is more common than most business owners admit. When the path isn't clear, you default to busy. You do what's in front of you instead of what moves the needle. The fix isn't more effort — it's a clearer picture of what actually matters and what the next real step is.",
+    tip: "Ask yourself: if I could only accomplish one thing this week that would still matter in six months, what would it be? Do that first."
+  }
+};
+
+const SCORING = {
+  0: ['capacity','capacity','operations','growth','operations','operations','growth','capacity'],
+  1: ['operations','growth','capacity','growth','operations','operations','capacity','growth'],
+  2: ['capacity','operations','growth','clarity','capacity','operations','growth','clarity'],
+  3: ['growth','clarity','clarity','clarity','operations','clarity','capacity','clarity']
+};
+
+let current = 0;
+let answers = [];
+let selected = null;
+
+function startQuiz() {
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-question').classList.remove('hidden');
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  const q = QUESTIONS[idx];
+  document.getElementById('q-num').textContent = `Question ${idx + 1} of ${QUESTIONS.length}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('prog').style.width = ((idx / QUESTIONS.length) * 100) + '%';
+  selected = null;
+
+  const btn = document.getElementById('next-btn');
+  btn.disabled = true;
+  btn.style.opacity = '.4';
+  btn.style.cursor = 'not-allowed';
+
+  const container = document.getElementById('options');
+  container.innerHTML = q.opts.map((o, i) => `
+    <button class="opt" onclick="selectOpt(${i})" id="opt-${i}">
+      <div class="opt-letter">${['A','B','C','D'][i]}</div>
+      <div class="opt-text">${o}</div>
+    </button>`).join('');
+}
+
+function selectOpt(i) {
+  selected = i;
+  document.querySelectorAll('.opt').forEach((o, idx) => {
+    o.classList.toggle('selected', idx === i);
+  });
+  const btn = document.getElementById('next-btn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
+}
+
+function nextQuestion() {
+  if (selected === null) return;
+  answers.push(selected);
+  if (current < QUESTIONS.length - 1) {
+    current++;
+    showQuestion(current);
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('prog').style.width = '100%';
+  document.getElementById('screen-question').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+
+  // Tally scores
+  const tally = { capacity:0, operations:0, growth:0, clarity:0 };
+  answers.forEach((ans, qi) => {
+    const key = SCORING[ans][qi];
+    if (key) tally[key]++;
+  });
+  const winner = Object.entries(tally).sort((a,b) => b[1]-a[1])[0][0];
+  const r = RESULTS[winner];
+
+  document.getElementById('result-diagnosis').textContent = r.diagnosis;
+  document.getElementById('result-sub').textContent = r.sub;
+  document.getElementById('result-insight').textContent = r.insight;
+  document.getElementById('result-tip').textContent = r.tip;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !document.getElementById('screen-question').classList.contains('hidden')) {
+    if (selected !== null) nextQuestion();
+  }
+  if (['1','2','3','4'].includes(e.key) && !document.getElementById('screen-question').classList.contains('hidden')) {
+    selectOpt(parseInt(e.key) - 1);
+  }
+});
+</script>
+</body>
+</html>

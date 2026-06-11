@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Assessment — Loam Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#141414;--bg2:#1C1C1C;--bg3:#222;
+  --amber:#E8932A;--amber-dim:rgba(232,147,42,.1);
+  --slate:#3D5A73;--slate-dim:rgba(61,90,115,.15);
+  --cream:#F5F2ED;--muted:rgba(245,242,237,.45);
+  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --r:12px;--r-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.2);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
+
+/* HEADER */
+.hdr{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:50;background:rgba(20,20,20,.95);backdrop-filter:blur(10px);}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
+.logo-name{font-size:14px;font-weight:500;}
+.hdr-phase{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);transition:all .3s;}
+.progress-bar{height:2px;background:var(--rule);}
+.progress-fill{height:100%;background:var(--amber);transition:width .5s ease;width:0%;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;align-items:center;padding:52px 24px 80px;}
+.card{width:100%;max-width:660px;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:15px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;transition:all .2s;}
+.btn:hover{background:#d4831f;transform:translateY(-2px);}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.btn-outline{background:transparent;color:var(--muted);border:1px solid var(--rule2);}
+.btn-outline:hover{color:var(--cream);border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.04);transform:translateY(-1px);}
+
+/* INTRO */
+.intro-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:20px;}
+.intro-title{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,48px);font-weight:300;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+.intro-title strong{font-weight:600;}
+.intro-body{font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:36px;}
+.what-you-get{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px;}
+.wyg-item{background:var(--bg2);border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;}
+.wyg-icon{font-size:20px;margin-bottom:8px;}
+.wyg-label{font-size:13px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.wyg-sub{font-size:12px;color:var(--muted);line-height:1.5;}
+.price-note{font-size:13px;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:8px;}
+.price-badge{background:var(--amber-dim);border:1px solid rgba(232,147,42,.25);color:var(--amber);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;}
+
+/* FOCUS SELECTOR */
+.focus-title{font-family:'Fraunces',serif;font-size:28px;font-weight:300;margin-bottom:8px;letter-spacing:-.01em;}
+.focus-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
+.focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.focus-card{background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .2s;text-align:left;}
+.focus-card:hover{border-color:rgba(232,147,42,.4);background:var(--amber-dim);}
+.focus-card.selected{border-color:var(--amber);background:var(--amber-dim);}
+.focus-icon{font-size:24px;margin-bottom:10px;}
+.focus-label{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.focus-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.focus-check{width:18px;height:18px;border-radius:50%;background:var(--amber);display:none;align-items:center;justify-content:center;float:right;margin-top:-2px;}
+.focus-card.selected .focus-check{display:flex;}
+.focus-note{font-size:12px;color:var(--muted);margin-bottom:28px;font-style:italic;}
+
+/* CHAT */
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.section-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);}
+.section-name{font-size:14px;font-weight:500;color:var(--cream);}
+.chat-box{background:var(--bg2);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px;}
+.chat-msgs{padding:24px 24px 16px;min-height:180px;max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:18px;}
+.chat-msgs::-webkit-scrollbar{width:3px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--rule2);border-radius:2px;}
+.msg{display:flex;gap:10px;animation:fadeUp .25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.av{width:28px;height:28px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
+.av.coach{background:var(--amber);color:var(--bg);font-family:'Fraunces',serif;font-size:14px;}
+.av.user{background:rgba(255,255,255,.08);color:var(--muted);}
+.msg-inner{}
+.msg-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px;}
+.bubble{font-size:14px;line-height:1.7;color:var(--cream);}
+.msg.user .bubble{background:rgba(255,255,255,.06);padding:10px 14px;border-radius:4px 10px 10px 10px;color:rgba(255,255,255,.85);}
+.typing{display:flex;gap:4px;padding:8px 12px;background:rgba(255,255,255,.05);border-radius:4px 10px 10px 10px;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--muted);animation:bonce .9s infinite;}
+.dot:nth-child(2){animation-delay:.18s}.dot:nth-child(3){animation-delay:.36s}
+@keyframes bonce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.input-row{border-top:1px solid var(--rule);padding:12px 16px;display:flex;gap:10px;align-items:flex-end;}
+.txt-input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--rule);border-radius:var(--r-sm);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--cream);resize:none;min-height:42px;max-height:120px;line-height:1.5;transition:border-color .2s;}
+.txt-input:focus{outline:none;border-color:rgba(232,147,42,.4);}
+.txt-input::placeholder{color:rgba(255,255,255,.2);}
+.send-btn{width:38px;height:38px;background:var(--amber);border:none;border-radius:var(--r-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.send-btn:hover{background:#d4831f;transform:translateY(-1px);}
+.send-btn:disabled{background:var(--rule);cursor:not-allowed;transform:none;}
+.send-btn svg{width:15px;height:15px;}
+.bottom-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.save-ind{font-size:11px;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px;opacity:0;transition:opacity .4s;}
+.skip-lnk{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.skip-lnk:hover{color:var(--cream);}
+
+/* CONTINUE BUTTON */
+.continue-row{border-top:1px solid var(--rule);padding-top:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:8px;}
+.continue-hint{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* REPORT */
+.report-wrap{background:var(--cream);color:var(--bg);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.4);}
+.rep-cover{background:var(--bg);padding:48px 44px;border-bottom:1px solid rgba(255,255,255,.06);}
+.rep-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:16px;}
+.rep-title{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:300;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;}
+.rep-client{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:40px;}
+.rep-meta{display:flex;gap:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);}
+.rep-mk{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:4px;}
+.rep-mv{font-size:13px;color:rgba(255,255,255,.65);}
+.rep-body{padding:40px 44px;}
+.rep-section{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid rgba(13,14,18,.1);}
+.rep-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.rep-sec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
+.rep-sec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--bg);margin-bottom:12px;letter-spacing:-.01em;}
+.rep-sec-body{font-size:15px;line-height:1.8;color:#3A3A3A;}
+.rep-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.chip{background:rgba(13,14,18,.07);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:500;color:var(--bg);}
+.chip.amber{background:rgba(232,147,42,.12);color:#8B4E00;}
+.now-soon{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px;}
+.nsl-card{border-radius:var(--r-sm);padding:18px;}
+.nsl-card.now{background:rgba(232,147,42,.1);border:1px solid rgba(232,147,42,.2);}
+.nsl-card.soon{background:rgba(61,90,115,.1);border:1px solid rgba(61,90,115,.2);}
+.nsl-card.later{background:rgba(13,14,18,.05);border:1px solid rgba(13,14,18,.08);}
+.nsl-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.nsl-card.now .nsl-label{color:#8B4E00;}
+.nsl-card.soon .nsl-label{color:#1F3D52;}
+.nsl-card.later .nsl-label{color:rgba(13,14,18,.4);}
+.nsl-item{font-size:13px;line-height:1.6;color:#3A3A3A;margin-bottom:6px;padding-left:10px;border-left:2px solid rgba(13,14,18,.1);}
+.cta-block{background:var(--bg);border-radius:var(--r);padding:36px;text-align:center;margin-top:8px;}
+.cta-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:14px;}
+.cta-heading{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.01em;}
+.cta-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.65;max-width:380px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-stripe{background:var(--amber);color:var(--bg);}
+.btn-cal{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.12);}
+.btn-cal:hover{background:rgba(255,255,255,.12);color:#fff;transform:translateY(-1px);}
+
+/* HANDOFF */
+.handoff-panel{background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.2);border-radius:var(--r);padding:20px 24px;margin-top:24px;}
+.handoff-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;}
+.handoff-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.hbtn{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid var(--rule2);border-radius:var(--r-sm);padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.hbtn:hover{background:rgba(255,255,255,.1);color:#fff;}
+.hbtn.primary{background:var(--amber);color:var(--bg);border-color:var(--amber);}
+.hbtn.primary:hover{background:#d4831f;}
+.copy-confirm{font-size:11px;color:var(--amber);margin-top:8px;display:none;}
+
+.loading-block{display:flex;flex-direction:column;align-items:center;gap:16px;padding:60px;text-align:center;}
+.ring{width:32px;height:32px;border:2px solid var(--rule);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:14px;color:var(--muted);font-style:italic;}
+
+.hidden{display:none!important}
+@media(max-width:600px){
+  .hdr{padding:14px 20px}
+  .main{padding:32px 16px 60px}
+  .what-you-get,.focus-grid,.now-soon{grid-template-columns:1fr}
+  .rep-cover,.rep-body{padding:28px 24px}
+  .cta-block{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">
+    <div class="logo-mark">L</div>
+    <span class="logo-name">Loam Strategy</span>
+  </div>
+  <span class="hdr-phase" id="hdr-phase">Business Assessment</span>
+</header>
+<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+
+<main class="main">
+<div class="card">
+
+  <!-- ── INTRO ── -->
+  <div id="s-intro">
+    <div class="intro-eyebrow">Paid Assessment + 60-Min Session</div>
+    <h1 class="intro-title">A real look at<br><strong>your business.</strong></h1>
+    <p class="intro-body">This isn't a generic audit. You choose what to focus on. An AI coach asks the right questions. You get a report built around your specific situation — then we sit down together and build your next steps.</p>
+    <div class="what-you-get">
+      <div class="wyg-item"><div class="wyg-icon">🎯</div><div class="wyg-label">You choose the focus</div><div class="wyg-sub">AI tools, business health, brand clarity — or all three</div></div>
+      <div class="wyg-item"><div class="wyg-icon">🤖</div><div class="wyg-label">AI-powered assessment</div><div class="wyg-sub">20-30 min deep-dive conversation tailored to your industry</div></div>
+      <div class="wyg-item"><div class="wyg-icon">📋</div><div class="wyg-label">Your personal report</div><div class="wyg-sub">Blind spots, opportunities, and a Now / Soon / Later plan</div></div>
+      <div class="wyg-item"><div class="wyg-icon">📞</div><div class="wyg-label">60-min session with Mike</div><div class="wyg-sub">Walk through the findings and build your action plan together</div></div>
+    </div>
+    <div class="price-note"><span class="price-badge">$500 – $1,000</span> Payment collected after assessment, before your session.</div>
+    <button class="btn" onclick="showFocus()">Start My Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+  </div>
+
+  <!-- ── FOCUS SELECTOR ── -->
+  <div id="s-focus" class="hidden">
+    <div class="intro-eyebrow">Step 1 of 2 — Choose Your Focus</div>
+    <div class="focus-title">What do you want to<br>get clarity on?</div>
+    <div class="focus-sub">Pick one or combine them. Your assessment adapts to what you choose.</div>
+    <div class="focus-grid">
+      <div class="focus-card" onclick="toggleFocus('ai')" id="fc-ai">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="focus-icon">⚡</div>
+          <div class="focus-check">✓</div>
+        </div>
+        <div class="focus-label">AI Tools</div>
+        <div class="focus-desc">Where can AI save you time, cut costs, or help you grow? What tools fit your actual business?</div>
+      </div>
+      <div class="focus-card" onclick="toggleFocus('health')" id="fc-health">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="focus-icon">🏥</div>
+          <div class="focus-check">✓</div>
+        </div>
+        <div class="focus-label">Business Health</div>
+        <div class="focus-desc">People, process, revenue, time. Where are the leaks and what's holding you back from scaling?</div>
+      </div>
+      <div class="focus-card" onclick="toggleFocus('brand')" id="fc-brand">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="focus-icon">🎨</div>
+          <div class="focus-check">✓</div>
+        </div>
+        <div class="focus-label">Brand Clarity</div>
+        <div class="focus-desc">Is your message clear? Does your positioning actually connect with the right people?</div>
+      </div>
+      <div class="focus-card" onclick="toggleFocus('all')" id="fc-all">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="focus-icon">🔭</div>
+          <div class="focus-check">✓</div>
+        </div>
+        <div class="focus-label">Full Picture</div>
+        <div class="focus-desc">Combine all three for a complete view of where your business stands and where to focus first.</div>
+      </div>
+    </div>
+    <div class="focus-note" id="focus-note">Select at least one focus area to continue.</div>
+    <button class="btn" id="focus-btn" onclick="startAssessment()" disabled>Begin Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+  </div>
+
+  <!-- ── CHAT ── -->
+  <div id="s-chat" class="hidden">
+    <div class="section-hdr">
+      <div><div class="section-tag" id="sec-tag">Section 1</div><div class="section-name" id="sec-name">Getting Started</div></div>
+    </div>
+    <div class="chat-box">
+      <div class="chat-msgs" id="chat-msgs"></div>
+      <div class="input-row">
+        <textarea class="txt-input" id="txt" placeholder="Type your answer…" rows="1" onkeydown="handleKey(event)" oninput="autoR(this)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="send()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></button>
+      </div>
+    </div>
+    <div class="bottom-row">
+      <div class="save-ind" id="save-ind">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        <span id="save-txt"></span>
+      </div>
+      <button class="skip-lnk" onclick="skipSection()">Skip this section →</button>
+    </div>
+  </div>
+
+  <!-- ── REPORT ── -->
+  <div id="s-report" class="hidden">
+    <div id="report-content">
+      <div class="loading-block"><div class="ring"></div><div class="loading-txt">Building your report…</div></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────
+// Replace these with your real links before going live
+const STRIPE_LINK    = 'https://buy.stripe.com/YOUR_STRIPE_LINK';
+const CALENDLY_LINK  = 'https://calendly.com/YOUR_CALENDLY_LINK';
+const MIKE_EMAIL     = 'mike@loamstrategy.com';
+const SAVE_KEY       = 'loam_v2';
+
+// ── SECTIONS BY FOCUS ───────────────────────────────────
+const SECTION_SETS = {
+  ai: [
+    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
+    { id:'tools',    tag:'Section 2 of 4', name:'Current Tools', opener:'What tools are you using to run the business day to day?' },
+    { id:'pain',     tag:'Section 3 of 4', name:'Time & Pain',   opener:'What is the one task in your business that eats the most time right now?' },
+    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+  ],
+  health: [
+    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
+    { id:'people',   tag:'Section 2 of 4', name:'People & Process', opener:'How would you describe how work actually gets done in your business — is it mostly you, or do you have a team?' },
+    { id:'revenue',  tag:'Section 3 of 4', name:'Revenue & Growth', opener:'How does your business find and close new clients right now?' },
+    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+  ],
+  brand: [
+    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
+    { id:'why',      tag:'Section 2 of 4', name:'WHY You',       opener:'Before we talk about your brand — why did you start this business? Not the polished version. The real reason.' },
+    { id:'message',  tag:'Section 3 of 4', name:'Message & Market', opener:'When someone asks what you do, what do you say? Give me the version you actually say, not the one you think you should say.' },
+    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+  ],
+  all: [
+    { id:'overview', tag:'Section 1 of 5', name:'Your Business', opener:'What is your name, and what does your business do?' },
+    { id:'why',      tag:'Section 2 of 5', name:'WHY You',       opener:'Why did you start this business? Not the polished answer — the real reason.' },
+    { id:'health',   tag:'Section 3 of 5', name:'Business Health', opener:'What is the one thing in your business that eats the most time or causes the most frustration?' },
+    { id:'tools',    tag:'Section 4 of 5', name:'Tools & AI',    opener:'What tools are you using to run the business, and are you using any AI tools yet?' },
+    { id:'goals',    tag:'Section 5 of 5', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+  ]
+};
+
+const SYSTEM = (section, focus, known) => `You are Mike Hill's AI assessment coach at Loam Strategy. You are running a paid Business Assessment for a small business owner.
+
+FOCUS CHOSEN: ${focus}
+SECTION: ${section}
+
+WHAT YOU ALREADY KNOW:
+${known || 'Nothing yet.'}
+
+INDUSTRY CONTEXT: Small business owner (1-10 people). They are paying for this and expecting real insight, not a form.
+
+YOUR RULES:
+- One question per response. No exceptions.
+- Never ask for anything already covered in WHAT YOU ALREADY KNOW.
+- Push back on vague or polished answers. Name what you hear.
+- Short: 1-3 sentences then one question.
+- No em dashes. No ellipsis. No hollow affirmations.
+- Warm, direct, seen-it-all tone.
+
+Call [DONE] only after 3-4 real exchanges with specific answers.`;
+
+// ── STATE ───────────────────────────────────────────────
+let selectedFocus = new Set();
+let focusKey = 'all';
+let sections = [];
+let currentSec = 0;
+let history = [];
+let allAnswers = {};
+let currentAnswers = '';
+let isLoading = false;
+
+// ── PERSISTENCE ─────────────────────────────────────────
+function save() {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      focusKey, allAnswers, currentSec, savedAt: Date.now()
+    }));
+    flashSave();
+  } catch(e){}
+}
+function flashSave() {
+  const el = document.getElementById('save-ind');
+  const t  = document.getElementById('save-txt');
+  if (!el || !t) return;
+  t.textContent = 'Saved ' + new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  el.style.opacity = '1';
+  clearTimeout(window._st);
+  window._st = setTimeout(() => el.style.opacity = '0', 3000);
+}
+function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch(e){} }
+
+// Check on load
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    if (Date.now() - state.savedAt > 7*24*60*60*1000) { localStorage.removeItem(SAVE_KEY); return; }
+    const done = Object.keys(state.allAnswers||{}).filter(k => !k.endsWith('_p')).length;
+    if (done < 1) return;
+    showResumeBanner(state);
+  } catch(e){}
+});
+
+function showResumeBanner(state) {
+  const intro = document.getElementById('s-intro');
+  const b = document.createElement('div');
+  b.style.cssText = 'background:rgba(232,147,42,.1);border:1px solid rgba(232,147,42,.2);border-radius:10px;padding:18px 22px;margin-bottom:28px;';
+  const done = Object.keys(state.allAnswers||{}).filter(k=>!k.endsWith('_p')).length;
+  b.innerHTML = `
+    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;">Assessment In Progress</div>
+    <div style="font-size:14px;color:rgba(255,255,255,.8);margin-bottom:16px;">${done} section${done!==1?'s':''} complete · Last saved ${new Date(state.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
+    <div style="display:flex;gap:10px;">
+      <button onclick="resumeSession()" style="background:var(--amber);color:var(--bg);border:none;border-radius:6px;padding:9px 18px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;">Continue</button>
+      <button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--rule);border-radius:6px;padding:9px 16px;font-family:inherit;font-size:13px;cursor:pointer;">Start Over</button>
+    </div>`;
+  intro.insertBefore(b, intro.firstChild);
+  window._savedState = state;
+}
+
+function resumeSession() {
+  const s = window._savedState;
+  if (!s) return;
+  focusKey   = s.focusKey || 'all';
+  allAnswers = s.allAnswers || {};
+  currentSec = s.currentSec || 0;
+  sections   = SECTION_SETS[focusKey];
+  selectedFocus = new Set(focusKey === 'all' ? ['all'] : [focusKey]);
+  document.getElementById('s-intro').classList.add('hidden');
+  document.getElementById('s-chat').classList.remove('hidden');
+  document.getElementById('prog').style.width = ((currentSec / sections.length) * 100) + '%';
+  loadSection(currentSec);
+}
+
+// ── FLOW ────────────────────────────────────────────────
+function showFocus() {
+  document.getElementById('s-intro').classList.add('hidden');
+  document.getElementById('s-focus').classList.remove('hidden');
+  document.getElementById('prog').style.width = '5%';
+  document.getElementById('hdr-phase').textContent = 'Choose Your Focus';
+}
+
+function toggleFocus(key) {
+  if (key === 'all') {
+    selectedFocus.clear();
+    selectedFocus.add('all');
+    ['ai','health','brand'].forEach(k => document.getElementById('fc-'+k).classList.remove('selected'));
+    document.getElementById('fc-all').classList.toggle('selected', true);
+  } else {
+    selectedFocus.delete('all');
+    document.getElementById('fc-all').classList.remove('selected');
+    if (selectedFocus.has(key)) selectedFocus.delete(key);
+    else selectedFocus.add(key);
+    document.getElementById('fc-'+key).classList.toggle('selected', selectedFocus.has(key));
+  }
+  const hasAny = selectedFocus.size > 0;
+  const btn = document.getElementById('focus-btn');
+  btn.disabled = !hasAny;
+  document.getElementById('focus-note').textContent = hasAny
+    ? selectedFocus.has('all') ? 'Full picture selected — all three areas.' : [...selectedFocus].map(k=>({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity'}[k])).join(' + ') + ' selected.'
+    : 'Select at least one focus area to continue.';
+}
+
+function startAssessment() {
+  if (selectedFocus.size === 0) return;
+  if (selectedFocus.has('all') || selectedFocus.size > 1) focusKey = 'all';
+  else focusKey = [...selectedFocus][0];
+  sections = SECTION_SETS[focusKey];
+  currentSec = 0;
+  allAnswers = {};
+  document.getElementById('s-focus').classList.add('hidden');
+  document.getElementById('s-chat').classList.remove('hidden');
+  loadSection(0);
+}
+
+function loadSection(idx) {
+  currentSec = idx;
+  const s = sections[idx];
+  history = [];
+  currentAnswers = '';
+  document.getElementById('sec-tag').textContent  = s.tag;
+  document.getElementById('sec-name').textContent = s.name;
+  document.getElementById('chat-msgs').innerHTML  = '';
+  document.getElementById('prog').style.width = ((idx / sections.length) * 100) + '%';
+  document.getElementById('hdr-phase').textContent = s.name;
+  // Remove any continue button
+  const cb = document.getElementById('continue-row');
+  if (cb) cb.remove();
+  // Re-enable input
+  document.getElementById('send-btn').disabled = false;
+  document.getElementById('txt').disabled = false;
+  addMsg('coach', s.opener);
+  history.push({ role:'assistant', content:s.opener });
+  document.getElementById('txt').focus();
+}
+
+// ── CHAT ────────────────────────────────────────────────
+function addMsg(role, text) {
+  const c = document.getElementById('chat-msgs');
+  const d = document.createElement('div');
+  d.className = 'msg ' + role;
+  d.innerHTML = `<div class="av ${role}">${role==='coach'?'M':'You'}</div><div class="msg-inner"><div class="msg-name">${role==='coach'?'Mike (AI Coach)':'You'}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div></div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+function showTyping() {
+  const c = document.getElementById('chat-msgs');
+  const d = document.createElement('div');
+  d.className='msg coach';d.id='typing';
+  d.innerHTML=`<div class="av coach">M</div><div class="msg-inner"><div class="msg-name">Mike (AI Coach)</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function rmTyping(){const t=document.getElementById('typing');if(t)t.remove();}
+
+async function send() {
+  if (isLoading) return;
+  const el = document.getElementById('txt');
+  const text = el.value.trim();
+  if (!text) return;
+  el.value=''; el.style.height='auto';
+  addMsg('user', text);
+  history.push({role:'user',content:text});
+  currentAnswers += ' ' + text;
+  allAnswers[sections[currentSec].id + '_p'] = currentAnswers.trim();
+  save();
+  document.getElementById('send-btn').disabled = true;
+  isLoading = true;
+  showTyping();
+
+  const known = Object.entries(allAnswers)
+    .filter(([k,v]) => v && !k.endsWith('_p'))
+    .map(([k,v]) => `${k}: ${v}`).join('\n');
+
+  try {
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:800,
+        system: SYSTEM(sections[currentSec].name, focusKey, known),
+        messages: history
+      })
+    });
+    const data = await res.json();
+    let reply = data.content?.[0]?.text || 'Connection issue — please try again.';
+    const done = reply.includes('[DONE]');
+    reply = reply.replace(/\[DONE\]/g,'').trim();
+    rmTyping();
+    addMsg('coach', reply);
+    history.push({role:'assistant',content:reply});
+
+    if (done) {
+      allAnswers[sections[currentSec].id] = currentAnswers.trim();
+      save();
+      document.getElementById('send-btn').disabled = true;
+      document.getElementById('txt').disabled = true;
+      showContinueBtn();
+    } else {
+      document.getElementById('send-btn').disabled = false;
+      document.getElementById('txt').disabled = false;
+      document.getElementById('txt').focus();
+    }
+  } catch(e) {
+    rmTyping();
+    addMsg('coach','Connection error. Please try again.');
+    document.getElementById('send-btn').disabled = false;
+  }
+  isLoading = false;
+}
+
+function showContinueBtn() {
+  const isLast = currentSec >= sections.length - 1;
+  const label = isLast ? 'Generate My Report →' : 'Continue to ' + sections[currentSec+1].name + ' →';
+  const row = document.createElement('div');
+  row.id = 'continue-row';
+  row.className = 'continue-row';
+  row.innerHTML = `
+    <div class="continue-hint">Take a moment to review, then continue when ready.</div>
+    <button class="btn" onclick="advance(${isLast})">${label}</button>`;
+  document.getElementById('chat-msgs').appendChild(row);
+  document.getElementById('chat-msgs').scrollTop = 99999;
+}
+
+function advance(isLast) {
+  if (isLast) {
+    clearSave();
+    generateReport();
+  } else {
+    loadSection(currentSec + 1);
+  }
+}
+
+function skipSection() {
+  allAnswers[sections[currentSec].id] = currentAnswers.trim() || 'Skipped';
+  save();
+  if (currentSec < sections.length - 1) loadSection(currentSec + 1);
+  else { clearSave(); generateReport(); }
+}
+
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function autoR(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+// ── REPORT ──────────────────────────────────────────────
+async function generateReport() {
+  document.getElementById('s-chat').classList.add('hidden');
+  document.getElementById('s-report').classList.remove('hidden');
+  document.getElementById('prog').style.width = '95%';
+  document.getElementById('hdr-phase').textContent = 'Building Your Report';
+
+  const focusLabel = {ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Business Assessment'}[focusKey];
+  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}: ${v}`).join('\n');
+
+  const prompt = `You are a business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a focused, actionable report.
+
+FOCUS: ${focusLabel}
+ANSWERS:
+${answers}
+
+Return ONLY valid JSON — no markdown, no preamble:
+{
+  "clientName": "extract from overview or 'Your Business'",
+  "focusLabel": "${focusLabel}",
+  "date": "today's date",
+  "blindSpot": {
+    "name": "Short punchy name for their primary blind spot",
+    "summary": "2-3 sentences specific to their answers"
+  },
+  "perceivedVsActual": {
+    "perceived": "what they said the problem is — their words",
+    "actual": "what it actually appears to be"
+  },
+  "keyFindings": [
+    {"label": "finding title", "body": "2-3 sentences specific to their situation"},
+    {"label": "finding title", "body": "..."},
+    {"label": "finding title", "body": "..."}
+  ],
+  "toolsOrIdeas": [
+    {"name": "tool or idea name", "why": "why this fits their specific situation", "effort": "Low / Medium / High"},
+    {"name": "...", "why": "...", "effort": "..."},
+    {"name": "...", "why": "...", "effort": "..."},
+    {"name": "...", "why": "...", "effort": "..."}
+  ],
+  "actionPlan": {
+    "now": ["specific action 1", "specific action 2"],
+    "soon": ["specific action 1", "specific action 2"],
+    "later": ["specific action 1", "specific action 2"]
+  },
+  "closingNote": "2-3 sentences. Direct and honest. What they should walk into the 60-min session ready to talk about."
+}`;
+
+  try {
+    const res = await fetch('/api/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:2000, messages:[{role:'user',content:prompt}] })
+    });
+    const data = await res.json();
+    let raw = data.content?.[0]?.text || '{}';
+    raw = raw.replace(/```json|```/g,'').trim();
+    renderReport(JSON.parse(raw));
+  } catch(e) { renderFallback(); }
+}
+
+function renderReport(r) {
+  document.getElementById('prog').style.width = '100%';
+  document.getElementById('hdr-phase').textContent = 'Your Report';
+  const today = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const findings = (r.keyFindings||[]).map(f=>`<div style="margin-bottom:14px;"><div style="font-size:13px;font-weight:600;color:var(--bg);margin-bottom:4px;">${f.label}</div><div style="font-size:14px;line-height:1.7;color:#3A3A3A;">${f.body}</div></div>`).join('');
+  const tools = (r.toolsOrIdeas||[]).map(t=>`<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;"><div style="width:36px;height:36px;background:rgba(13,14,18,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:#666;">${t.effort?.charAt(0)||'?'}</div><div><div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:3px;">${t.name}</div><div style="font-size:13px;line-height:1.6;color:#555;">${t.why}</div></div></div>`).join('');
+  const now  = (r.actionPlan?.now||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
+  const soon = (r.actionPlan?.soon||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
+  const later= (r.actionPlan?.later||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
+
+  // Build Cowork handoff
+  const coworkPrompt = buildCoworkPrompt(r);
+  window._coworkPrompt = coworkPrompt;
+  window._clientName = r.clientName || 'Client';
+
+  document.getElementById('report-content').innerHTML = `
+    <div class="report-wrap">
+      <div class="rep-cover">
+        <div class="rep-eyebrow">Loam Strategy · Business Assessment</div>
+        <div class="rep-title">Your Business<br>Assessment Report</div>
+        <div class="rep-client">Prepared for <strong style="color:rgba(255,255,255,.8)">${r.clientName||'Your Business'}</strong></div>
+        <div class="rep-meta">
+          <div><div class="rep-mk">Date</div><div class="rep-mv">${r.date||today}</div></div>
+          <div><div class="rep-mk">Focus</div><div class="rep-mv">${r.focusLabel||'Full Assessment'}</div></div>
+          <div><div class="rep-mk">Next Step</div><div class="rep-mv">Book your 60-min session</div></div>
+        </div>
+      </div>
+      <div class="rep-body">
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Primary Blind Spot</div>
+          <div class="rep-sec-title">${r.blindSpot?.name||'The Clarity Gap'}</div>
+          <div class="rep-sec-body">${r.blindSpot?.summary||''}</div>
+        </div>
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Perceived vs. Actual Need</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;">
+            <div style="background:rgba(13,14,18,.05);border-radius:var(--r-sm);padding:18px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:8px;">What you said</div>
+              <div style="font-size:14px;color:#444;font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
+            </div>
+            <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:var(--r-sm);padding:18px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#8B4E00;margin-bottom:8px;">What it actually is</div>
+              <div style="font-size:14px;color:var(--bg);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Key Findings</div>
+          <div style="margin-top:4px;">${findings}</div>
+        </div>
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Recommended Tools & Ideas</div>
+          <div style="margin-top:12px;">${tools}</div>
+        </div>
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Your Action Plan</div>
+          <div class="now-soon" style="margin-top:12px;">
+            <div class="nsl-card now"><div class="nsl-label">Now — This Week</div>${now}</div>
+            <div class="nsl-card soon"><div class="nsl-label">Soon — Next 30 Days</div>${soon}</div>
+            <div class="nsl-card later"><div class="nsl-label">Later — 60-90 Days</div>${later}</div>
+          </div>
+        </div>
+
+        <div class="rep-section">
+          <div class="rep-sec-label">Heading Into Your Session</div>
+          <div class="rep-sec-body" style="border-left:2px solid var(--amber);padding-left:16px;">${r.closingNote||''}</div>
+        </div>
+
+        <div class="cta-block">
+          <div class="cta-eyebrow">You're Ready for the Session</div>
+          <div class="cta-heading">Book your 60-min call with Mike</div>
+          <div class="cta-sub">Pay below and book your session. Mike will have reviewed your report before you speak.</div>
+          <div class="cta-btns">
+            <a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Pay & Book →</a>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px;">After payment you'll receive a booking link by email.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="handoff-panel" style="margin-top:24px;">
+      <div class="handoff-label">⚡ Mike — Cowork Handoff Ready</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">The Stage 2A Cowork prompt is ready for this client.</div>
+      <div class="handoff-btns">
+        <button class="hbtn primary" onclick="copyCowork()">Copy Cowork Prompt</button>
+        <button class="hbtn" onclick="dlTranscript()">Download Transcript</button>
+      </div>
+      <div class="copy-confirm" id="copy-confirm">Copied to clipboard.</div>
+    </div>`;
+}
+
+function buildCoworkPrompt(r) {
+  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}:\n${v}`).join('\n\n');
+  return `Use the blind-spot-report skill and homerun-action-plan skill to build a client package for ${r.clientName||'this client'}.
+
+FOCUS: ${r.focusLabel}
+
+ASSESSMENT ANSWERS:
+${answers}
+
+KEY FINDINGS FROM AI ANALYSIS:
+Blind Spot: ${r.blindSpot?.name} — ${r.blindSpot?.summary}
+Perceived vs Actual: They said "${r.perceivedVsActual?.perceived}" — actual issue is "${r.perceivedVsActual?.actual}"
+
+BUILD:
+1. Blind Spot Report — internal debrief for Mike. What the assessment revealed. Questions for the live call.
+2. Client Action Plan — Now / Soon / Later. Written in Mike's voice. Personal to this client.`;
+}
+
+function copyCowork() {
+  if (!window._coworkPrompt) return;
+  navigator.clipboard.writeText(window._coworkPrompt).then(() => {
+    const c = document.getElementById('copy-confirm');
+    if(c){c.style.display='block';setTimeout(()=>c.style.display='none',3000);}
+  });
+}
+
+function dlTranscript() {
+  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k.toUpperCase()}:\n${v}`).join('\n\n---\n\n');
+  const blob = new Blob([`LOAM STRATEGY — ASSESSMENT TRANSCRIPT\nClient: ${window._clientName||'Client'}\nDate: ${new Date().toLocaleDateString()}\nFocus: ${({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Assessment'})[focusKey]}\n\n${answers}`],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (window._clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
+  a.click();
+}
+
+function renderFallback() {
+  document.getElementById('report-content').innerHTML = `<div class="loading-block"><div style="font-size:14px;color:var(--muted);">Something went wrong generating the report. Your answers are saved — refresh and try again.</div></div>`;
+}
+</script>
+</body>
+</html>
