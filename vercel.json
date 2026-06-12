@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/quiz", "destination": "/quiz.html" },
+    { "source": "/assessment", "destination": "/assessment.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/api/chat", "destination": "/api/chat.js" }
+  ]
+}
