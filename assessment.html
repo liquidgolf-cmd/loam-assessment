@@ -750,14 +750,22 @@ function renderReport(r) {
   // Executive summary
   const es = r.executiveSummary || {};
 
-  // Impact/Effort Matrix dots
-  const matrixDots = (r.matrixItems||[]).map(item => {
-    const left = Math.round(item.effort * 100);
-    const top  = Math.round((1 - item.impact) * 100);
-    const colors = {quick:'#E8932A', strategic:'#3D5A73', defer:'#888', fillin:'#aaa'};
-    const color = colors[item.type] || '#888';
+  // Impact/Effort Matrix — numbered dots + legend below
+  const matrixItems = r.matrixItems || [];
+  const matrixColors = {quick:'#E8932A', strategic:'#3D5A73', defer:'#888', fillin:'#bbb'};
+  const matrixDots = matrixItems.map((item, i) => {
+    const left = Math.min(Math.max(Math.round(item.effort * 100), 5), 95);
+    const top  = Math.min(Math.max(Math.round((1 - item.impact) * 100), 5), 95);
+    const color = matrixColors[item.type] || '#888';
     return `<div style="position:absolute;left:${left}%;top:${top}%;transform:translate(-50%,-50%);z-index:2;">
-      <div style="background:${color};color:#fff;border-radius:16px;font-size:10px;font-weight:600;padding:4px 10px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.15);">${item.label}</div>
+      <div style="width:26px;height:26px;background:${color};color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.18);border:2px solid #fff;">${i+1}</div>
+    </div>`;
+  }).join('');
+  const matrixLegend = matrixItems.map((item, i) => {
+    const color = matrixColors[item.type] || '#888';
+    return `<div style="display:flex;align-items:flex-start;gap:10px;">
+      <div style="width:20px;height:20px;background:${color};color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">${i+1}</div>
+      <div style="font-size:12px;color:#555;line-height:1.5;">${item.label}</div>
     </div>`;
   }).join('');
 
@@ -811,6 +819,8 @@ function renderReport(r) {
     </div>`).join('');
 
   const fin = r.financial || {};
+  // Extract just the short value before any " — description" the AI appends
+  const finVal = (str) => (str || '—').split(/\s*[—–]\s*/)[0].trim();
 
   // Build Cowork handoff
   const coworkPrompt = buildCoworkPrompt(r);
@@ -911,10 +921,11 @@ function renderReport(r) {
             </div>
             ${matrixDots}
           </div>
-          <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 4px;">
+          <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 4px;margin-bottom:16px;">
             <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">← Low Effort</div>
             <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">High Effort →</div>
           </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;">${matrixLegend}</div>
         </div>
 
         <!-- 4. QUICK WINS -->
@@ -967,17 +978,17 @@ function renderReport(r) {
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px;">
             <div style="background:var(--amber);border-radius:10px;padding:24px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-bottom:8px;">Monthly Net ROI</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;margin-bottom:6px;">${fin.monthlyNetROI||'—'}</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;margin-bottom:6px;">${finVal(fin.monthlyNetROI)}</div>
               <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;">${fin.roiNote||''}</div>
             </div>
             <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Weekly Time Returned</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${fin.hoursPerWeek||'—'} hrs</div>
-              <div style="font-size:12px;color:#666;">Est. monthly value: ${fin.monthlyHoursValue||'—'}</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${finVal(fin.hoursPerWeek)} hrs</div>
+              <div style="font-size:12px;color:#666;">Est. monthly value: ${finVal(fin.monthlyHoursValue)}</div>
             </div>
             <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Total Monthly Tool Cost</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${fin.monthlyToolCost||'—'}</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${finVal(fin.monthlyToolCost)}</div>
               <div style="font-size:12px;color:#666;">Across all recommended tools</div>
             </div>
           </div>
