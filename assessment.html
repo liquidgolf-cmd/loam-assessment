@@ -817,17 +817,15 @@ function renderReport(r) {
   window._coworkPrompt = coworkPrompt;
   window._clientName = r.clientName || 'Client';
 
-  // After DOM renders, handle test mode CTA and send email
+  // Send email notification always (test or live), swap CTA in test mode
   setTimeout(() => {
     if (IS_TEST) {
       const ctaBtns = document.getElementById('cta-btns-area');
       if (ctaBtns) {
         ctaBtns.innerHTML = '<div style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:16px 24px;text-align:center;"><div style="font-size:12px;font-weight:600;color:#e74c3c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">TEST MODE</div><div style="font-size:13px;color:rgba(255,255,255,.5);">In production this is your Stripe payment link</div></div>';
       }
-    } else {
-      // Real submission — send email notification
-      sendReportEmail(r, coworkPrompt);
     }
+    sendReportEmail(r, coworkPrompt);
   }, 500);
 
   document.getElementById('report-content').innerHTML = `
