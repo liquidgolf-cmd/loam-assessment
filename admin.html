@@ -128,7 +128,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 .save-config-btn:hover{background:#d4831f;}
 .config-saved{font-size:12px;color:var(--green);margin-left:12px;display:none;}
 
-/* MODAL PREVIEW */
+/* SESSIONS */
+.sessions-empty{background:var(--ink2);border:1px solid var(--rule);border-radius:14px;padding:40px;text-align:center;color:var(--muted);font-size:14px;}
+.session-row{background:var(--ink2);border:1px solid var(--rule);border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:10px;transition:border-color .2s;cursor:pointer;}
+.session-row:hover{border-color:var(--amber-border);}
+.session-date{font-size:12px;color:var(--muted);white-space:nowrap;}
+.session-name{font-size:15px;font-weight:600;color:var(--cream);flex:1;}
+.session-focus{font-size:12px;color:var(--muted);}
+.session-badge{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:20px;}
+.session-badge.test{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.25);}
+.session-badge.live{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,113,.2);}
+.session-arrow{color:var(--muted);font-size:14px;}
+
+/* SESSION DETAIL MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal.open{display:flex;}
 .modal-inner{background:var(--ink2);border:1px solid var(--rule);border-radius:16px;width:100%;max-width:880px;height:85vh;overflow:hidden;display:flex;flex-direction:column;}
@@ -137,6 +149,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 .modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px;}
 .modal-close:hover{color:var(--cream);}
 .modal-frame{flex:1;border:none;width:100%;background:#fff;}
+.modal-body{flex:1;overflow-y:auto;padding:24px 28px;}
+.modal-body::-webkit-scrollbar{width:4px;}
+.modal-body::-webkit-scrollbar-thumb{background:var(--rule2);border-radius:2px;}
+.detail-section{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rule);}
+.detail-section:last-child{border-bottom:none;margin-bottom:0;}
+.detail-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.detail-field{background:var(--ink3);border-radius:8px;padding:14px 16px;}
+.detail-field-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;}
+.detail-field-val{font-size:13px;line-height:1.65;color:var(--cream);}
+.detail-cowork{background:var(--ink3);border-radius:8px;padding:14px 16px;font-size:12px;line-height:1.7;color:var(--muted);white-space:pre-wrap;max-height:200px;overflow-y:auto;}
+.modal-actions{padding:14px 20px;border-top:1px solid var(--rule);display:flex;gap:10px;flex-shrink:0;}
+.mbtn{background:var(--amber);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 18px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;}
+.mbtn:hover{background:#d4831f;}
+.mbtn.outline{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid var(--rule2);}
+.mbtn.outline:hover{background:rgba(255,255,255,.1);color:var(--cream);}
+.mbtn.danger{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.25);}
+.mbtn.danger:hover{background:rgba(231,76,60,.25);}
 
 .hidden{display:none!important}
 </style>
@@ -246,6 +276,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
       </div>
     </div>
 
+    <!-- PAST ASSESSMENTS -->
+    <div class="admin-section">
+      <div class="admin-section-title">Past Assessments</div>
+      <div class="admin-section-sub">Completed assessments saved on this device. Click any row to view answers, key findings, and the Cowork handoff prompt.</div>
+      <div id="sessions-list"></div>
+    </div>
+
   </div>
 </div>
 
@@ -257,6 +294,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
       <button class="modal-close" onclick="closePreview()">✕</button>
     </div>
     <iframe class="modal-frame" id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
+<!-- SESSION DETAIL MODAL -->
+<div class="modal" id="session-modal">
+  <div class="modal-inner">
+    <div class="modal-hdr">
+      <span class="modal-title" id="session-modal-title">Assessment Detail</span>
+      <button class="modal-close" onclick="closeSession()">✕</button>
+    </div>
+    <div class="modal-body" id="session-modal-body"></div>
+    <div class="modal-actions">
+      <button class="mbtn" id="session-copy-btn" onclick="copySessionCowork()">Copy Cowork Prompt</button>
+      <button class="mbtn outline" id="session-dl-btn" onclick="dlSessionTranscript()">Download Transcript</button>
+      <button class="mbtn danger" id="session-delete-btn" onclick="deleteSession()">Delete</button>
+    </div>
   </div>
 </div>
 
@@ -289,6 +342,7 @@ function showAdmin() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-screen').style.display = 'block';
   loadEmailConfig();
+  loadSessions();
 }
 
 // Check session on load
@@ -324,6 +378,156 @@ function loadEmailConfig() {
     if (c.toEmail)    document.getElementById('ejs-email').value    = c.toEmail;
   } catch(e) {}
 }
+
+// ── SESSIONS ─────────────────────────────────────────────
+const SESSIONS_KEY = 'loam_sessions';
+let _activeSession = null;
+
+function loadSessions() {
+  const list = document.getElementById('sessions-list');
+  let sessions = [];
+  try { sessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]'); } catch(e) {}
+
+  if (!sessions.length) {
+    list.innerHTML = '<div class="sessions-empty">No completed assessments yet. Run the assessment in test mode to see sessions appear here.</div>';
+    return;
+  }
+
+  list.innerHTML = sessions.map((s, i) => {
+    const d = new Date(s.date);
+    const dateStr = d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    const timeStr = d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+    return `<div class="session-row" onclick="openSession(${i})">
+      <div class="session-date">${dateStr}<br><span style="font-size:11px;">${timeStr}</span></div>
+      <div>
+        <div class="session-name">${s.clientName || 'Unknown'}</div>
+        <div class="session-focus">${s.focusLabel || '—'}</div>
+      </div>
+      <span class="session-badge ${s.isTest ? 'test' : 'live'}">${s.isTest ? 'Test' : 'Live'}</span>
+      <span class="session-arrow">→</span>
+    </div>`;
+  }).join('');
+}
+
+function openSession(idx) {
+  let sessions = [];
+  try { sessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]'); } catch(e) {}
+  const s = sessions[idx];
+  if (!s) return;
+  _activeSession = { ...s, _idx: idx };
+
+  const r = s.report || {};
+  const es = r.executiveSummary || {};
+  const bs = r.blindSpot || {};
+  const pva = r.perceivedVsActual || {};
+  const fin = r.financial || {};
+
+  const sectionLabels = {
+    at_bat:'At Bat', overview:'Business Overview', model:'Business Model',
+    ops:'Team & Operations', pain:'Pain Points', tools:'Tools & AI',
+    financial:'Financial Context', goals:'Goals',
+    ai_ready:'AI Readiness', growth:'Growth & Revenue', message:'Message & Market'
+  };
+
+  const answerRows = Object.entries(s.answers || {}).map(([k, v]) => `
+    <div class="detail-field" style="grid-column:1/-1;">
+      <div class="detail-field-label">${sectionLabels[k] || k}</div>
+      <div class="detail-field-val">${v || '—'}</div>
+    </div>`).join('');
+
+  const finVal = (str) => (str || '—').split(/\s*[—–]\s*/)[0].trim();
+
+  document.getElementById('session-modal-title').textContent =
+    `${s.clientName || 'Unknown'} · ${new Date(s.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+  document.getElementById('session-modal-body').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-label">Executive Summary</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">The Pain</div><div class="detail-field-val">${es.pain || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">The Outcome</div><div class="detail-field-val">${es.outcome || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Hours Reclaimed</div><div class="detail-field-val">${es.hoursReclaimed || '—'} hrs/week</div></div>
+        <div class="detail-field"><div class="detail-field-label">Primary Focus</div><div class="detail-field-val">${es.primaryFocus || '—'}</div></div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Blind Spot & Root Cause</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">Blind Spot</div><div class="detail-field-val"><strong>${bs.name || '—'}</strong><br>${bs.summary || ''}</div></div>
+        <div class="detail-field">
+          <div class="detail-field-label">Perceived vs Actual</div>
+          <div class="detail-field-val"><em>"${pva.perceived || '—'}"</em><br><br>${pva.actual || ''}</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Financial Impact</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">Monthly Net ROI</div><div class="detail-field-val" style="font-size:20px;font-weight:600;color:var(--amber);">${finVal(fin.monthlyNetROI)}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Weekly Hours Returned</div><div class="detail-field-val" style="font-size:20px;font-weight:600;">${finVal(fin.hoursPerWeek)} hrs</div></div>
+        <div class="detail-field"><div class="detail-field-label">Monthly Tool Cost</div><div class="detail-field-val">${finVal(fin.monthlyToolCost)}</div></div>
+        <div class="detail-field"><div class="detail-field-label">ROI Note</div><div class="detail-field-val">${fin.roiNote || '—'}</div></div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Session Answers</div>
+      <div class="detail-grid">${answerRows}</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Cowork Handoff Prompt</div>
+      <div class="detail-cowork">${(s.coworkPrompt || '—').replace(/</g,'&lt;')}</div>
+    </div>`;
+
+  document.getElementById('session-modal').classList.add('open');
+}
+
+function closeSession() {
+  document.getElementById('session-modal').classList.remove('open');
+  _activeSession = null;
+}
+
+function copySessionCowork() {
+  if (!_activeSession?.coworkPrompt) return;
+  navigator.clipboard.writeText(_activeSession.coworkPrompt).then(() => {
+    const btn = document.getElementById('session-copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+function dlSessionTranscript() {
+  if (!_activeSession) return;
+  const s = _activeSession;
+  const sectionLabels = {
+    at_bat:'AT BAT', overview:'BUSINESS OVERVIEW', model:'BUSINESS MODEL',
+    ops:'TEAM & OPERATIONS', pain:'PAIN POINTS', tools:'TOOLS & AI',
+    financial:'FINANCIAL CONTEXT', goals:'GOALS',
+    ai_ready:'AI READINESS', growth:'GROWTH & REVENUE', message:'MESSAGE & MARKET'
+  };
+  const lines = Object.entries(s.answers || {}).map(([k,v]) => `${sectionLabels[k]||k.toUpperCase()}:\n${v}`).join('\n\n---\n\n');
+  const blob = new Blob([
+    `LOAM STRATEGY — ASSESSMENT TRANSCRIPT\nClient: ${s.clientName}\nDate: ${new Date(s.date).toLocaleDateString()}\nFocus: ${s.focusLabel}\n\n${lines}`
+  ], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (s.clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
+  a.click();
+}
+
+function deleteSession() {
+  if (!_activeSession || !confirm(`Delete ${_activeSession.clientName}'s session? This cannot be undone.`)) return;
+  let sessions = [];
+  try { sessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]'); } catch(e) {}
+  sessions.splice(_activeSession._idx, 1);
+  localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions));
+  closeSession();
+  loadSessions();
+}
+
+document.getElementById('session-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeSession();
+});
 
 // ── PREVIEW MODAL ────────────────────────────────────────
 function openPreview(url, title) {

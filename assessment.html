@@ -174,6 +174,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
   font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
   flex-shrink:0;
 }
+
+/* PRINT / PDF */
+@media print {
+  .test-banner,.hdr,.progress-bar,.handoff-panel,.bottom-row,
+  #s-intro,#s-focus,#s-chat,#cta-btns-area,.cta-btns,
+  .no-print { display:none!important; }
+  body { background:#fff!important; color:#000; }
+  .main { padding:0!important; }
+  .card { max-width:100%!important; }
+  .report-wrap { box-shadow:none!important; border-radius:0!important; }
+  .rep-cover { padding:32px 40px!important; }
+  .rep-body  { padding:28px 40px!important; }
+  .rep-section { page-break-inside:avoid; }
+  .cta-block { display:none!important; }
+}
 </style>
 </head>
 <body>
@@ -827,6 +842,29 @@ function renderReport(r) {
   window._coworkPrompt = coworkPrompt;
   window._clientName = r.clientName || 'Client';
 
+  // Save session to localStorage for admin dashboard
+  try {
+    const sessions = JSON.parse(localStorage.getItem('loam_sessions') || '[]');
+    sessions.unshift({
+      id: Date.now(),
+      date: new Date().toISOString(),
+      clientName: r.clientName || 'Unknown',
+      focusLabel: r.focusLabel || 'Full Assessment',
+      isTest: IS_TEST,
+      answers: Object.fromEntries(Object.entries(allAnswers).filter(([k]) => !k.endsWith('_p'))),
+      report: {
+        executiveSummary: r.executiveSummary,
+        blindSpot: r.blindSpot,
+        perceivedVsActual: r.perceivedVsActual,
+        financial: r.financial,
+        closingNote: r.closingNote,
+        nextSteps: r.nextSteps
+      },
+      coworkPrompt
+    });
+    localStorage.setItem('loam_sessions', JSON.stringify(sessions.slice(0, 50)));
+  } catch(e) {}
+
   // Send email notification always (test or live), swap CTA in test mode
   setTimeout(() => {
     if (IS_TEST) {
@@ -1027,6 +1065,7 @@ function renderReport(r) {
       <div style="font-size:13px;color:var(--muted);line-height:1.6;">The Stage 2A Cowork prompt is ready for this client.</div>
       <div class="handoff-btns">
         <button class="hbtn primary" onclick="copyCowork()">Copy Cowork Prompt</button>
+        <button class="hbtn" onclick="window.print()">Download PDF</button>
         <button class="hbtn" onclick="dlTranscript()">Download Transcript</button>
       </div>
       <div class="copy-confirm" id="copy-confirm">Copied to clipboard.</div>
