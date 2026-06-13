@@ -197,7 +197,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
     <p class="intro-body">This isn't a generic audit. You choose what to focus on. An AI coach asks the right questions. You get a report built around your specific situation — then we sit down together and build your next steps.</p>
     <div class="what-you-get">
       <div class="wyg-item"><div class="wyg-icon">🎯</div><div class="wyg-label">You choose the focus</div><div class="wyg-sub">AI tools, business health, brand clarity — or all three</div></div>
-      <div class="wyg-item"><div class="wyg-icon">🤖</div><div class="wyg-label">AI-powered assessment</div><div class="wyg-sub">20-30 min deep-dive conversation tailored to your industry</div></div>
+      <div class="wyg-item"><div class="wyg-icon">🤖</div><div class="wyg-label">AI-powered assessment</div><div class="wyg-sub">30-45 min deep-dive conversation tailored to your specific situation</div></div>
       <div class="wyg-item"><div class="wyg-icon">📋</div><div class="wyg-label">Your personal report</div><div class="wyg-sub">Blind spots, opportunities, and a Now / Soon / Later plan</div></div>
       <div class="wyg-item"><div class="wyg-icon">📞</div><div class="wyg-label">60-min session with Mike</div><div class="wyg-sub">Walk through the findings and build your action plan together</div></div>
     </div>
@@ -303,51 +303,77 @@ const SAVE_KEY       = 'loam_v2';
 // ── SECTIONS BY FOCUS ───────────────────────────────────
 const SECTION_SETS = {
   ai: [
-    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
-    { id:'tools',    tag:'Section 2 of 4', name:'Current Tools', opener:'What tools are you using to run the business day to day?' },
-    { id:'pain',     tag:'Section 3 of 4', name:'Time & Pain',   opener:'What is the one task in your business that eats the most time right now?' },
-    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
+    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
+    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
+    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? And what does a typical week actually look like for you day to day?' },
+    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What is the one thing in your business that eats the most time right now — and be specific, not "everything."' },
+    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools yet — if so, which ones?' },
+    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'This helps me calculate real ROI for you: roughly what is your time worth per hour, and what are you currently spending on software tools each month?' },
+    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — not "grow the business," something concrete and measurable?' },
+    { id:'ai_ready',  tag:'Section 9 of 9', name:'AI Readiness',           opener:'On a scale of 1 to 5, how comfortable are you with technology? And what is your biggest concern about actually using AI in your business?' }
   ],
   health: [
-    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
-    { id:'people',   tag:'Section 2 of 4', name:'People & Process', opener:'How would you describe how work actually gets done in your business — is it mostly you, or do you have a team?' },
-    { id:'revenue',  tag:'Section 3 of 4', name:'Revenue & Growth', opener:'How does your business find and close new clients right now?' },
-    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
+    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
+    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
+    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? What does a typical week actually look like for you day to day?' },
+    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? And what keeps getting pushed to tomorrow that you know you need to deal with?' },
+    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools — if so, which ones and how?' },
+    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me be useful here: what is your time worth per hour, and what are you spending on software tools each month?' },
+    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — something concrete, not a direction?' },
+    { id:'growth',    tag:'Section 9 of 9', name:'Growth & Revenue',       opener:'How is your revenue looking right now — growing, flat, or declining? And what has been your best source of new clients historically?' }
   ],
   brand: [
-    { id:'overview', tag:'Section 1 of 4', name:'Your Business', opener:'What is your name, and what does your business do?' },
-    { id:'why',      tag:'Section 2 of 4', name:'WHY You',       opener:'Before we talk about your brand — why did you start this business? Not the polished version. The real reason.' },
-    { id:'message',  tag:'Section 3 of 4', name:'Message & Market', opener:'When someone asks what you do, what do you say? Give me the version you actually say, not the one you think you should say.' },
-    { id:'goals',    tag:'Section 4 of 4', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
+    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
+    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
+    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? What does a typical week actually look like for you?' },
+    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? What keeps getting pushed to tomorrow?' },
+    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? Any AI tools in the mix?' },
+    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me be useful: what is your time worth per hour, and what are you spending on software tools each month?' },
+    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — concrete, not general?' },
+    { id:'message',   tag:'Section 9 of 9', name:'Message & Market',       opener:'When someone asks what you do at a networking event or a dinner party, what do you actually say? Give me the real version, not the polished one.' }
   ],
   all: [
-    { id:'overview', tag:'Section 1 of 5', name:'Your Business', opener:'What is your name, and what does your business do?' },
-    { id:'why',      tag:'Section 2 of 5', name:'WHY You',       opener:'Why did you start this business? Not the polished answer — the real reason.' },
-    { id:'health',   tag:'Section 3 of 5', name:'Business Health', opener:'What is the one thing in your business that eats the most time or causes the most frustration?' },
-    { id:'tools',    tag:'Section 4 of 5', name:'Tools & AI',    opener:'What tools are you using to run the business, and are you using any AI tools yet?' },
-    { id:'goals',    tag:'Section 5 of 5', name:'Goals',         opener:'What is the one thing you most want to accomplish in the next 90 days?' }
+    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
+    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
+    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
+    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? And what does a typical week actually look like for you day to day?' },
+    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? And what is the one thing that — if it were fixed — would change everything?' },
+    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools yet — if so, which ones and how?' },
+    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me calculate real ROI for you: what is your time worth per hour, and what are you spending on software tools each month?' },
+    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — something concrete and measurable, not a direction?' },
+    { id:'ai_ready',  tag:'Section 9 of 9', name:'AI & Growth',            opener:'Two quick things: on a 1-5 scale, how comfortable are you with technology? And how is revenue trending right now — growing, flat, or declining?' }
   ]
 };
 
-const SYSTEM = (section, focus, known) => `You are Mike Hill's AI assessment coach at Loam Strategy. You are running a paid Business Assessment for a small business owner.
+const SYSTEM = (section, focus, known) => `You are Mike Hill's AI assessment coach at Loam Strategy. You are running a paid Business Assessment for a small business owner (1-10 people). They are paying for this and expecting real insight, not a form.
 
 FOCUS CHOSEN: ${focus}
-SECTION: ${section}
+CURRENT SECTION: ${section}
 
-WHAT YOU ALREADY KNOW:
-${known || 'Nothing yet.'}
+WHAT YOU ALREADY KNOW ABOUT THIS PERSON:
+${known || 'Nothing yet — this is the first section.'}
 
-INDUSTRY CONTEXT: Small business owner (1-10 people). They are paying for this and expecting real insight, not a form.
+YOUR LENS — THE HOMERUN METHOD:
+You are always looking for the WHY underneath the surface answer. What they say is not always what the real problem is. Your job is to get past the polished version and find the specific truth that will make the report actually useful.
 
-YOUR RULES:
+TONE BY SECTION TYPE:
+- At Bat sections (The Person, WHY): warm, personal, curious — like a coach at the beginning of a session
+- Audit sections (Business Model, Operations, Tools, Financial): direct consultant tone — efficient, specific, no small talk
+- Pain and Goals sections: empathetic but pushback-ready — "that's common, but tell me specifically"
+
+RULES:
 - One question per response. No exceptions.
 - Never ask for anything already covered in WHAT YOU ALREADY KNOW.
-- Push back on vague or polished answers. Name what you hear.
-- Short: 1-3 sentences then one question.
-- No em dashes. No ellipsis. No hollow affirmations.
-- Warm, direct, seen-it-all tone.
+- Push back on vague answers immediately. "I help businesses grow" gets: "That could describe 500 businesses. What specifically changes for a client after working with you?"
+- For the Financial section: ask for actual dollar amounts and time estimates — the report needs real numbers to calculate ROI.
+- Short responses: 1-3 sentences, then one question.
+- No em dashes. No ellipsis. No hollow affirmations like "great" or "that makes sense."
+- Warm but direct. Seen-it-all tone.
 
-Call [DONE] only after 3-4 real exchanges with specific answers.`;
+Signal [DONE] only after 3-4 genuinely specific exchanges with real answers — not after one polished surface answer.`;
 
 // ── STATE ───────────────────────────────────────────────
 let selectedFocus = new Set();
@@ -599,99 +625,115 @@ async function generateReport() {
   const focusLabel = {ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Business Assessment'}[focusKey];
   const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}: ${v}`).join('\n');
 
-  const prompt = `You are a senior AI business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a complete, specific, actionable 9-section report based entirely on their answers. Every section must be grounded in what they actually said — no generic advice.
+  const hourlyRate = (() => {
+    const fin = allAnswers['financial'] || allAnswers['financial_p'] || '';
+    const m = fin.match(/\$?(\d+)\s*(?:\/hr|\/hour|per hour|an hour|hourly)/i);
+    return m ? parseInt(m[1]) : 75;
+  })();
+
+  const prompt = `You are a senior AI business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a complete, specific, actionable 9-section report based entirely on their answers. Every section must reference something they actually said — no generic advice, no filler.
 
 FOCUS: ${focusLabel}
 ANSWERS:
 ${answers}
 
-LABOR RATE ASSUMPTION: $75/hour unless stated otherwise in answers.
+LABOR RATE: $${hourlyRate}/hour (extracted from their answers, or default $75 if not stated)
+
+CRITICAL RULES:
+- Every section must be grounded in their specific answers. If a section could apply to any business, rewrite it.
+- Blind Spot name must be 3-5 words, punchy, specific to them.
+- Recommended tools must match their stated tech comfort level (if given).
+- Financial numbers must use the labor rate above and be based on specific pain points they described — not round guesses.
+- The 4-Day Plan must name the specific tool and the specific task for that person's business.
+- The Closing Note should sound like a trusted advisor who actually read their answers, not a marketer.
 
 Return ONLY valid JSON — no markdown, no preamble, no trailing commas:
 {
-  "clientName": "extract first name from overview, or use Your Business",
+  "clientName": "extract first name from answers, or use Your Business",
   "businessType": "1-3 word description extracted from their answers",
   "focusLabel": "${focusLabel}",
-  "date": "today's date",
+  "date": "${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}",
 
   "executiveSummary": {
-    "pain": "2 sentences on what is currently slowing them down or costing them — specific to their answers, not generic",
-    "outcome": "2 sentences on what changes when the right AI tools and processes are in place for their specific situation",
-    "hoursReclaimed": "realistic number e.g. 8-12 — based on their described pain points",
-    "primaryFocus": "the single highest-leverage area based on their answers — one phrase, not a sentence"
+    "pain": "2 sentences specific to what they described — not generic. Name the actual friction.",
+    "outcome": "2 sentences on what changes when the right AI tools and processes are in place for their specific situation.",
+    "hoursReclaimed": "realistic number like 8 or 12 — calculated from their specific pain points, not a round guess",
+    "primaryFocus": "the single highest-leverage area based on all their answers — one phrase, not a sentence"
   },
 
   "blindSpot": {
-    "name": "Short punchy name — 3-5 words e.g. The Invisible Pipeline or The Busy Founder Trap",
-    "summary": "2-3 sentences naming the real problem underneath what they described. Specific, direct, no fluff."
+    "name": "3-5 words, punchy and specific — e.g. The Invisible Bottleneck or The Founder-as-Operator Trap",
+    "summary": "2-3 sentences naming the real problem underneath what they described. Specific to their answers. No consulting clichés."
   },
 
   "perceivedVsActual": {
-    "perceived": "quote or close paraphrase of what they said the problem is",
-    "actual": "what the root cause actually appears to be based on all their answers"
+    "perceived": "quote or close paraphrase of their exact words about what the problem is",
+    "actual": "the root cause based on everything they said — different from what they think",
+    "gap": "1 sentence on why the difference matters and what it costs them"
   },
 
   "matrixItems": [
-    {"label": "specific AI tool or action", "effort": 0.2, "impact": 0.85, "type": "quick"},
-    {"label": "specific AI tool or action", "effort": 0.25, "impact": 0.80, "type": "quick"},
-    {"label": "specific AI tool or action", "effort": 0.30, "impact": 0.75, "type": "quick"},
-    {"label": "specific AI tool or action", "effort": 0.60, "impact": 0.90, "type": "strategic"},
-    {"label": "specific AI tool or action", "effort": 0.70, "impact": 0.85, "type": "strategic"},
-    {"label": "specific AI tool or action", "effort": 0.80, "impact": 0.40, "type": "defer"},
-    {"label": "specific AI tool or action", "effort": 0.15, "impact": 0.30, "type": "fillin"}
+    {"label": "specific action or tool for their business", "effort": 0.2, "impact": 0.85, "type": "quick"},
+    {"label": "specific action or tool for their business", "effort": 0.25, "impact": 0.80, "type": "quick"},
+    {"label": "specific action or tool for their business", "effort": 0.30, "impact": 0.75, "type": "quick"},
+    {"label": "specific action or tool for their business", "effort": 0.55, "impact": 0.90, "type": "strategic"},
+    {"label": "specific action or tool for their business", "effort": 0.70, "impact": 0.85, "type": "strategic"},
+    {"label": "specific action or tool for their business", "effort": 0.80, "impact": 0.40, "type": "defer"},
+    {"label": "specific action or tool for their business", "effort": 0.15, "impact": 0.30, "type": "fillin"},
+    {"label": "specific action or tool for their business", "effort": 0.65, "impact": 0.60, "type": "strategic"}
   ],
 
   "quickWins": [
-    {"pain": "specific problem from their answers", "fix": "specific AI tool or action that solves it"},
-    {"pain": "specific problem", "fix": "specific tool or action"},
-    {"pain": "specific problem", "fix": "specific tool or action"},
-    {"pain": "specific problem", "fix": "specific tool or action"},
-    {"pain": "specific problem", "fix": "specific tool or action"},
-    {"pain": "specific problem", "fix": "specific tool or action"}
+    {"pain": "specific pain from something they actually said", "fix": "specific tool or action — not a category"},
+    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
+    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
+    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
+    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
+    {"pain": "specific pain from their answers", "fix": "specific tool or action"}
   ],
 
   "solutions": [
-    {"num": "01", "tool": "Tool Name", "useCase": "exactly how they use it given their specific situation", "cost": "$X/mo or Free", "setup": "Easy / Medium / Hard", "saves": "X hrs/week"},
-    {"num": "02", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "03", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "04", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "05", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."}
+    {"num": "01", "tool": "Tool Name", "useCase": "exactly how this person uses it given their business and workflow", "cost": "$X/mo or Free", "setup": "Easy / Medium / Hard", "saves": "X hrs/week"},
+    {"num": "02", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "03", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "04", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "05", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."}
   ],
 
   "dayPlan": [
-    {"day": "1", "label": "Day One", "task": "Specific action — what to set up and why it matters first", "tool": "Tool Name"},
-    {"day": "2", "label": "Day Two", "task": "Create first reusable template, prompt, or automation", "tool": "Tool Name"},
-    {"day": "3", "label": "Day Three", "task": "Test on a real business task and note what works", "tool": "Tool Name"},
-    {"day": "4", "label": "Day Four", "task": "Review results, refine, and decide what to do next week", "tool": "Tool Name"}
+    {"day": "1", "label": "Day One", "task": "Set up [specific tool] for [specific use case in their business] — this is the highest-leverage starting point because [reason tied to their pain]", "tool": "Tool Name"},
+    {"day": "2", "label": "Day Two", "task": "Create their first reusable [prompt / template / automation] inside [tool] for [specific repeating task they described]", "tool": "Tool Name"},
+    {"day": "3", "label": "Day Three", "task": "Run [specific tool] on a real [task from their business] and document what worked and what to adjust", "tool": "Tool Name"},
+    {"day": "4", "label": "Day Four", "task": "Review results, refine the [prompt / workflow / setup], and identify the next highest-leverage task to automate", "tool": "Tool Name"}
   ],
 
   "whatComesAfter": [
-    {"n": "01", "opportunity": "Next-phase opportunity title", "why": "Why it matters for their specific situation", "tool": "Suggested tool or approach"},
+    {"n": "01", "opportunity": "Opportunity title — specific to their business", "why": "Why it matters for their situation based on what they said", "tool": "Specific tool or approach"},
     {"n": "02", "opportunity": "...", "why": "...", "tool": "..."},
     {"n": "03", "opportunity": "...", "why": "...", "tool": "..."}
   ],
 
   "financial": {
-    "hoursPerWeek": "X-Y — realistic total hours saved across all recommended tools",
-    "monthlyHoursValue": "$X,XXX — hours saved x 4 weeks x $75 labor rate",
-    "monthlyToolCost": "$XXX-$XXX — realistic total across all recommended tools",
+    "hoursPerWeek": "X-Y — realistic total hours saved, calculated from their specific pain points",
+    "monthlyHoursValue": "$X,XXX — hours x 4 x $${hourlyRate} labor rate",
+    "monthlyToolCost": "$XXX-$XXX — realistic total based on the 5 recommended tools above",
     "monthlyNetROI": "$X,XXX — monthlyHoursValue minus monthlyToolCost",
-    "roiNote": "1 sentence on what these hours freed up can go toward in their specific business"
+    "roiNote": "1 sentence on what those freed hours can specifically go toward in their business"
   },
 
   "nextSteps": [
-    {"title": "Begin with your highest-value quick win", "detail": "specific first action based on their answers"},
-    {"title": "Schedule your review call", "detail": "After 2 weeks of implementation, review progress and decide whether to expand to the next phase"},
-    {"title": "Track one metric this week", "detail": "specific measurable thing they can track based on their situation"}
+    {"title": "Start with [name the specific quick win]", "detail": "specific first action tied to their highest pain point"},
+    {"title": "Schedule your 2-week review", "detail": "After 2 weeks of using the first tool, assess what to expand next — bring your data to the session"},
+    {"title": "Track [specific metric] this week", "detail": "the one number that will tell you if this is working, based on what they described"}
   ],
 
-  "closingNote": "2-3 sentences. Direct and honest. What they should bring to the 60-min session. Written like a trusted advisor, not a marketer."
+  "closingNote": "2-3 sentences. Direct and honest. What they should bring to the 60-min session with Mike. Written like a trusted advisor who actually read their answers — not a marketer."
 }`;
 
   try {
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:2000, messages:[{role:'user',content:prompt}] })
+      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:4000, messages:[{role:'user',content:prompt}] })
     });
     const data = await res.json();
     let raw = data.content?.[0]?.text || '{}';
@@ -838,7 +880,7 @@ function renderReport(r) {
           <div class="rep-sec-label">Primary Blind Spot</div>
           <div class="rep-sec-title">${r.blindSpot?.name||'The Clarity Gap'}</div>
           <div class="rep-sec-body" style="margin-bottom:20px;">${r.blindSpot?.summary||''}</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
             <div style="background:rgba(13,14,18,.04);border-radius:8px;padding:16px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:8px;">What you said</div>
               <div style="font-size:14px;color:#555;font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
@@ -848,6 +890,7 @@ function renderReport(r) {
               <div style="font-size:14px;color:var(--bg);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
             </div>
           </div>
+          ${r.perceivedVsActual?.gap ? `<div style="background:rgba(61,90,115,.06);border-left:3px solid #3D5A73;border-radius:0 6px 6px 0;padding:12px 16px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;margin-bottom:6px;">Why the gap matters</div><div style="font-size:13px;line-height:1.65;color:#555;">${r.perceivedVsActual.gap}</div></div>` : ''}
         </div>
 
         <!-- 3. IMPACT / EFFORT MATRIX -->
@@ -948,6 +991,14 @@ function renderReport(r) {
           <div style="margin-top:8px;">${nextSteps}</div>
         </div>
 
+        <!-- CLOSING NOTE -->
+        ${r.closingNote ? `<div class="rep-section">
+          <div class="rep-sec-label">Before Your Session</div>
+          <div style="background:var(--bg);border-radius:10px;padding:24px 28px;">
+            <div style="font-size:15px;line-height:1.85;color:rgba(255,255,255,.75);font-style:italic;">${r.closingNote}</div>
+          </div>
+        </div>` : ''}
+
         <!-- CTA -->
         <div class="cta-block" id="report-cta-block">
           <div class="cta-eyebrow">You're Ready for the Session</div>
@@ -974,21 +1025,48 @@ function renderReport(r) {
 }
 
 function buildCoworkPrompt(r) {
-  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}:\n${v}`).join('\n\n');
+  const get = (key) => allAnswers[key] || allAnswers[key+'_p'] || '—';
   return `Use the blind-spot-report skill and homerun-action-plan skill to build a client package for ${r.clientName||'this client'}.
 
 FOCUS: ${r.focusLabel}
 
-ASSESSMENT ANSWERS:
-${answers}
+--- FOUNDER PROFILE (At Bat) ---
+${get('at_bat')}
 
-KEY FINDINGS FROM AI ANALYSIS:
+--- BUSINESS OVERVIEW ---
+${get('overview')}
+
+--- BUSINESS MODEL ---
+${get('model')}
+
+--- TEAM & OPERATIONS ---
+${get('ops')}
+
+--- PAIN POINTS (their exact language) ---
+${get('pain')}
+
+--- CURRENT TOOLS & AI USAGE ---
+${get('tools')}
+
+--- FINANCIAL CONTEXT (hourly rate, tool spend, investment threshold) ---
+${get('financial')}
+
+--- GOALS (90-day and 12-month) ---
+${get('goals')}
+
+--- SECTION 9 (AI Readiness / Growth & Revenue / Message & Market) ---
+${get('ai_ready') !== '—' ? get('ai_ready') : get('growth') !== '—' ? get('growth') : get('message')}
+
+--- KEY AI FINDINGS ---
 Blind Spot: ${r.blindSpot?.name} — ${r.blindSpot?.summary}
-Perceived vs Actual: They said "${r.perceivedVsActual?.perceived}" — actual issue is "${r.perceivedVsActual?.actual}"
+Perceived: "${r.perceivedVsActual?.perceived}"
+Actual: "${r.perceivedVsActual?.actual}"
+Gap: "${r.perceivedVsActual?.gap||''}"
+Primary Focus: ${r.executiveSummary?.primaryFocus||'—'}
 
 BUILD:
-1. Blind Spot Report — internal debrief for Mike. What the assessment revealed. Questions for the live call.
-2. Client Action Plan — Now / Soon / Later. Written in Mike's voice. Personal to this client.`;
+1. Blind Spot Report — internal debrief for Mike. What the assessment revealed. What the client can't see yet. The 3-4 questions to ask in the live call.
+2. Client Action Plan — Now / Soon / Later format. Written in Mike's voice. Personal to this client. Based on the 90-day goal and the primary focus area.`;
 }
 
 function copyCowork() {
