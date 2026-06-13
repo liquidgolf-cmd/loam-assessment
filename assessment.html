@@ -165,6 +165,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
   .rep-cover,.rep-body{padding:28px 24px}
   .cta-block{padding:24px 20px}
 }
+
+/* TEST MODE */
+.test-banner{
+  position:sticky;top:0;left:0;right:0;z-index:999;
+  background:#e74c3c;color:#fff;
+  text-align:center;padding:8px 16px;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  flex-shrink:0;
+}
 </style>
 </head>
 <body>
@@ -271,6 +280,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 </main>
 
 <script>
+
+// ── TEST MODE ────────────────────────────────────────────
+const IS_TEST = new URLSearchParams(window.location.search).get('test') === 'true';
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (IS_TEST) {
+    const banner = document.createElement('div');
+    banner.className = 'test-banner';
+    banner.textContent = '⚠ Test Mode Active — No data saved · No emails sent · Payment step skipped';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+});
+
 // ── CONFIG ──────────────────────────────────────────────
 // Replace these with your real links before going live
 const STRIPE_LINK    = 'https://buy.stripe.com/YOUR_STRIPE_LINK';
@@ -577,42 +599,93 @@ async function generateReport() {
   const focusLabel = {ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Business Assessment'}[focusKey];
   const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}: ${v}`).join('\n');
 
-  const prompt = `You are a business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a focused, actionable report.
+  const prompt = `You are a senior AI business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a complete, specific, actionable 9-section report based entirely on their answers. Every section must be grounded in what they actually said — no generic advice.
 
 FOCUS: ${focusLabel}
 ANSWERS:
 ${answers}
 
-Return ONLY valid JSON — no markdown, no preamble:
+LABOR RATE ASSUMPTION: $75/hour unless stated otherwise in answers.
+
+Return ONLY valid JSON — no markdown, no preamble, no trailing commas:
 {
-  "clientName": "extract from overview or 'Your Business'",
+  "clientName": "extract first name from overview, or use Your Business",
+  "businessType": "1-3 word description extracted from their answers",
   "focusLabel": "${focusLabel}",
   "date": "today's date",
+
+  "executiveSummary": {
+    "pain": "2 sentences on what is currently slowing them down or costing them — specific to their answers, not generic",
+    "outcome": "2 sentences on what changes when the right AI tools and processes are in place for their specific situation",
+    "hoursReclaimed": "realistic number e.g. 8-12 — based on their described pain points",
+    "primaryFocus": "the single highest-leverage area based on their answers — one phrase, not a sentence"
+  },
+
   "blindSpot": {
-    "name": "Short punchy name for their primary blind spot",
-    "summary": "2-3 sentences specific to their answers"
+    "name": "Short punchy name — 3-5 words e.g. The Invisible Pipeline or The Busy Founder Trap",
+    "summary": "2-3 sentences naming the real problem underneath what they described. Specific, direct, no fluff."
   },
+
   "perceivedVsActual": {
-    "perceived": "what they said the problem is — their words",
-    "actual": "what it actually appears to be"
+    "perceived": "quote or close paraphrase of what they said the problem is",
+    "actual": "what the root cause actually appears to be based on all their answers"
   },
-  "keyFindings": [
-    {"label": "finding title", "body": "2-3 sentences specific to their situation"},
-    {"label": "finding title", "body": "..."},
-    {"label": "finding title", "body": "..."}
+
+  "matrixItems": [
+    {"label": "specific AI tool or action", "effort": 0.2, "impact": 0.85, "type": "quick"},
+    {"label": "specific AI tool or action", "effort": 0.25, "impact": 0.80, "type": "quick"},
+    {"label": "specific AI tool or action", "effort": 0.30, "impact": 0.75, "type": "quick"},
+    {"label": "specific AI tool or action", "effort": 0.60, "impact": 0.90, "type": "strategic"},
+    {"label": "specific AI tool or action", "effort": 0.70, "impact": 0.85, "type": "strategic"},
+    {"label": "specific AI tool or action", "effort": 0.80, "impact": 0.40, "type": "defer"},
+    {"label": "specific AI tool or action", "effort": 0.15, "impact": 0.30, "type": "fillin"}
   ],
-  "toolsOrIdeas": [
-    {"name": "tool or idea name", "why": "why this fits their specific situation", "effort": "Low / Medium / High"},
-    {"name": "...", "why": "...", "effort": "..."},
-    {"name": "...", "why": "...", "effort": "..."},
-    {"name": "...", "why": "...", "effort": "..."}
+
+  "quickWins": [
+    {"pain": "specific problem from their answers", "fix": "specific AI tool or action that solves it"},
+    {"pain": "specific problem", "fix": "specific tool or action"},
+    {"pain": "specific problem", "fix": "specific tool or action"},
+    {"pain": "specific problem", "fix": "specific tool or action"},
+    {"pain": "specific problem", "fix": "specific tool or action"},
+    {"pain": "specific problem", "fix": "specific tool or action"}
   ],
-  "actionPlan": {
-    "now": ["specific action 1", "specific action 2"],
-    "soon": ["specific action 1", "specific action 2"],
-    "later": ["specific action 1", "specific action 2"]
+
+  "solutions": [
+    {"num": "01", "tool": "Tool Name", "useCase": "exactly how they use it given their specific situation", "cost": "$X/mo or Free", "setup": "Easy / Medium / Hard", "saves": "X hrs/week"},
+    {"num": "02", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "03", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "04", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."},
+    {"num": "05", "tool": "Tool Name", "useCase": "...", "cost": "...", "setup": "...", "saves": "..."}
+  ],
+
+  "dayPlan": [
+    {"day": "1", "label": "Day One", "task": "Specific action — what to set up and why it matters first", "tool": "Tool Name"},
+    {"day": "2", "label": "Day Two", "task": "Create first reusable template, prompt, or automation", "tool": "Tool Name"},
+    {"day": "3", "label": "Day Three", "task": "Test on a real business task and note what works", "tool": "Tool Name"},
+    {"day": "4", "label": "Day Four", "task": "Review results, refine, and decide what to do next week", "tool": "Tool Name"}
+  ],
+
+  "whatComesAfter": [
+    {"n": "01", "opportunity": "Next-phase opportunity title", "why": "Why it matters for their specific situation", "tool": "Suggested tool or approach"},
+    {"n": "02", "opportunity": "...", "why": "...", "tool": "..."},
+    {"n": "03", "opportunity": "...", "why": "...", "tool": "..."}
+  ],
+
+  "financial": {
+    "hoursPerWeek": "X-Y — realistic total hours saved across all recommended tools",
+    "monthlyHoursValue": "$X,XXX — hours saved x 4 weeks x $75 labor rate",
+    "monthlyToolCost": "$XXX-$XXX — realistic total across all recommended tools",
+    "monthlyNetROI": "$X,XXX — monthlyHoursValue minus monthlyToolCost",
+    "roiNote": "1 sentence on what these hours freed up can go toward in their specific business"
   },
-  "closingNote": "2-3 sentences. Direct and honest. What they should walk into the 60-min session ready to talk about."
+
+  "nextSteps": [
+    {"title": "Begin with your highest-value quick win", "detail": "specific first action based on their answers"},
+    {"title": "Schedule your review call", "detail": "After 2 weeks of implementation, review progress and decide whether to expand to the next phase"},
+    {"title": "Track one metric this week", "detail": "specific measurable thing they can track based on their situation"}
+  ],
+
+  "closingNote": "2-3 sentences. Direct and honest. What they should bring to the 60-min session. Written like a trusted advisor, not a marketer."
 }`;
 
   try {
@@ -631,80 +704,256 @@ function renderReport(r) {
   document.getElementById('prog').style.width = '100%';
   document.getElementById('hdr-phase').textContent = 'Your Report';
   const today = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const findings = (r.keyFindings||[]).map(f=>`<div style="margin-bottom:14px;"><div style="font-size:13px;font-weight:600;color:var(--bg);margin-bottom:4px;">${f.label}</div><div style="font-size:14px;line-height:1.7;color:#3A3A3A;">${f.body}</div></div>`).join('');
-  const tools = (r.toolsOrIdeas||[]).map(t=>`<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;"><div style="width:36px;height:36px;background:rgba(13,14,18,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:600;color:#666;">${t.effort?.charAt(0)||'?'}</div><div><div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:3px;">${t.name}</div><div style="font-size:13px;line-height:1.6;color:#555;">${t.why}</div></div></div>`).join('');
-  const now  = (r.actionPlan?.now||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
-  const soon = (r.actionPlan?.soon||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
-  const later= (r.actionPlan?.later||[]).map(a=>`<div class="nsl-item">${a}</div>`).join('');
+
+  // Executive summary
+  const es = r.executiveSummary || {};
+
+  // Impact/Effort Matrix dots
+  const matrixDots = (r.matrixItems||[]).map(item => {
+    const left = Math.round(item.effort * 100);
+    const top  = Math.round((1 - item.impact) * 100);
+    const colors = {quick:'#E8932A', strategic:'#3D5A73', defer:'#888', fillin:'#aaa'};
+    const color = colors[item.type] || '#888';
+    return `<div style="position:absolute;left:${left}%;top:${top}%;transform:translate(-50%,-50%);z-index:2;">
+      <div style="background:${color};color:#fff;border-radius:16px;font-size:10px;font-weight:600;padding:4px 10px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.15);">${item.label}</div>
+    </div>`;
+  }).join('');
+
+  // Quick wins — up to 6
+  const quickWins = (r.quickWins||[]).slice(0,6).map((q,i) => `
+    <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;align-items:center;padding:14px 16px;background:${i%2===0?'rgba(13,14,18,.03)':'#fff'};border-radius:8px;margin-bottom:8px;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:rgba(13,14,18,.2);font-weight:600;width:24px;">0${i+1}</div>
+      <div style="font-size:13px;color:#555;line-height:1.5;">${q.pain}</div>
+      <div style="color:var(--amber);font-size:16px;text-align:center;">→</div>
+      <div style="font-size:13px;font-weight:600;color:var(--bg);line-height:1.5;">${q.fix}</div>
+    </div>`).join('');
+
+  // Solutions table
+  const solutions = (r.solutions||[]).map(s => `
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid rgba(13,14,18,.08);">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--bg);margin-bottom:3px;">${s.num} — ${s.tool}</div>
+        <div style="font-size:12px;color:#666;line-height:1.5;">${s.useCase}</div>
+      </div>
+      <div style="font-size:12px;color:#555;">${s.cost}</div>
+      <div style="font-size:12px;color:#555;">${s.setup}</div>
+      <div style="font-size:12px;font-weight:600;color:#1a7a45;background:rgba(26,122,69,.08);padding:3px 8px;border-radius:4px;display:inline-block;">${s.saves}</div>
+    </div>`).join('');
+
+  // 4-Day plan
+  const dayPlan = (r.dayPlan||[]).map(d => `
+    <div style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px rgba(13,14,18,.06);">
+      <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:rgba(232,147,42,.25);line-height:1;margin-bottom:4px;">${d.day}</div>
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:10px;">${d.label}</div>
+      <div style="font-size:13px;line-height:1.65;color:#555;margin-bottom:10px;">${d.task}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--amber);">${d.tool}</div>
+    </div>`).join('');
+
+  // What comes after
+  const afterItems = (r.whatComesAfter||[]).map(a => `
+    <div style="background:#fff;border-radius:10px;padding:22px;box-shadow:0 2px 12px rgba(13,14,18,.06);">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;">${a.n}</div>
+      <div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:8px;">${a.opportunity}</div>
+      <div style="font-size:13px;line-height:1.65;color:#555;margin-bottom:10px;">${a.why}</div>
+      <div style="font-size:11px;font-weight:600;color:#3D5A73;background:rgba(61,90,115,.08);padding:4px 10px;border-radius:4px;display:inline-block;">${a.tool}</div>
+    </div>`).join('');
+
+  // Next steps
+  const nextSteps = (r.nextSteps||[]).map((s,i) => `
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(13,14,18,.08);">
+      <div style="width:28px;height:28px;background:rgba(232,147,42,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0;">${i+1}</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:4px;">${s.title}</div>
+        <div style="font-size:13px;line-height:1.65;color:#555;">${s.detail}</div>
+      </div>
+    </div>`).join('');
+
+  const fin = r.financial || {};
 
   // Build Cowork handoff
   const coworkPrompt = buildCoworkPrompt(r);
   window._coworkPrompt = coworkPrompt;
   window._clientName = r.clientName || 'Client';
 
+  // After DOM renders, handle test mode CTA and send email
+  setTimeout(() => {
+    if (IS_TEST) {
+      const ctaBtns = document.getElementById('cta-btns-area');
+      if (ctaBtns) {
+        ctaBtns.innerHTML = '<div style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:16px 24px;text-align:center;"><div style="font-size:12px;font-weight:600;color:#e74c3c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">TEST MODE</div><div style="font-size:13px;color:rgba(255,255,255,.5);">In production this is your Stripe payment link</div></div>';
+      }
+    } else {
+      // Real submission — send email notification
+      sendReportEmail(r, coworkPrompt);
+    }
+  }, 500);
+
   document.getElementById('report-content').innerHTML = `
     <div class="report-wrap">
+
+      <!-- 1. COVER -->
       <div class="rep-cover">
         <div class="rep-eyebrow">Loam Strategy · Business Assessment</div>
         <div class="rep-title">Your Business<br>Assessment Report</div>
         <div class="rep-client">Prepared for <strong style="color:rgba(255,255,255,.8)">${r.clientName||'Your Business'}</strong></div>
         <div class="rep-meta">
           <div><div class="rep-mk">Date</div><div class="rep-mv">${r.date||today}</div></div>
+          <div><div class="rep-mk">Business Type</div><div class="rep-mv">${r.businessType||r.focusLabel||'—'}</div></div>
           <div><div class="rep-mk">Focus</div><div class="rep-mv">${r.focusLabel||'Full Assessment'}</div></div>
           <div><div class="rep-mk">Next Step</div><div class="rep-mv">Book your 60-min session</div></div>
         </div>
       </div>
+
       <div class="rep-body">
 
+        <!-- 2. EXECUTIVE SUMMARY -->
+        <div class="rep-section">
+          <div class="rep-sec-label">Executive Summary</div>
+          <div style="display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start;">
+            <div>
+              <div style="margin-bottom:16px;">
+                <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:6px;">The Pain</div>
+                <div style="font-size:15px;line-height:1.75;color:#3A3A3A;">${es.pain||''}</div>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:6px;">The Outcome</div>
+                <div style="font-size:15px;line-height:1.75;color:#3A3A3A;">${es.outcome||''}</div>
+              </div>
+            </div>
+            <div>
+              <div style="background:var(--bg);border-radius:10px;padding:20px;text-align:center;margin-bottom:12px;">
+                <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:600;color:var(--amber);line-height:1;">${es.hoursReclaimed||'—'}</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px;">hrs/week to reclaim</div>
+              </div>
+              <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:8px;padding:14px;">
+                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#8B4E00;margin-bottom:6px;">Primary Focus</div>
+                <div style="font-size:13px;font-weight:600;color:var(--bg);">${es.primaryFocus||'—'}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLIND SPOT + PERCEIVED VS ACTUAL -->
         <div class="rep-section">
           <div class="rep-sec-label">Primary Blind Spot</div>
           <div class="rep-sec-title">${r.blindSpot?.name||'The Clarity Gap'}</div>
-          <div class="rep-sec-body">${r.blindSpot?.summary||''}</div>
-        </div>
-
-        <div class="rep-section">
-          <div class="rep-sec-label">Perceived vs. Actual Need</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;">
-            <div style="background:rgba(13,14,18,.05);border-radius:var(--r-sm);padding:18px;">
+          <div class="rep-sec-body" style="margin-bottom:20px;">${r.blindSpot?.summary||''}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:rgba(13,14,18,.04);border-radius:8px;padding:16px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:8px;">What you said</div>
-              <div style="font-size:14px;color:#444;font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
+              <div style="font-size:14px;color:#555;font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
             </div>
-            <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:var(--r-sm);padding:18px;">
+            <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:8px;padding:16px;">
               <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#8B4E00;margin-bottom:8px;">What it actually is</div>
               <div style="font-size:14px;color:var(--bg);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
             </div>
           </div>
         </div>
 
+        <!-- 3. IMPACT / EFFORT MATRIX -->
         <div class="rep-section">
-          <div class="rep-sec-label">Key Findings</div>
-          <div style="margin-top:4px;">${findings}</div>
-        </div>
-
-        <div class="rep-section">
-          <div class="rep-sec-label">Recommended Tools & Ideas</div>
-          <div style="margin-top:12px;">${tools}</div>
-        </div>
-
-        <div class="rep-section">
-          <div class="rep-sec-label">Your Action Plan</div>
-          <div class="now-soon" style="margin-top:12px;">
-            <div class="nsl-card now"><div class="nsl-label">Now — This Week</div>${now}</div>
-            <div class="nsl-card soon"><div class="nsl-label">Soon — Next 30 Days</div>${soon}</div>
-            <div class="nsl-card later"><div class="nsl-label">Later — 60-90 Days</div>${later}</div>
+          <div class="rep-sec-label">Impact / Effort Matrix</div>
+          <div style="position:relative;background:#fff;border:1px solid rgba(13,14,18,.1);border-radius:10px;overflow:hidden;aspect-ratio:2/1;max-height:320px;margin-top:12px;">
+            <div style="position:absolute;top:0;left:0;width:50%;height:50%;background:rgba(61,90,115,.05);border-right:1px solid rgba(13,14,18,.08);border-bottom:1px solid rgba(13,14,18,.08);padding:10px;">
+              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;">Strategic Bets</div>
+              <div style="font-size:10px;color:#aaa;">High impact · More effort</div>
+            </div>
+            <div style="position:absolute;top:0;right:0;width:50%;height:50%;background:rgba(232,147,42,.04);border-bottom:1px solid rgba(13,14,18,.08);padding:10px;text-align:right;">
+              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);">Quick Wins</div>
+              <div style="font-size:10px;color:#aaa;">High impact · Low effort</div>
+            </div>
+            <div style="position:absolute;bottom:0;left:0;width:50%;height:50%;padding:10px;border-right:1px solid rgba(13,14,18,.08);">
+              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Fill-Ins</div>
+            </div>
+            <div style="position:absolute;bottom:0;right:0;width:50%;height:50%;padding:10px;text-align:right;">
+              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#ddd;">Ignore</div>
+            </div>
+            ${matrixDots}
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 4px;">
+            <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">← Low Effort</div>
+            <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">High Effort →</div>
           </div>
         </div>
 
+        <!-- 4. QUICK WINS -->
         <div class="rep-section">
-          <div class="rep-sec-label">Heading Into Your Session</div>
-          <div class="rep-sec-body" style="border-left:2px solid var(--amber);padding-left:16px;">${r.closingNote||''}</div>
+          <div class="rep-sec-label">Quick Wins — Current Pain → AI Fix</div>
+          <div style="margin-top:12px;">
+            <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;padding:10px 16px;margin-bottom:4px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;width:24px;"></div>
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Current Pain</div>
+              <div></div>
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">AI Fix</div>
+            </div>
+            ${quickWins}
+          </div>
         </div>
 
-        <div class="cta-block">
+        <!-- 5. RECOMMENDED SOLUTIONS -->
+        <div class="rep-section">
+          <div class="rep-sec-label">Recommended Solutions</div>
+          <div style="margin-top:12px;">
+            <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;padding:8px 0;border-bottom:1px solid rgba(13,14,18,.12);">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Tool</div>
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Cost</div>
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Setup</div>
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Saves</div>
+            </div>
+            ${solutions}
+          </div>
+        </div>
+
+        <!-- 6. 4-DAY PLAN -->
+        <div class="rep-section">
+          <div class="rep-sec-label">Your 4-Day Quick Wins Plan</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px;">
+            ${dayPlan}
+          </div>
+        </div>
+
+        <!-- 7. WHAT COMES AFTER -->
+        <div class="rep-section">
+          <div class="rep-sec-label">What Comes After Quick Wins</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px;">
+            ${afterItems}
+          </div>
+        </div>
+
+        <!-- 8. FINANCIAL IMPACT -->
+        <div class="rep-section">
+          <div class="rep-sec-label">Financial Impact</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px;">
+            <div style="background:var(--amber);border-radius:10px;padding:24px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-bottom:8px;">Monthly Net ROI</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;margin-bottom:6px;">${fin.monthlyNetROI||'—'}</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;">${fin.roiNote||''}</div>
+            </div>
+            <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Weekly Time Returned</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${fin.hoursPerWeek||'—'} hrs</div>
+              <div style="font-size:12px;color:#666;">Est. monthly value: ${fin.monthlyHoursValue||'—'}</div>
+            </div>
+            <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Total Monthly Tool Cost</div>
+              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${fin.monthlyToolCost||'—'}</div>
+              <div style="font-size:12px;color:#666;">Across all recommended tools</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. NEXT STEPS -->
+        <div class="rep-section">
+          <div class="rep-sec-label">Next Steps</div>
+          <div style="margin-top:8px;">${nextSteps}</div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-block" id="report-cta-block">
           <div class="cta-eyebrow">You're Ready for the Session</div>
           <div class="cta-heading">Book your 60-min call with Mike</div>
           <div class="cta-sub">Pay below and book your session. Mike will have reviewed your report before you speak.</div>
-          <div class="cta-btns">
+          <div class="cta-btns" id="cta-btns-area">
             <a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Pay & Book →</a>
           </div>
           <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px;">After payment you'll receive a booking link by email.</div>
@@ -757,6 +1006,51 @@ function dlTranscript() {
   a.href = URL.createObjectURL(blob);
   a.download = (window._clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
   a.click();
+}
+
+
+// ── EMAIL NOTIFICATION ───────────────────────────────────
+async function sendReportEmail(r, coworkPrompt) {
+  try {
+    const configRaw = localStorage.getItem('loam_email_config');
+    if (!configRaw) return;
+    const config = JSON.parse(configRaw);
+    if (!config.serviceId || !config.templateId || !config.publicKey || !config.toEmail) return;
+
+    if (!window.emailjs) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+        s.onload = resolve; s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      window.emailjs.init({ publicKey: config.publicKey });
+    }
+
+    const fp = r.founderProfile || {};
+    const reportSummary = [
+      'CLIENT: ' + (r.clientName || 'Unknown'),
+      'FOCUS: ' + (r.focusLabel || 'Full Assessment'),
+      'BLIND SPOT: ' + (r.blindSpot?.name || '—') + ' — ' + (r.blindSpot?.summary || ''),
+      'PERCEIVED: ' + (r.perceivedVsActual?.perceived || '—'),
+      'ACTUAL: ' + (r.perceivedVsActual?.actual || '—'),
+      'NOW: ' + (r.actionPlan?.now || []).join(' | '),
+      'SOON: ' + (r.actionPlan?.soon || []).join(' | '),
+      'CLOSING: ' + (r.closingNote || '')
+    ].join('\n\n');
+
+    await window.emailjs.send(config.serviceId, config.templateId, {
+      to_email:      config.toEmail,
+      client_name:   r.clientName || 'Unknown',
+      focus:         r.focusLabel || 'Full Assessment',
+      report_summary: reportSummary,
+      cowork_prompt: (coworkPrompt || '').substring(0, 6000),
+      date:          new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
+    });
+    console.log('Report email sent');
+  } catch(e) {
+    console.warn('Email send failed:', e);
+  }
 }
 
 function renderFallback() {
