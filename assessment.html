@@ -698,13 +698,14 @@ async function send() {
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:800,
+        model:'claude-sonnet-5', max_tokens:800,
+        thinking:{type:'disabled'},
         system: SYSTEM(sections[currentSec].name, focusKey, known),
         messages: history
       })
     });
     const data = await res.json();
-    let reply = data.content?.[0]?.text || 'Connection issue — please try again.';
+    let reply = data.content?.find(b => b.type === 'text')?.text || 'Connection issue — please try again.';
     const done = reply.includes('[DONE]');
     reply = reply.replace(/\[DONE\]/g,'').trim();
     rmTyping();
@@ -882,10 +883,10 @@ Return ONLY valid JSON — no markdown, no preamble, no trailing commas:
   try {
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:4000, messages:[{role:'user',content:prompt}] })
+      body:JSON.stringify({ model:'claude-sonnet-5', max_tokens:6000, thinking:{type:'disabled'}, messages:[{role:'user',content:prompt}] })
     });
     const data = await res.json();
-    let raw = data.content?.[0]?.text || '{}';
+    let raw = data.content?.find(b => b.type === 'text')?.text || '{}';
     raw = raw.replace(/```json|```/g,'').trim();
     renderReport(JSON.parse(raw));
   } catch(e) { renderFallback(); }
