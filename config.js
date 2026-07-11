@@ -35,7 +35,7 @@ window.LOAM_CONFIG = {
   // (200 emails/month free). See SETUP.md for the template to create.
   EMAILJS: {
     serviceId:  'service_z1hokmh',
-    templateId: '',   // e.g. 'template_xyz5678'
-    publicKey:  ''    // e.g. 'AbCdEfGhIjKlMnOpQ'
+    templateId: 'template_8bn6q0c',
+    publicKey:  '-7XafDIbYHPjmCWUX'
   }
 };
