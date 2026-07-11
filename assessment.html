@@ -235,12 +235,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
       <div class="wyg-item"><div class="wyg-icon">📞</div><div class="wyg-label">60-min session with Mike</div><div class="wyg-sub">Walk through the findings and build your action plan together</div></div>
     </div>
     <div class="price-note"><span class="price-badge">$500 – $1,000</span> Payment collected after assessment, before your session.</div>
-    <button class="btn" onclick="showFocus()">Start My Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+    <button class="btn" onclick="showContact()">Start My Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+  </div>
+
+  <!-- ── CONTACT CAPTURE ── -->
+  <div id="s-contact" class="hidden">
+    <div class="intro-eyebrow">Step 1 of 3 — Your Info</div>
+    <div class="focus-title">Before we start —<br>where should we send<br>your session confirmation?</div>
+    <div class="focus-sub">Just your first name and email. This is how Mike follows up and how your session gets confirmed.</div>
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:420px;margin-bottom:10px;">
+      <div>
+        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;" for="contact-name">First Name</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-name" placeholder="First name" autocomplete="given-name" onkeydown="if(event.key==='Enter')document.getElementById('contact-email').focus()">
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;" for="contact-email">Email</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="email" id="contact-email" placeholder="you@yourbusiness.com" autocomplete="email" onkeydown="if(event.key==='Enter')submitContact()">
+      </div>
+    </div>
+    <div class="focus-note" id="contact-note" style="min-height:18px;"></div>
+    <button class="btn" onclick="submitContact()">Continue <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
   </div>
 
   <!-- ── FOCUS SELECTOR ── -->
   <div id="s-focus" class="hidden">
-    <div class="intro-eyebrow">Step 1 of 2 — Choose Your Focus</div>
+    <div class="intro-eyebrow">Step 2 of 3 — Choose Your Focus</div>
     <div class="focus-title">What do you want to<br>get clarity on?</div>
     <div class="focus-sub">Pick one or combine them. Your assessment adapts to what you choose.</div>
     <div class="focus-grid">
@@ -312,6 +331,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 </div>
 </main>
 
+<script src="config.js"></script>
 <script>
 
 // ── TEST MODE ────────────────────────────────────────────
@@ -327,11 +347,42 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── CONFIG ──────────────────────────────────────────────
-// Replace these with your real links before going live
-const STRIPE_LINK    = 'https://buy.stripe.com/YOUR_STRIPE_LINK';
-const CALENDLY_LINK  = 'https://calendly.com/YOUR_CALENDLY_LINK';
-const MIKE_EMAIL     = 'mike@loamstrategy.com';
+// Real links and email credentials live in config.js so they
+// deploy to every visitor. localStorage (set on the admin page)
+// can override EmailJS credentials on this device for testing.
+const SITE = window.LOAM_CONFIG || {};
+const isRealLink = (u) => typeof u === 'string' && /^https:\/\//.test(u) && !/YOUR_/.test(u);
+const STRIPE_LINK    = isRealLink(SITE.STRIPE_LINK)   ? SITE.STRIPE_LINK   : '';
+const CALENDLY_LINK  = isRealLink(SITE.CALENDLY_LINK) ? SITE.CALENDLY_LINK : '';
+const MIKE_EMAIL     = SITE.MIKE_EMAIL || 'mike@loamstrategy.com';
 const SAVE_KEY       = 'loam_v2';
+
+function getEmailConfig() {
+  // Device-level override (admin page) wins, then site config.
+  let local = {};
+  try { local = JSON.parse(localStorage.getItem('loam_email_config') || '{}'); } catch(e) {}
+  const site = SITE.EMAILJS || {};
+  const cfg = {
+    serviceId:  local.serviceId  || site.serviceId  || '',
+    templateId: local.templateId || site.templateId || '',
+    publicKey:  local.publicKey  || site.publicKey  || '',
+    toEmail:    local.toEmail    || MIKE_EMAIL
+  };
+  return (cfg.serviceId && cfg.templateId && cfg.publicKey && cfg.toEmail) ? cfg : null;
+}
+
+async function loadEmailJs(publicKey) {
+  if (!window.emailjs) {
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    window.emailjs.init({ publicKey });
+  }
+  return window.emailjs;
+}
 
 // ── SECTIONS BY FOCUS ───────────────────────────────────
 const SECTION_SETS = {
@@ -417,12 +468,14 @@ let history = [];
 let allAnswers = {};
 let currentAnswers = '';
 let isLoading = false;
+let clientName = '';
+let clientEmail = '';
 
 // ── PERSISTENCE ─────────────────────────────────────────
 function save() {
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify({
-      focusKey, allAnswers, currentSec, savedAt: Date.now()
+      focusKey, allAnswers, currentSec, clientName, clientEmail, savedAt: Date.now()
     }));
     flashSave();
   } catch(e){}
@@ -470,20 +523,81 @@ function showResumeBanner(state) {
 function resumeSession() {
   const s = window._savedState;
   if (!s) return;
-  focusKey   = s.focusKey || 'all';
-  allAnswers = s.allAnswers || {};
-  currentSec = s.currentSec || 0;
+  focusKey    = s.focusKey || 'all';
+  allAnswers  = s.allAnswers || {};
+  currentSec  = s.currentSec || 0;
+  clientName  = s.clientName || '';
+  clientEmail = s.clientEmail || '';
   sections   = SECTION_SETS[focusKey];
   selectedFocus = new Set(focusKey === 'all' ? ['all'] : [focusKey]);
   document.getElementById('s-intro').classList.add('hidden');
+  if (!clientEmail) {
+    // Saved session from before contact capture existed — collect it now.
+    window._resumeAfterContact = true;
+    document.getElementById('s-contact').classList.remove('hidden');
+    document.getElementById('hdr-phase').textContent = 'Your Info';
+    document.getElementById('contact-name').focus();
+    return;
+  }
+  enterChat();
+}
+
+function enterChat() {
+  document.getElementById('s-contact').classList.add('hidden');
   document.getElementById('s-chat').classList.remove('hidden');
   document.getElementById('prog').style.width = ((currentSec / sections.length) * 100) + '%';
   loadSection(currentSec);
 }
 
 // ── FLOW ────────────────────────────────────────────────
-function showFocus() {
+function showContact() {
   document.getElementById('s-intro').classList.add('hidden');
+  document.getElementById('s-contact').classList.remove('hidden');
+  document.getElementById('prog').style.width = '3%';
+  document.getElementById('hdr-phase').textContent = 'Your Info';
+  document.getElementById('contact-name').focus();
+}
+
+function submitContact() {
+  const name  = document.getElementById('contact-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  const note  = document.getElementById('contact-note');
+  if (!name) { note.textContent = 'Please enter your first name.'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { note.textContent = 'Please enter a valid email address.'; return; }
+  note.textContent = '';
+  clientName  = name;
+  clientEmail = email;
+  save();
+  sendStartNotification();
+  if (window._resumeAfterContact) {
+    window._resumeAfterContact = false;
+    enterChat();
+  } else {
+    showFocus();
+  }
+}
+
+// Heads-up email to Mike the moment someone starts — so no lead
+// is lost even if they close the tab mid-assessment.
+async function sendStartNotification() {
+  try {
+    const config = getEmailConfig();
+    if (!config) return;
+    const emailjs = await loadEmailJs(config.publicKey);
+    await emailjs.send(config.serviceId, config.templateId, {
+      to_email:       config.toEmail,
+      client_name:    clientName + (IS_TEST ? ' [TEST]' : ''),
+      client_email:   clientEmail,
+      focus:          'Assessment just started',
+      report_summary: `${clientName} (${clientEmail}) just started the assessment. If no completion email follows, this is your follow-up lead.`,
+      cowork_prompt:  '',
+      date:           new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
+    });
+  } catch(e) { console.warn('Start notification failed:', e); }
+}
+
+function showFocus() {
+  document.getElementById('s-contact').classList.add('hidden');
   document.getElementById('s-focus').classList.remove('hidden');
   document.getElementById('prog').style.width = '5%';
   document.getElementById('hdr-phase').textContent = 'Choose Your Focus';
@@ -666,6 +780,8 @@ async function generateReport() {
 
   const prompt = `You are a senior AI business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a complete, specific, actionable 9-section report based entirely on their answers. Every section must reference something they actually said — no generic advice, no filler.
 
+CLIENT NAME: ${clientName || 'not provided'}
+CLIENT EMAIL: ${clientEmail || 'not provided'}
 FOCUS: ${focusLabel}
 ANSWERS:
 ${answers}
@@ -682,7 +798,7 @@ CRITICAL RULES:
 
 Return ONLY valid JSON — no markdown, no preamble, no trailing commas:
 {
-  "clientName": "extract first name from answers, or use Your Business",
+  "clientName": "use CLIENT NAME above if provided, otherwise extract first name from answers, or use Your Business",
   "businessType": "1-3 word description extracted from their answers",
   "focusLabel": "${focusLabel}",
   "date": "${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}",
@@ -858,7 +974,24 @@ function renderReport(r) {
   // Build Cowork handoff
   const coworkPrompt = buildCoworkPrompt(r);
   window._coworkPrompt = coworkPrompt;
-  window._clientName = r.clientName || 'Client';
+  window._clientName = clientName || r.clientName || 'Client';
+
+  // CTA buttons adapt to what's configured in config.js
+  let ctaButtons, ctaNote;
+  if (STRIPE_LINK) {
+    ctaButtons = `<a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Book &amp; Pay for Your Session — $500 →</a>`;
+    ctaNote = CALENDLY_LINK
+      ? 'After payment you\'ll land on the booking calendar — pick your time slot there.'
+      : 'After payment you\'ll receive a booking link by email.';
+  } else if (CALENDLY_LINK) {
+    ctaButtons = `<a class="btn btn-stripe" href="${CALENDLY_LINK}" target="_blank">Book Your Session →</a>`;
+    ctaNote = 'Payment is collected before your session — Mike will send details with your confirmation.';
+  } else {
+    const subj = encodeURIComponent(`Assessment complete — ${window._clientName}`);
+    const body = encodeURIComponent(`Hi Mike,\n\nI just completed my assessment and I'm ready to book my session.\n\nMy Cowork Prompt is pasted below:\n\n[paste your copied Cowork Prompt here]`);
+    ctaButtons = `<a class="btn btn-stripe" href="mailto:${MIKE_EMAIL}?subject=${subj}&body=${body}">Email Mike to Book Your Session →</a>`;
+    ctaNote = 'Copy your Cowork Prompt below and include it in your email — it helps Mike prepare for your session.';
+  }
 
   // Save session to localStorage for admin dashboard
   try {
@@ -866,7 +999,8 @@ function renderReport(r) {
     sessions.unshift({
       id: Date.now(),
       date: new Date().toISOString(),
-      clientName: r.clientName || 'Unknown',
+      clientName: clientName || r.clientName || 'Unknown',
+      clientEmail: clientEmail || '',
       focusLabel: r.focusLabel || 'Full Assessment',
       isTest: IS_TEST,
       answers: Object.fromEntries(Object.entries(allAnswers).filter(([k]) => !k.endsWith('_p'))),
@@ -1070,17 +1204,17 @@ function renderReport(r) {
           <div class="cta-heading">Book your 60-min call with Mike</div>
           <div class="cta-sub">Pay below and book your session. Mike will have reviewed your report before you speak.</div>
           <div class="cta-btns" id="cta-btns-area">
-            <a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Pay & Book →</a>
+            ${ctaButtons}
           </div>
-          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px;">After payment you'll receive a booking link by email.</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px;">${ctaNote}</div>
         </div>
 
       </div>
     </div>
 
     <div class="handoff-panel" style="margin-top:24px;">
-      <div class="handoff-label">⚡ Mike — Cowork Handoff Ready</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;">The Stage 2A Cowork prompt is ready for this client.</div>
+      <div class="handoff-label">⚡ Your Cowork Prompt</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;">This is the structured summary of your assessment. Copy it and include it when you book — it's how Mike prepares for your session.</div>
       <div class="handoff-btns">
         <button class="hbtn primary" onclick="copyCowork()">Copy Cowork Prompt</button>
         <button class="hbtn" onclick="window.print()">Download PDF</button>
@@ -1092,7 +1226,14 @@ function renderReport(r) {
 
 function buildCoworkPrompt(r) {
   const get = (key) => allAnswers[key] || allAnswers[key+'_p'] || '—';
-  return `Use the blind-spot-report skill and homerun-action-plan skill to build a client package for ${r.clientName||'this client'}.
+  return `LOAM STRATEGY — COWORK PROMPT
+Generated: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
+
+CLIENT PROFILE
+Name: ${clientName || r.clientName || '—'}
+Email: ${clientEmail || '—'}
+
+Use the blind-spot-report skill and homerun-action-plan skill to build a client package for ${clientName || r.clientName || 'this client'}.
 
 FOCUS: ${r.focusLabel}
 
@@ -1156,24 +1297,12 @@ function dlTranscript() {
 // ── EMAIL NOTIFICATION ───────────────────────────────────
 async function sendReportEmail(r, coworkPrompt) {
   try {
-    const configRaw = localStorage.getItem('loam_email_config');
-    if (!configRaw) return;
-    const config = JSON.parse(configRaw);
-    if (!config.serviceId || !config.templateId || !config.publicKey || !config.toEmail) return;
+    const config = getEmailConfig();
+    if (!config) { console.warn('Email not configured — no notification sent.'); return; }
+    await loadEmailJs(config.publicKey);
 
-    if (!window.emailjs) {
-      await new Promise((resolve, reject) => {
-        const s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-        s.onload = resolve; s.onerror = reject;
-        document.head.appendChild(s);
-      });
-      window.emailjs.init({ publicKey: config.publicKey });
-    }
-
-    const fp = r.founderProfile || {};
     const reportSummary = [
-      'CLIENT: ' + (r.clientName || 'Unknown'),
+      'CLIENT: ' + (clientName || r.clientName || 'Unknown') + (clientEmail ? ' <' + clientEmail + '>' : ''),
       'FOCUS: ' + (r.focusLabel || 'Full Assessment'),
       'BLIND SPOT: ' + (r.blindSpot?.name || '—') + ' — ' + (r.blindSpot?.summary || ''),
       'PERCEIVED: ' + (r.perceivedVsActual?.perceived || '—'),
@@ -1185,7 +1314,8 @@ async function sendReportEmail(r, coworkPrompt) {
 
     await window.emailjs.send(config.serviceId, config.templateId, {
       to_email:      config.toEmail,
-      client_name:   r.clientName || 'Unknown',
+      client_name:   (clientName || r.clientName || 'Unknown') + (IS_TEST ? ' [TEST]' : ''),
+      client_email:  clientEmail || '',
       focus:         r.focusLabel || 'Full Assessment',
       report_summary: reportSummary,
       cowork_prompt: (coworkPrompt || '').substring(0, 6000),

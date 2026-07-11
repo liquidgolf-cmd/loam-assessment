@@ -215,6 +215,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 
   <div class="admin-body">
 
+    <!-- GO-LIVE STATUS -->
+    <div class="admin-section">
+      <div class="admin-section-title">Go-Live Status</div>
+      <div class="admin-section-sub">These are set in <code style="background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;font-size:12px;">config.js</code> in the site repo, so they work for every client. See SETUP.md in the repo for step-by-step instructions.</div>
+      <div id="status-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+
     <!-- TEST MODE INFO -->
     <div class="test-info">
       <div class="test-info-dot"></div>
@@ -289,14 +296,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
           </div>
         </div>
         <button class="save-config-btn" onclick="saveEmailConfig()">Save Configuration</button>
+        <button class="save-config-btn" style="background:rgba(255,255,255,.08);color:var(--cream);margin-left:10px;" onclick="sendTestEmail()">Send Test Email</button>
         <span class="config-saved" id="config-saved">✓ Saved</span>
+        <div id="test-email-status" style="font-size:12px;color:var(--muted);margin-top:12px;"></div>
       </div>
     </div>
 
     <!-- PAST ASSESSMENTS -->
     <div class="admin-section">
-      <div class="admin-section-title">Past Assessments</div>
-      <div class="admin-section-sub">Completed assessments saved on this device. Click any row to view answers, key findings, and the Cowork handoff prompt.</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div>
+          <div class="admin-section-title">Past Assessments</div>
+          <div class="admin-section-sub">Completed assessments saved on this device (the email notification is your permanent record — this list only shows sessions run in this browser). Click any row to view answers, key findings, and the Cowork handoff prompt.</div>
+        </div>
+        <button class="btn-preview" style="margin-bottom:24px;" onclick="exportSessions()">Export All (JSON)</button>
+      </div>
       <div id="sessions-list"></div>
     </div>
 
@@ -330,6 +344,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   </div>
 </div>
 
+<script src="config.js"></script>
 <script>
 // ── PASSWORD ─────────────────────────────────────────────
 // Change this to whatever password you want
@@ -358,8 +373,100 @@ function logout() {
 function showAdmin() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-screen').style.display = 'block';
+  renderStatus();
   loadEmailConfig();
   loadSessions();
+}
+
+// ── GO-LIVE STATUS ───────────────────────────────────────
+const SITE = window.LOAM_CONFIG || {};
+const isRealLink = (u) => typeof u === 'string' && /^https:\/\//.test(u) && !/YOUR_/.test(u);
+
+function getMergedEmailConfig() {
+  let local = {};
+  try { local = JSON.parse(localStorage.getItem('loam_email_config') || '{}'); } catch(e) {}
+  const site = SITE.EMAILJS || {};
+  return {
+    serviceId:  local.serviceId  || site.serviceId  || '',
+    templateId: local.templateId || site.templateId || '',
+    publicKey:  local.publicKey  || site.publicKey  || '',
+    toEmail:    local.toEmail    || SITE.MIKE_EMAIL || 'mike@loamstrategy.com',
+    _localOverride: !!(local.serviceId || local.templateId || local.publicKey)
+  };
+}
+
+function renderStatus() {
+  const ej = getMergedEmailConfig();
+  const ejSite = SITE.EMAILJS || {};
+  const ejInConfigJs = !!(ejSite.serviceId && ejSite.templateId && ejSite.publicKey);
+  const items = [
+    {
+      label: 'Stripe payment link ($500 session)',
+      ok: isRealLink(SITE.STRIPE_LINK),
+      okText: SITE.STRIPE_LINK,
+      missingText: 'Not set — clients see an "Email Mike to Book" button instead. Add your Payment Link URL to config.js.'
+    },
+    {
+      label: 'Calendly booking link',
+      ok: isRealLink(SITE.CALENDLY_LINK),
+      okText: SITE.CALENDLY_LINK,
+      missingText: 'Not set — add your Calendly event URL to config.js and set it as the Stripe after-payment redirect.'
+    },
+    {
+      label: 'Email notifications (EmailJS)',
+      ok: ejInConfigJs,
+      okText: 'Configured in config.js — every client\'s completion triggers an email to ' + ej.toEmail,
+      missingText: (ej.serviceId && ej.templateId && ej.publicKey)
+        ? '⚠ Configured only in this browser (below) — works for YOUR tests, but real clients\' browsers won\'t send you email until the credentials are in config.js.'
+        : 'Not set — you will not be notified when clients finish. Create an EmailJS account and add credentials to config.js.'
+    }
+  ];
+  document.getElementById('status-list').innerHTML = items.map(it => `
+    <div style="background:var(--ink2);border:1px solid ${it.ok ? 'rgba(46,204,113,.25)' : 'rgba(231,76,60,.25)'};border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:16px;line-height:1;">${it.ok ? '✅' : '🔴'}</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--cream);margin-bottom:4px;">${it.label}</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;word-break:break-all;">${it.ok ? it.okText : it.missingText}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── TEST EMAIL ───────────────────────────────────────────
+async function sendTestEmail() {
+  const status = document.getElementById('test-email-status');
+  const cfg = getMergedEmailConfig();
+  if (!cfg.serviceId || !cfg.templateId || !cfg.publicKey) {
+    status.textContent = 'Fill in and save the EmailJS credentials first (or add them to config.js).';
+    status.style.color = '#e74c3c';
+    return;
+  }
+  status.textContent = 'Sending…';
+  status.style.color = 'var(--muted)';
+  try {
+    if (!window.emailjs) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+        s.onload = resolve; s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      window.emailjs.init({ publicKey: cfg.publicKey });
+    }
+    await window.emailjs.send(cfg.serviceId, cfg.templateId, {
+      to_email:       cfg.toEmail,
+      client_name:    'Test Client [ADMIN TEST]',
+      client_email:   'test@example.com',
+      focus:          'Test Email',
+      report_summary: 'This is a test email from the Loam Strategy admin dashboard. If you received it, EmailJS is configured correctly.',
+      cowork_prompt:  '(test — no cowork prompt)',
+      date:           new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
+    });
+    status.textContent = '✓ Test email sent to ' + cfg.toEmail + ' — check your inbox (and spam folder).';
+    status.style.color = 'var(--green)';
+  } catch(e) {
+    status.textContent = '✕ Send failed: ' + (e?.text || e?.message || 'unknown error') + ' — double-check the Service ID, Template ID, and Public Key.';
+    status.style.color = '#e74c3c';
+  }
 }
 
 // Check session on load
@@ -386,9 +493,7 @@ function saveEmailConfig() {
 
 function loadEmailConfig() {
   try {
-    const raw = localStorage.getItem(EMAIL_CONFIG_KEY);
-    if (!raw) return;
-    const c = JSON.parse(raw);
+    const c = getMergedEmailConfig();
     if (c.serviceId)  document.getElementById('ejs-service').value  = c.serviceId;
     if (c.templateId) document.getElementById('ejs-template').value = c.templateId;
     if (c.publicKey)  document.getElementById('ejs-pubkey').value   = c.publicKey;
@@ -418,7 +523,7 @@ function loadSessions() {
       <div class="session-date">${dateStr}<br><span style="font-size:11px;">${timeStr}</span></div>
       <div>
         <div class="session-name">${s.clientName || 'Unknown'}</div>
-        <div class="session-focus">${s.focusLabel || '—'}</div>
+        <div class="session-focus">${s.focusLabel || '—'}${s.clientEmail ? ' · ' + s.clientEmail : ''}</div>
       </div>
       <span class="session-badge ${s.isTest ? 'test' : 'live'}">${s.isTest ? 'Test' : 'Live'}</span>
       <span class="session-arrow">→</span>
@@ -458,6 +563,13 @@ function openSession(idx) {
     `${s.clientName || 'Unknown'} · ${new Date(s.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
 
   document.getElementById('session-modal-body').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-label">Contact</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">Name</div><div class="detail-field-val">${s.clientName || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Email</div><div class="detail-field-val">${s.clientEmail ? `<a href="mailto:${s.clientEmail}" style="color:var(--amber);">${s.clientEmail}</a>` : '—'}</div></div>
+      </div>
+    </div>
     <div class="detail-section">
       <div class="detail-label">Executive Summary</div>
       <div class="detail-grid">
@@ -529,6 +641,16 @@ function dlSessionTranscript() {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = (s.clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
+  a.click();
+}
+
+function exportSessions() {
+  let sessions = [];
+  try { sessions = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]'); } catch(e) {}
+  const blob = new Blob([JSON.stringify(sessions, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'loam-sessions-' + new Date().toISOString().slice(0,10) + '.json';
   a.click();
 }
 
