@@ -34,7 +34,7 @@ window.LOAM_CONFIG = {
   // EmailJS credentials — create free account at https://emailjs.com
   // (200 emails/month free). See SETUP.md for the template to create.
   EMAILJS: {
-    serviceId:  '',   // e.g. 'service_abc1234'
+    serviceId:  'service_z1hokmh',
     templateId: '',   // e.g. 'template_xyz5678'
     publicKey:  ''    // e.g. 'AbCdEfGhIjKlMnOpQ'
   }
