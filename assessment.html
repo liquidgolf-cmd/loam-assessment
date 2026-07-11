@@ -9,11 +9,31 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#141414;--bg2:#1C1C1C;--bg3:#222;
-  --amber:#E8932A;--amber-dim:rgba(232,147,42,.1);
-  --slate:#3D5A73;--slate-dim:rgba(61,90,115,.15);
-  --cream:#F5F2ED;--muted:rgba(245,242,237,.45);
-  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --background:hsl(220,15%,16%);
+  --card:hsl(220,15%,20%);
+  --card-elevated:hsl(220,14%,24%);
+  --foreground:hsl(210,20%,92%);
+  --muted-foreground:hsl(220,10%,55%);
+  --primary:hsl(33,42%,48%);
+  --primary-hover:hsl(33,42%,40%);
+  --primary-dim:hsl(33 42% 48% / 0.12);
+  --primary-border:hsl(33 42% 48% / 0.25);
+  --section-light:hsl(210,16%,91%);
+  --text-on-light:hsl(220,15%,16%);
+  --muted-on-light:hsl(220,10%,42%);
+  --rule:hsl(210 20% 92% / 0.08);
+  --rule-strong:hsl(210 20% 92% / 0.14);
+  --bg:var(--background);
+  --bg2:var(--card);
+  --bg3:var(--card-elevated);
+  --cream:var(--foreground);
+  --amber:var(--primary);
+  --amber-dim:var(--primary-dim);
+  --amber-border:var(--primary-border);
+  --muted:var(--muted-foreground);
+  --slate:#3D5A73;
+  --slate-dim:hsl(220 15% 55% / 0.15);
+  --rule2:var(--rule-strong);
   --r:12px;--r-sm:8px;
   --shadow:0 4px 24px rgba(0,0,0,.2);
 }
@@ -21,10 +41,9 @@ html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
 
 /* HEADER */
-.hdr{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:50;background:rgba(20,20,20,.95);backdrop-filter:blur(10px);}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
-.logo-name{font-size:14px;font-weight:500;}
+.hdr{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:50;background:hsl(220 15% 16% / 0.95);backdrop-filter:blur(10px);}
+.logo{display:flex;align-items:center;}
+.logo-img{height:32px;width:auto;display:block;}
 .hdr-phase{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);transition:all .3s;}
 .progress-bar{height:2px;background:var(--rule);}
 .progress-fill{height:100%;background:var(--amber);transition:width .5s ease;width:0%;}
@@ -35,7 +54,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:15px 28px;border-radius:var(--r-sm);border:none;cursor:pointer;transition:all .2s;}
-.btn:hover{background:#d4831f;transform:translateY(-2px);}
+.btn:hover{background:var(--primary-hover);transform:translateY(-2px);}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 .btn-outline{background:transparent;color:var(--muted);border:1px solid var(--rule2);}
 .btn-outline:hover{color:var(--cream);border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.04);transform:translateY(-1px);}
@@ -51,14 +70,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .wyg-label{font-size:13px;font-weight:600;color:var(--cream);margin-bottom:4px;}
 .wyg-sub{font-size:12px;color:var(--muted);line-height:1.5;}
 .price-note{font-size:13px;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:8px;}
-.price-badge{background:var(--amber-dim);border:1px solid rgba(232,147,42,.25);color:var(--amber);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;}
+.price-badge{background:var(--amber-dim);border:1px solid var(--primary-border);color:var(--amber);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;}
 
 /* FOCUS SELECTOR */
 .focus-title{font-family:'Fraunces',serif;font-size:28px;font-weight:300;margin-bottom:8px;letter-spacing:-.01em;}
 .focus-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
 .focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
 .focus-card{background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .2s;text-align:left;}
-.focus-card:hover{border-color:rgba(232,147,42,.4);background:var(--amber-dim);}
+.focus-card:hover{border-color:hsl(33 42% 48% / 0.4);background:var(--amber-dim);}
 .focus-card.selected{border-color:var(--amber);background:var(--amber-dim);}
 .focus-icon{font-size:24px;margin-bottom:10px;}
 .focus-label{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
@@ -90,10 +109,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 @keyframes bonce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 .input-row{border-top:1px solid var(--rule);padding:12px 16px;display:flex;gap:10px;align-items:flex-end;}
 .txt-input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--rule);border-radius:var(--r-sm);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--cream);resize:none;min-height:42px;max-height:120px;line-height:1.5;transition:border-color .2s;}
-.txt-input:focus{outline:none;border-color:rgba(232,147,42,.4);}
+.txt-input:focus{outline:none;border-color:hsl(33 42% 48% / 0.4);}
 .txt-input::placeholder{color:rgba(255,255,255,.2);}
 .send-btn{width:38px;height:38px;background:var(--amber);border:none;border-radius:var(--r-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-.send-btn:hover{background:#d4831f;transform:translateY(-1px);}
+.send-btn:hover{background:var(--primary-hover);transform:translateY(-1px);}
 .send-btn:disabled{background:var(--rule);cursor:not-allowed;transform:none;}
 .send-btn svg{width:15px;height:15px;}
 .bottom-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
@@ -106,7 +125,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .continue-hint{font-size:13px;color:var(--muted);font-style:italic;}
 
 /* REPORT */
-.report-wrap{background:var(--cream);color:var(--bg);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.4);}
+.report-wrap{background:var(--section-light);color:var(--text-on-light);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.4);}
 .rep-cover{background:var(--bg);padding:48px 44px;border-bottom:1px solid rgba(255,255,255,.06);}
 .rep-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:16px;}
 .rep-title{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:300;color:#fff;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;}
@@ -115,24 +134,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .rep-mk{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:4px;}
 .rep-mv{font-size:13px;color:rgba(255,255,255,.65);}
 .rep-body{padding:40px 44px;}
-.rep-section{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid rgba(13,14,18,.1);}
+.rep-section{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid hsl(220 15% 16% / 0.1);}
 .rep-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .rep-sec-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
-.rep-sec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--bg);margin-bottom:12px;letter-spacing:-.01em;}
-.rep-sec-body{font-size:15px;line-height:1.8;color:#3A3A3A;}
+.rep-sec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--text-on-light);margin-bottom:12px;letter-spacing:-.01em;}
+.rep-sec-body{font-size:15px;line-height:1.8;color:var(--muted-on-light);}
 .rep-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
-.chip{background:rgba(13,14,18,.07);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:500;color:var(--bg);}
-.chip.amber{background:rgba(232,147,42,.12);color:#8B4E00;}
+.chip{background:hsl(220 15% 16% / 0.07);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:500;color:var(--text-on-light);}
+.chip.amber{background:var(--primary-dim);color:hsl(33,42%,30%);}
 .now-soon{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px;}
 .nsl-card{border-radius:var(--r-sm);padding:18px;}
-.nsl-card.now{background:rgba(232,147,42,.1);border:1px solid rgba(232,147,42,.2);}
-.nsl-card.soon{background:rgba(61,90,115,.1);border:1px solid rgba(61,90,115,.2);}
-.nsl-card.later{background:rgba(13,14,18,.05);border:1px solid rgba(13,14,18,.08);}
+.nsl-card.now{background:var(--primary-dim);border:1px solid var(--primary-border);}
+.nsl-card.soon{background:var(--slate-dim);border:1px solid hsl(220 15% 55% / 0.2);}
+.nsl-card.later{background:hsl(220 15% 16% / 0.05);border:1px solid hsl(220 15% 16% / 0.08);}
 .nsl-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
-.nsl-card.now .nsl-label{color:#8B4E00;}
-.nsl-card.soon .nsl-label{color:#1F3D52;}
-.nsl-card.later .nsl-label{color:rgba(13,14,18,.4);}
-.nsl-item{font-size:13px;line-height:1.6;color:#3A3A3A;margin-bottom:6px;padding-left:10px;border-left:2px solid rgba(13,14,18,.1);}
+.nsl-card.now .nsl-label{color:hsl(33,42%,30%);}
+.nsl-card.soon .nsl-label{color:hsl(210,25%,30%);}
+.nsl-card.later .nsl-label{color:hsl(220 15% 16% / 0.4);}
+.nsl-item{font-size:13px;line-height:1.6;color:var(--muted-on-light);margin-bottom:6px;padding-left:10px;border-left:2px solid hsl(220 15% 16% / 0.1);}
 .cta-block{background:var(--bg);border-radius:var(--r);padding:36px;text-align:center;margin-top:8px;}
 .cta-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:14px;}
 .cta-heading{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.01em;}
@@ -143,13 +162,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .btn-cal:hover{background:rgba(255,255,255,.12);color:#fff;transform:translateY(-1px);}
 
 /* HANDOFF */
-.handoff-panel{background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.2);border-radius:var(--r);padding:20px 24px;margin-top:24px;}
+.handoff-panel{background:hsl(33 42% 48% / 0.08);border:1px solid var(--primary-border);border-radius:var(--r);padding:20px 24px;margin-top:24px;}
 .handoff-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;}
 .handoff-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
 .hbtn{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid var(--rule2);border-radius:var(--r-sm);padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
 .hbtn:hover{background:rgba(255,255,255,.1);color:#fff;}
 .hbtn.primary{background:var(--amber);color:var(--bg);border-color:var(--amber);}
-.hbtn.primary:hover{background:#d4831f;}
+.hbtn.primary:hover{background:var(--primary-hover);}
 .copy-confirm{font-size:11px;color:var(--amber);margin-top:8px;display:none;}
 
 .loading-block{display:flex;flex-direction:column;align-items:center;gap:16px;padding:60px;text-align:center;}
@@ -195,8 +214,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 <header class="hdr">
   <div class="logo">
-    <div class="logo-mark">L</div>
-    <span class="logo-name">Loam Strategy</span>
+    <img src="assets/loam-logo.png" alt="Loam Strategy" class="logo-img">
   </div>
   <span class="hdr-phase" id="hdr-phase">Business Assessment</span>
 </header>
@@ -436,7 +454,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function showResumeBanner(state) {
   const intro = document.getElementById('s-intro');
   const b = document.createElement('div');
-  b.style.cssText = 'background:rgba(232,147,42,.1);border:1px solid rgba(232,147,42,.2);border-radius:10px;padding:18px 22px;margin-bottom:28px;';
+  b.style.cssText = 'background:hsl(33 42% 48% / 0.1);border:1px solid hsl(33 42% 48% / 0.2);border-radius:10px;padding:18px 22px;margin-bottom:28px;';
   const done = Object.keys(state.allAnswers||{}).filter(k=>!k.endsWith('_p')).length;
   b.innerHTML = `
     <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;">Assessment In Progress</div>
@@ -767,7 +785,7 @@ function renderReport(r) {
 
   // Impact/Effort Matrix — numbered dots + legend below
   const matrixItems = r.matrixItems || [];
-  const matrixColors = {quick:'#E8932A', strategic:'#3D5A73', defer:'#888', fillin:'#bbb'};
+  const matrixColors = {quick:'var(--amber)', strategic:'#3D5A73', defer:'#888', fillin:'#bbb'};
   const matrixDots = matrixItems.map((item, i) => {
     const left = Math.min(Math.max(Math.round(item.effort * 100), 5), 95);
     const top  = Math.min(Math.max(Math.round((1 - item.impact) * 100), 5), 95);
@@ -780,56 +798,56 @@ function renderReport(r) {
     const color = matrixColors[item.type] || '#888';
     return `<div style="display:flex;align-items:flex-start;gap:10px;">
       <div style="width:20px;height:20px;background:${color};color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">${i+1}</div>
-      <div style="font-size:12px;color:#555;line-height:1.5;">${item.label}</div>
+      <div style="font-size:12px;color:var(--muted-on-light);line-height:1.5;">${item.label}</div>
     </div>`;
   }).join('');
 
   // Quick wins — up to 6
   const quickWins = (r.quickWins||[]).slice(0,6).map((q,i) => `
-    <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;align-items:center;padding:14px 16px;background:${i%2===0?'rgba(13,14,18,.03)':'#fff'};border-radius:8px;margin-bottom:8px;">
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:rgba(13,14,18,.2);font-weight:600;width:24px;">0${i+1}</div>
-      <div style="font-size:13px;color:#555;line-height:1.5;">${q.pain}</div>
+    <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;align-items:center;padding:14px 16px;background:${i%2===0?'hsl(220 15% 16% / 0.03)':'#fff'};border-radius:8px;margin-bottom:8px;">
+      <div style="font-family:'Fraunces',serif;font-size:18px;color:hsl(220 15% 16% / 0.2);font-weight:600;width:24px;">0${i+1}</div>
+      <div style="font-size:13px;color:var(--muted-on-light);line-height:1.5;">${q.pain}</div>
       <div style="color:var(--amber);font-size:16px;text-align:center;">→</div>
-      <div style="font-size:13px;font-weight:600;color:var(--bg);line-height:1.5;">${q.fix}</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text-on-light);line-height:1.5;">${q.fix}</div>
     </div>`).join('');
 
   // Solutions table
   const solutions = (r.solutions||[]).map(s => `
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid rgba(13,14,18,.08);">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid hsl(220 15% 16% / 0.08);">
       <div>
-        <div style="font-size:13px;font-weight:600;color:var(--bg);margin-bottom:3px;">${s.num} — ${s.tool}</div>
-        <div style="font-size:12px;color:#666;line-height:1.5;">${s.useCase}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--text-on-light);margin-bottom:3px;">${s.num} — ${s.tool}</div>
+        <div style="font-size:12px;color:var(--muted-on-light);line-height:1.5;">${s.useCase}</div>
       </div>
-      <div style="font-size:12px;color:#555;">${s.cost}</div>
-      <div style="font-size:12px;color:#555;">${s.setup}</div>
+      <div style="font-size:12px;color:var(--muted-on-light);">${s.cost}</div>
+      <div style="font-size:12px;color:var(--muted-on-light);">${s.setup}</div>
       <div style="font-size:12px;font-weight:600;color:#1a7a45;background:rgba(26,122,69,.08);padding:3px 8px;border-radius:4px;display:inline-block;">${s.saves}</div>
     </div>`).join('');
 
   // 4-Day plan
   const dayPlan = (r.dayPlan||[]).map(d => `
-    <div style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px rgba(13,14,18,.06);">
-      <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:rgba(232,147,42,.25);line-height:1;margin-bottom:4px;">${d.day}</div>
+    <div style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px hsl(220 15% 16% / 0.06);">
+      <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:hsl(33 42% 48% / 0.25);line-height:1;margin-bottom:4px;">${d.day}</div>
       <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:10px;">${d.label}</div>
-      <div style="font-size:13px;line-height:1.65;color:#555;margin-bottom:10px;">${d.task}</div>
+      <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);margin-bottom:10px;">${d.task}</div>
       <div style="font-size:11px;font-weight:600;color:var(--amber);">${d.tool}</div>
     </div>`).join('');
 
   // What comes after
   const afterItems = (r.whatComesAfter||[]).map(a => `
-    <div style="background:#fff;border-radius:10px;padding:22px;box-shadow:0 2px 12px rgba(13,14,18,.06);">
+    <div style="background:#fff;border-radius:10px;padding:22px;box-shadow:0 2px 12px hsl(220 15% 16% / 0.06);">
       <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;">${a.n}</div>
-      <div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:8px;">${a.opportunity}</div>
-      <div style="font-size:13px;line-height:1.65;color:#555;margin-bottom:10px;">${a.why}</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text-on-light);margin-bottom:8px;">${a.opportunity}</div>
+      <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);margin-bottom:10px;">${a.why}</div>
       <div style="font-size:11px;font-weight:600;color:#3D5A73;background:rgba(61,90,115,.08);padding:4px 10px;border-radius:4px;display:inline-block;">${a.tool}</div>
     </div>`).join('');
 
   // Next steps
   const nextSteps = (r.nextSteps||[]).map((s,i) => `
-    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(13,14,18,.08);">
-      <div style="width:28px;height:28px;background:rgba(232,147,42,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0;">${i+1}</div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid hsl(220 15% 16% / 0.08);">
+      <div style="width:28px;height:28px;background:var(--primary-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0;">${i+1}</div>
       <div>
-        <div style="font-size:14px;font-weight:600;color:var(--bg);margin-bottom:4px;">${s.title}</div>
-        <div style="font-size:13px;line-height:1.65;color:#555;">${s.detail}</div>
+        <div style="font-size:14px;font-weight:600;color:var(--text-on-light);margin-bottom:4px;">${s.title}</div>
+        <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);">${s.detail}</div>
       </div>
     </div>`).join('');
 
@@ -927,16 +945,16 @@ function renderReport(r) {
           <div class="rep-sec-title">${r.blindSpot?.name||'The Clarity Gap'}</div>
           <div class="rep-sec-body" style="margin-bottom:20px;">${r.blindSpot?.summary||''}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <div style="background:rgba(13,14,18,.04);border-radius:8px;padding:16px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:8px;">What you said</div>
-              <div style="font-size:14px;color:#555;font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
+            <div style="background:hsl(220 15% 16% / 0.04);border-radius:8px;padding:16px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-on-light);margin-bottom:8px;">What you said</div>
+              <div style="font-size:14px;color:var(--muted-on-light);font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
             </div>
-            <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:8px;padding:16px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#8B4E00;margin-bottom:8px;">What it actually is</div>
-              <div style="font-size:14px;color:var(--bg);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
+            <div style="background:var(--primary-dim);border:1px solid hsl(33 42% 48% / 0.15);border-radius:8px;padding:16px;">
+              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:hsl(33,42%,30%);margin-bottom:8px;">What it actually is</div>
+              <div style="font-size:14px;color:var(--text-on-light);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
             </div>
           </div>
-          ${r.perceivedVsActual?.gap ? `<div style="background:rgba(61,90,115,.06);border-left:3px solid #3D5A73;border-radius:0 6px 6px 0;padding:12px 16px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;margin-bottom:6px;">Why the gap matters</div><div style="font-size:13px;line-height:1.65;color:#555;">${r.perceivedVsActual.gap}</div></div>` : ''}
+          ${r.perceivedVsActual?.gap ? `<div style="background:rgba(61,90,115,.06);border-left:3px solid #3D5A73;border-radius:0 6px 6px 0;padding:12px 16px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;margin-bottom:6px;">Why the gap matters</div><div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);">${r.perceivedVsActual.gap}</div></div>` : ''}
         </div>
 
         <!-- 3. IMPACT / EFFORT MATRIX -->

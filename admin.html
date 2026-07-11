@@ -9,10 +9,29 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#141414;--ink2:#1E1E1E;--ink3:#2A2A2A;
-  --amber:#E8932A;--amber-dim:rgba(232,147,42,.1);--amber-border:rgba(232,147,42,.22);
-  --cream:#F5F2ED;--muted:rgba(245,242,237,.48);
-  --rule:rgba(255,255,255,.07);--rule2:rgba(255,255,255,.12);
+  --background:hsl(220,15%,16%);
+  --card:hsl(220,15%,20%);
+  --card-elevated:hsl(220,14%,24%);
+  --foreground:hsl(210,20%,92%);
+  --muted-foreground:hsl(220,10%,55%);
+  --primary:hsl(33,42%,48%);
+  --primary-hover:hsl(33,42%,40%);
+  --primary-dim:hsl(33 42% 48% / 0.12);
+  --primary-border:hsl(33 42% 48% / 0.25);
+  --section-light:hsl(210,16%,91%);
+  --text-on-light:hsl(220,15%,16%);
+  --muted-on-light:hsl(220,10%,42%);
+  --rule:hsl(210 20% 92% / 0.08);
+  --rule-strong:hsl(210 20% 92% / 0.14);
+  --ink:var(--background);
+  --ink2:var(--card);
+  --ink3:var(--card-elevated);
+  --cream:var(--foreground);
+  --amber:var(--primary);
+  --amber-dim:var(--primary-dim);
+  --amber-border:var(--primary-border);
+  --muted:var(--muted-foreground);
+  --rule2:var(--rule-strong);
   --green:#2ECC71;--green-dim:rgba(46,204,113,.1);
   --r:10px;
 }
@@ -36,27 +55,26 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   font-size:15px;color:var(--cream);margin-bottom:12px;text-align:center;
   letter-spacing:.15em;
 }
-.login-input:focus{outline:none;border-color:rgba(232,147,42,.5);}
+.login-input:focus{outline:none;border-color:hsl(33 42% 48% / 0.5);}
 .login-input::placeholder{color:rgba(255,255,255,.2);letter-spacing:0;}
 .login-btn{
   width:100%;background:var(--amber);color:var(--ink);
   font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;
   padding:14px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;
 }
-.login-btn:hover{background:#d4831f;}
+.login-btn:hover{background:var(--primary-hover);}
 .login-error{font-size:12px;color:#e74c3c;margin-top:10px;display:none;}
 
 /* ADMIN LAYOUT */
 #admin-screen{display:none;}
 .admin-nav{
-  padding:16px 40px;background:rgba(20,20,20,.95);backdrop-filter:blur(10px);
+  padding:16px 40px;background:hsl(220 15% 16% / 0.95);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--rule);
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:50;
 }
 .admin-logo{display:flex;align-items:center;gap:10px;}
-.admin-mark{width:28px;height:28px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13px;color:var(--ink);}
-.admin-title{font-size:14px;font-weight:600;color:var(--cream);}
+.admin-logo-img{height:32px;width:auto;display:block;}
 .admin-badge{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-border);padding:3px 10px;border-radius:20px;}
 .logout-btn{font-size:12px;color:var(--muted);background:none;border:1px solid var(--rule);border-radius:var(--r);padding:7px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .logout-btn:hover{color:var(--cream);border-color:var(--rule2);}
@@ -86,7 +104,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   padding:10px 18px;border-radius:var(--r);border:none;cursor:pointer;
   text-decoration:none;transition:all .2s;
 }
-.btn-test:hover{background:#d4831f;transform:translateY(-1px);}
+.btn-test:hover{background:var(--primary-hover);transform:translateY(-1px);}
 .btn-preview{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);
@@ -115,7 +133,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   background:rgba(255,255,255,.05);border:1px solid var(--rule2);border-radius:var(--r);
   padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--cream);
 }
-.config-input:focus{outline:none;border-color:rgba(232,147,42,.4);}
+.config-input:focus{outline:none;border-color:hsl(33 42% 48% / 0.4);}
 .config-input::placeholder{color:rgba(255,255,255,.2);}
 .config-note{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
 .config-note a{color:var(--amber);text-decoration:none;}
@@ -125,7 +143,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   font-size:13px;font-weight:600;padding:11px 22px;border-radius:var(--r);
   border:none;cursor:pointer;transition:all .2s;
 }
-.save-config-btn:hover{background:#d4831f;}
+.save-config-btn:hover{background:var(--primary-hover);}
 .config-saved{font-size:12px;color:var(--green);margin-left:12px;display:none;}
 
 /* SESSIONS */
@@ -189,8 +207,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 <div id="admin-screen">
   <nav class="admin-nav">
     <div class="admin-logo">
-      <div class="admin-mark">L</div>
-      <span class="admin-title">Loam Strategy</span>
+      <img src="assets/loam-logo.png" alt="Loam Strategy" class="admin-logo-img">
       <span class="admin-badge">Admin</span>
     </div>
     <button class="logout-btn" onclick="logout()">Sign Out</button>

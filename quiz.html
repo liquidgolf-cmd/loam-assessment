@@ -9,14 +9,29 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#141414;
-  --bg2:#1C1C1C;
-  --amber:#E8932A;
-  --amber-dim:rgba(232,147,42,.12);
+  --background:hsl(220,15%,16%);
+  --card:hsl(220,15%,20%);
+  --card-elevated:hsl(220,14%,24%);
+  --foreground:hsl(210,20%,92%);
+  --muted-foreground:hsl(220,10%,55%);
+  --primary:hsl(33,42%,48%);
+  --primary-hover:hsl(33,42%,40%);
+  --primary-dim:hsl(33 42% 48% / 0.12);
+  --primary-border:hsl(33 42% 48% / 0.25);
+  --section-light:hsl(210,16%,91%);
+  --text-on-light:hsl(220,15%,16%);
+  --muted-on-light:hsl(220,10%,42%);
+  --rule:hsl(210 20% 92% / 0.08);
+  --rule-strong:hsl(210 20% 92% / 0.14);
+  --bg:var(--background);
+  --bg2:var(--card);
+  --bg3:var(--card-elevated);
+  --cream:var(--foreground);
+  --amber:var(--primary);
+  --amber-dim:var(--primary-dim);
+  --amber-border:var(--primary-border);
+  --muted:var(--muted-foreground);
   --slate:#3D5A73;
-  --cream:#F5F2ED;
-  --muted:rgba(245,242,237,.45);
-  --rule:rgba(255,255,255,.07);
   --r:12px;
 }
 html{scroll-behavior:smooth}
@@ -24,9 +39,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* HEADER */
 .hdr{padding:22px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
-.logo-name{font-size:14px;font-weight:500;color:var(--cream);}
+.logo{display:flex;align-items:center;}
+.logo-img{height:32px;width:auto;display:block;}
 .hdr-right{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
 
 /* PROGRESS */
@@ -46,7 +60,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
 .meta-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:15px 30px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;letter-spacing:-.01em;}
-.btn:hover{background:#d4831f;transform:translateY(-2px);}
+.btn:hover{background:var(--primary-hover);transform:translateY(-2px);}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--rule);margin-left:12px;}
 .btn-ghost:hover{color:var(--cream);border-color:rgba(255,255,255,.2);transform:translateY(-1px);}
 
@@ -55,7 +69,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .q-text{font-family:'Fraunces',serif;font-size:clamp(22px,4vw,30px);font-weight:300;line-height:1.25;color:var(--cream);margin-bottom:36px;letter-spacing:-.01em;}
 .options{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
 .opt{display:flex;align-items:center;gap:14px;background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all .2s;text-align:left;}
-.opt:hover{border-color:rgba(232,147,42,.4);background:rgba(232,147,42,.06);}
+.opt:hover{border-color:hsl(33 42% 48% / 0.4);background:hsl(33 42% 48% / 0.06);}
 .opt.selected{border-color:var(--amber);background:var(--amber-dim);}
 .opt-letter{width:26px;height:26px;border-radius:6px;background:var(--rule);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--muted);flex-shrink:0;transition:all .2s;}
 .opt.selected .opt-letter{background:var(--amber);color:var(--bg);}
@@ -64,7 +78,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* RESULT */
 .result-card{background:var(--bg2);border:1px solid var(--rule);border-radius:16px;overflow:hidden;}
-.result-top{padding:40px 40px 32px;background:linear-gradient(135deg,rgba(232,147,42,.15) 0%,rgba(232,147,42,.04) 100%);border-bottom:1px solid var(--rule);}
+.result-top{padding:40px 40px 32px;background:linear-gradient(135deg,hsl(33 42% 48% / 0.15) 0%,hsl(33 42% 48% / 0.04) 100%);border-bottom:1px solid var(--rule);}
 .result-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:16px;}
 .result-diagnosis{font-family:'Fraunces',serif;font-size:clamp(32px,6vw,52px);font-weight:600;line-height:1.05;color:var(--cream);letter-spacing:-.02em;margin-bottom:16px;}
 .result-sub{font-size:15px;line-height:1.75;color:var(--muted);max-width:480px;}
@@ -73,7 +87,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .result-insight{font-size:15px;line-height:1.75;color:var(--cream);margin-bottom:28px;padding-left:16px;border-left:2px solid var(--amber);}
 .result-tip-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;}
 .result-tip{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:32px;}
-.result-cta{background:linear-gradient(135deg,var(--bg) 0%,#1a1a1a 100%);border:1px solid rgba(232,147,42,.2);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.result-cta{background:linear-gradient(135deg,var(--bg) 0%,var(--card-elevated) 100%);border:1px solid var(--primary-border);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .result-cta-text{}
 .result-cta-h{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:6px;}
 .result-cta-s{font-size:13px;color:var(--muted);line-height:1.5;}
@@ -91,8 +105,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 <body>
 <header class="hdr">
   <div class="logo">
-    <div class="logo-mark">L</div>
-    <span class="logo-name">Loam Strategy</span>
+    <img src="assets/loam-logo.png" alt="Loam Strategy" class="logo-img">
   </div>
   <span class="hdr-right">Business Clarity Quiz</span>
 </header>
