@@ -578,5 +578,54 @@ const observer = new IntersectionObserver(entries => {
 }, {threshold:0.15});
 document.querySelectorAll('.reveal, .path-step').forEach(el => observer.observe(el));
 </script>
+<script src="config.js"></script>
+<script>
+// Temporary promo bar — driven entirely by PROMO in config.js.
+(function(){
+  var promo = (window.LOAM_CONFIG || {}).PROMO;
+  if (!promo || !promo.enabled || !promo.text) return;
+
+  var bar = document.createElement('div');
+  bar.id = 'promo-bar';
+  bar.innerHTML =
+    '<span class="promo-gift">🎁</span>' +
+    '<span class="promo-text">' + promo.text + '</span>' +
+    (promo.ctaText ? '<a class="promo-cta" href="assessment.html">' + promo.ctaText + ' →</a>' : '');
+  document.body.insertBefore(bar, document.body.firstChild);
+
+  // Push the fixed nav and page content down by the bar's height so nothing
+  // is hidden underneath it. A ResizeObserver keeps the offset correct through
+  // font load, text wrap, and viewport changes (a one-time measure would be
+  // stale once the web font reflows the text to two lines).
+  var nav = document.getElementById('nav');
+  function fit(){
+    var h = bar.offsetHeight;
+    document.body.style.paddingTop = h + 'px';
+    if (nav) nav.style.top = h + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(bar);
+})();
+</script>
+<style>
+#promo-bar{
+  position:fixed; top:0; left:0; right:0; z-index:101;
+  background:var(--amber); color:var(--ink);
+  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+  padding:9px 20px; text-align:center;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+#promo-bar .promo-gift{font-size:15px;line-height:1;}
+#promo-bar .promo-text{max-width:70ch;}
+#promo-bar .promo-cta{
+  color:var(--ink); text-decoration:underline; text-underline-offset:3px;
+  font-weight:700; white-space:nowrap; transition:opacity .2s;
+}
+#promo-bar .promo-cta:hover{opacity:.7;}
+@media(max-width:600px){ #promo-bar{font-size:12px;padding:8px 14px;} }
+</style>
 </body>
 </html>

@@ -234,7 +234,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
       <div class="wyg-item"><div class="wyg-icon">📋</div><div class="wyg-label">Your personal report</div><div class="wyg-sub">Blind spots, opportunities, and a Now / Soon / Later plan</div></div>
       <div class="wyg-item"><div class="wyg-icon">📞</div><div class="wyg-label">60-min session with Mike</div><div class="wyg-sub">Walk through the findings and build your action plan together</div></div>
     </div>
-    <div class="price-note"><span class="price-badge">$500 – $1,000</span> Payment collected after assessment, before your session.</div>
+    <div id="promo-callout" class="hidden" style="background:var(--amber-dim);border:1px solid var(--primary-border);border-radius:var(--r);padding:16px 20px;margin-bottom:24px;display:flex;align-items:flex-start;gap:12px;">
+      <span style="font-size:20px;line-height:1;">🎁</span>
+      <div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:5px;">Launch Offer</div>
+        <div id="promo-callout-text" style="font-size:14px;line-height:1.6;color:var(--cream);"></div>
+      </div>
+    </div>
+    <div class="price-note" id="price-note"><span class="price-badge">$500 – $1,000</span> Payment collected after assessment, before your session.</div>
     <button class="btn" onclick="showContact()">Start My Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
   </div>
 
@@ -343,6 +350,16 @@ window.addEventListener('DOMContentLoaded', () => {
     banner.className = 'test-banner';
     banner.textContent = '⚠ Test Mode Active — Data saved · Emails sent · Payment step skipped';
     document.body.insertBefore(banner, document.body.firstChild);
+  }
+  // Promo callout on the intro screen, driven by PROMO in config.js.
+  const promo = (window.LOAM_CONFIG || {}).PROMO;
+  if (promo && promo.enabled && promo.text) {
+    const co = document.getElementById('promo-callout');
+    const ct = document.getElementById('promo-callout-text');
+    if (co && ct) { ct.textContent = promo.text; co.classList.remove('hidden'); }
+    // Hide the normal price note so the messaging isn't contradictory.
+    const pn = document.getElementById('price-note');
+    if (pn) pn.classList.add('hidden');
   }
 });
 

@@ -37,5 +37,16 @@ window.LOAM_CONFIG = {
     serviceId:  'service_z1hokmh',
     templateId: 'template_8bn6q0c',
     publicKey:  '-7XafDIbYHPjmCWUX'
+  },
+
+  // Temporary promo banner (homepage top bar + assessment intro callout).
+  // To take the offer down: set enabled to false and push — or just ask
+  // Claude to "turn off the promo." There is no automatic counter (a static
+  // site can't count visitors across devices), so count the completions
+  // from your notification emails and switch this off when you hit 5.
+  PROMO: {
+    enabled: true,
+    text:    'Launch offer: the first 5 people to complete the full Assessment get it free — normally $500.',
+    ctaText: 'Claim your spot'   // button label on the homepage bar
   }
 };
