@@ -29,7 +29,7 @@ window.LOAM_CONFIG = {
   CALENDLY_LINK: '',
 
   // Where admin notifications go.
-  MIKE_EMAIL: 'mike@loamstrategy.com',
+  MIKE_EMAIL: 'loamstrategy@gmail.com',
 
   // EmailJS credentials — create free account at https://emailjs.com
   // (200 emails/month free). See SETUP.md for the template to create.
