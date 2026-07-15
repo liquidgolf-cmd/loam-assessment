@@ -371,7 +371,7 @@ const SITE = window.LOAM_CONFIG || {};
 const isRealLink = (u) => typeof u === 'string' && /^https:\/\//.test(u) && !/YOUR_/.test(u);
 const STRIPE_LINK    = isRealLink(SITE.STRIPE_LINK)   ? SITE.STRIPE_LINK   : '';
 const CALENDLY_LINK  = isRealLink(SITE.CALENDLY_LINK) ? SITE.CALENDLY_LINK : '';
-const MIKE_EMAIL     = SITE.MIKE_EMAIL || 'mike@loamstrategy.com';
+const MIKE_EMAIL     = SITE.MIKE_EMAIL || 'loamstrategy@gmail.com';
 const SAVE_KEY       = 'loam_v2';
 
 function getEmailConfig() {

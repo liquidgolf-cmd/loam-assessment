@@ -292,7 +292,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
           </div>
           <div class="config-field">
             <label class="config-label">Your Email (to receive reports)</label>
-            <input class="config-input" id="ejs-email" placeholder="mike@loamstrategy.com"/>
+            <input class="config-input" id="ejs-email" placeholder="loamstrategy@gmail.com"/>
           </div>
         </div>
         <button class="save-config-btn" onclick="saveEmailConfig()">Save Configuration</button>
@@ -390,7 +390,7 @@ function getMergedEmailConfig() {
     serviceId:  local.serviceId  || site.serviceId  || '',
     templateId: local.templateId || site.templateId || '',
     publicKey:  local.publicKey  || site.publicKey  || '',
-    toEmail:    local.toEmail    || SITE.MIKE_EMAIL || 'mike@loamstrategy.com',
+    toEmail:    local.toEmail    || SITE.MIKE_EMAIL || 'loamstrategy@gmail.com',
     _localOverride: !!(local.serviceId || local.templateId || local.publicKey)
   };
 }
