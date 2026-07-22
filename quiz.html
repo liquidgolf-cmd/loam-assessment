@@ -3,35 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Clarity Quiz — Loam Strategy</title>
+<title>Blind Spot Assessment — Loam Strategy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --background:hsl(220,15%,16%);
-  --card:hsl(220,15%,20%);
-  --card-elevated:hsl(220,14%,24%);
-  --foreground:hsl(210,20%,92%);
-  --muted-foreground:hsl(220,10%,55%);
-  --primary:hsl(33,42%,48%);
-  --primary-hover:hsl(33,42%,40%);
-  --primary-dim:hsl(33 42% 48% / 0.12);
-  --primary-border:hsl(33 42% 48% / 0.25);
-  --section-light:hsl(210,16%,91%);
-  --text-on-light:hsl(220,15%,16%);
-  --muted-on-light:hsl(220,10%,42%);
-  --rule:hsl(210 20% 92% / 0.08);
-  --rule-strong:hsl(210 20% 92% / 0.14);
-  --bg:var(--background);
-  --bg2:var(--card);
-  --bg3:var(--card-elevated);
-  --cream:var(--foreground);
-  --amber:var(--primary);
-  --amber-dim:var(--primary-dim);
-  --amber-border:var(--primary-border);
-  --muted:var(--muted-foreground);
+  --bg:#141414;
+  --bg2:#1C1C1C;
+  --amber:#E8932A;
+  --amber-dim:rgba(232,147,42,.12);
   --slate:#3D5A73;
+  --slate-dim:rgba(61,90,115,.35);
+  --cream:#F5F2ED;
+  --muted:rgba(245,242,237,.45);
+  --rule:rgba(255,255,255,.07);
   --r:12px;
 }
 html{scroll-behavior:smooth}
@@ -39,8 +25,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* HEADER */
 .hdr{padding:22px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
-.logo{display:flex;align-items:center;}
-.logo-img{height:32px;width:auto;display:block;}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
+.logo-name{font-size:14px;font-weight:500;color:var(--cream);}
 .hdr-right{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
 
 /* PROGRESS */
@@ -56,11 +43,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .intro-title{font-family:'Fraunces',serif;font-size:clamp(36px,6vw,54px);font-weight:300;line-height:1.1;letter-spacing:-.02em;color:var(--cream);margin-bottom:16px;}
 .intro-title strong{font-weight:600;}
 .intro-body{font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:36px;max-width:480px;}
-.intro-meta{display:flex;gap:24px;margin-bottom:44px;}
+.intro-meta{display:flex;gap:24px;margin-bottom:44px;flex-wrap:wrap;}
 .meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
 .meta-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);}
 .btn{display:inline-flex;align-items:center;gap:10px;background:var(--amber);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:15px 30px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;letter-spacing:-.01em;}
-.btn:hover{background:var(--primary-hover);transform:translateY(-2px);}
+.btn:hover{background:#d4831f;transform:translateY(-2px);}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--rule);margin-left:12px;}
 .btn-ghost:hover{color:var(--cream);border-color:rgba(255,255,255,.2);transform:translateY(-1px);}
 
@@ -68,26 +55,50 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .q-num{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;}
 .q-text{font-family:'Fraunces',serif;font-size:clamp(22px,4vw,30px);font-weight:300;line-height:1.25;color:var(--cream);margin-bottom:36px;letter-spacing:-.01em;}
 .options{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
-.opt{display:flex;align-items:center;gap:14px;background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all .2s;text-align:left;}
-.opt:hover{border-color:hsl(33 42% 48% / 0.4);background:hsl(33 42% 48% / 0.06);}
+.opt{display:flex;align-items:center;gap:14px;background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:16px 20px;cursor:pointer;transition:all .2s;text-align:left;width:100%;font-family:inherit;}
+.opt:hover{border-color:rgba(232,147,42,.4);background:rgba(232,147,42,.06);}
 .opt.selected{border-color:var(--amber);background:var(--amber-dim);}
 .opt-letter{width:26px;height:26px;border-radius:6px;background:var(--rule);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--muted);flex-shrink:0;transition:all .2s;}
 .opt.selected .opt-letter{background:var(--amber);color:var(--bg);}
 .opt-text{font-size:15px;color:var(--cream);line-height:1.4;}
 .q-nav{display:flex;align-items:center;gap:12px;}
+.q-back{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:inherit;}
+.q-back:hover{color:var(--cream);}
+.q-back:disabled{opacity:0;pointer-events:none;}
 
 /* RESULT */
 .result-card{background:var(--bg2);border:1px solid var(--rule);border-radius:16px;overflow:hidden;}
-.result-top{padding:40px 40px 32px;background:linear-gradient(135deg,hsl(33 42% 48% / 0.15) 0%,hsl(33 42% 48% / 0.04) 100%);border-bottom:1px solid var(--rule);}
+.result-top{padding:40px 40px 32px;background:linear-gradient(135deg,rgba(232,147,42,.15) 0%,rgba(232,147,42,.04) 100%);border-bottom:1px solid var(--rule);}
 .result-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:16px;}
 .result-diagnosis{font-family:'Fraunces',serif;font-size:clamp(32px,6vw,52px);font-weight:600;line-height:1.05;color:var(--cream);letter-spacing:-.02em;margin-bottom:16px;}
 .result-sub{font-size:15px;line-height:1.75;color:var(--muted);max-width:480px;}
+.result-severity{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--bg);background:var(--amber);padding:5px 12px;border-radius:20px;margin-bottom:16px;}
 .result-body{padding:32px 40px;}
+
+/* BREAKDOWN */
+.breakdown{margin-bottom:32px;}
+.breakdown-label-top{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:16px;}
+.breakdown-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+.breakdown-name{width:96px;font-size:13px;color:var(--muted);flex-shrink:0;}
+.breakdown-track{flex:1;height:6px;background:var(--rule);border-radius:3px;overflow:hidden;}
+.breakdown-fill{height:100%;background:var(--slate);border-radius:3px;transition:width .8s ease;width:0%;}
+.breakdown-row.primary .breakdown-name{color:var(--cream);font-weight:600;}
+.breakdown-row.primary .breakdown-fill{background:var(--amber);}
+.breakdown-count{width:44px;text-align:right;font-size:12px;color:var(--muted);flex-shrink:0;}
+
 .result-insight-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
 .result-insight{font-size:15px;line-height:1.75;color:var(--cream);margin-bottom:28px;padding-left:16px;border-left:2px solid var(--amber);}
+.result-blindspot-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;}
+.result-blindspot{font-size:15px;line-height:1.75;color:var(--cream);margin-bottom:28px;padding-left:16px;border-left:2px solid var(--slate);}
+.result-cost-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:10px;}
+.result-cost{font-size:14px;line-height:1.7;color:var(--cream);margin-bottom:28px;background:rgba(232,147,42,.06);border:1px solid rgba(232,147,42,.15);border-radius:var(--r);padding:18px 20px;}
+.result-secondary-section{margin-bottom:32px;padding-top:24px;border-top:1px solid var(--rule);}
+.result-secondary-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:12px;}
+.result-secondary-h{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--cream);margin-bottom:8px;letter-spacing:-.01em;}
+.result-secondary-text{font-size:14px;line-height:1.7;color:var(--muted);}
 .result-tip-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;}
 .result-tip{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:32px;}
-.result-cta{background:linear-gradient(135deg,var(--bg) 0%,var(--card-elevated) 100%);border:1px solid var(--primary-border);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.result-cta{background:linear-gradient(135deg,var(--bg) 0%,#1a1a1a 100%);border:1px solid rgba(232,147,42,.2);border-radius:var(--r);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .result-cta-text{}
 .result-cta-h{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:6px;}
 .result-cta-s{font-size:13px;color:var(--muted);line-height:1.5;}
@@ -99,15 +110,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
   .result-top,.result-body{padding:24px 20px}
   .result-cta{padding:20px}
   .intro-meta{flex-direction:column;gap:12px}
+  .breakdown-name{width:78px;font-size:12px;}
 }
 </style>
 </head>
 <body>
 <header class="hdr">
   <div class="logo">
-    <img src="assets/loam-logo.png" alt="Loam Strategy" class="logo-img">
+    <div class="logo-mark">L</div>
+    <span class="logo-name">Loam Strategy</span>
   </div>
-  <span class="hdr-right">Business Clarity Quiz</span>
+  <span class="hdr-right">Blind Spot Assessment</span>
 </header>
 <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
 
@@ -116,26 +129,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
     <!-- INTRO -->
     <div id="screen-intro">
-      <div class="intro-eyebrow">Free · 3 Minutes</div>
+      <div class="intro-eyebrow">Free · 8–10 Minutes</div>
       <h1 class="intro-title">What's actually<br><strong>holding your business back?</strong></h1>
-      <p class="intro-body">Eight questions. No fluff. You'll walk away knowing the one thing that's costing you the most time, money, or momentum right now.</p>
+      <p class="intro-body">This isn't a personality quiz. It's built from the same discovery process I use with paying clients, condensed into questions that get past the surface. Twelve questions, no fluff. You'll walk away with a real read on the blind spot that's costing you the most time, money, or momentum right now — and what's actually in your blind spot versus what you're already handling well.</p>
       <div class="intro-meta">
-        <div class="meta-item"><div class="meta-dot"></div>8 questions</div>
-        <div class="meta-item"><div class="meta-dot"></div>3 minutes</div>
-        <div class="meta-item"><div class="meta-dot"></div>One clear result</div>
+        <div class="meta-item"><div class="meta-dot"></div>12 questions</div>
+        <div class="meta-item"><div class="meta-dot"></div>8–10 minutes</div>
+        <div class="meta-item"><div class="meta-dot"></div>One clear blind spot</div>
       </div>
       <button class="btn" onclick="startQuiz()">
-        Take the Quiz
+        Take the Assessment
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
     </div>
 
     <!-- QUESTION -->
     <div id="screen-question" class="hidden">
-      <div class="q-num" id="q-num">Question 1 of 8</div>
+      <div class="q-num" id="q-num">Question 1 of 12</div>
       <div class="q-text" id="q-text"></div>
       <div class="options" id="options"></div>
       <div class="q-nav">
+        <button class="q-back" id="back-btn" onclick="prevQuestion()">← Back</button>
         <button class="btn" id="next-btn" onclick="nextQuestion()" disabled style="opacity:.4;cursor:not-allowed;">
           Continue →
         </button>
@@ -147,18 +161,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
       <div class="result-card">
         <div class="result-top">
           <div class="result-eyebrow">Your Business Blind Spot</div>
+          <div class="result-severity" id="result-severity"></div>
           <div class="result-diagnosis" id="result-diagnosis"></div>
           <div class="result-sub" id="result-sub"></div>
         </div>
         <div class="result-body">
-          <div class="result-insight-label">What This Means</div>
-          <div class="result-insight" id="result-insight"></div>
+          <div class="breakdown">
+            <div class="breakdown-label-top">Your Full Breakdown</div>
+            <div id="breakdown-rows"></div>
+          </div>
+          <div class="result-insight-label">What You're Already Seeing</div>
+          <div class="result-insight" id="result-seeing"></div>
+          <div class="result-blindspot-label">What You're Not Seeing</div>
+          <div class="result-blindspot" id="result-blindspot"></div>
+          <div class="result-cost-label">What This Is Costing You</div>
+          <div class="result-cost" id="result-cost"></div>
+          <div class="result-secondary-section">
+            <div class="result-secondary-label">Your Secondary Pattern</div>
+            <div class="result-secondary-h" id="result-secondary-h"></div>
+            <div class="result-secondary-text" id="result-secondary-text"></div>
+          </div>
           <div class="result-tip-label">One Thing You Can Do This Week</div>
           <div class="result-tip" id="result-tip"></div>
           <div class="result-cta">
             <div class="result-cta-text">
               <div class="result-cta-h">Want the full picture?</div>
-              <div class="result-cta-s">A full Business Assessment goes deeper — tools, processes, blind spots, and a plan. Includes a 60-min session with Mike Hill.</div>
+              <div class="result-cta-s">A full Business Assessment goes deeper — tools, processes, blind spots, and a plan. Includes a session with Mike Hill.</div>
             </div>
             <button class="btn" onclick="window.location.href='assessment.html'">
               Get the Full Assessment →
@@ -172,77 +200,175 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 </main>
 
 <script>
+// Each question has 4 options, one mapped to each blind-spot category:
+// capacity | operations | growth | clarity
 const QUESTIONS = [
   {
     text: "When you think about your typical work week, where does most of your time actually go?",
-    opts: ["Doing the actual work I'm supposed to be doing","Handling admin, emails, and scheduling","Putting out fires and fixing problems","Chasing clients or trying to get new ones"]
+    opts: [
+      { text: "Doing the actual client work myself — because if I don't do it, it doesn't get done", cat: "capacity" },
+      { text: "Admin, emails, and keeping the day-to-day running", cat: "operations" },
+      { text: "Chasing down new clients or trying to stay visible", cat: "growth" },
+      { text: "Jumping between priorities and hoping I'm working on the right one", cat: "clarity" }
+    ]
   },
   {
-    text: "What's the one thing that keeps getting pushed to tomorrow, week after week?",
-    opts: ["Building systems and processes","Marketing and growing the business","Hiring or managing people","Taking care of existing clients better"]
+    text: "What's the one thing that keeps getting pushed to next week, month after month?",
+    opts: [
+      { text: "Writing down how things actually work, so it's not all just in my head", cat: "operations" },
+      { text: "Marketing consistently — not just when business gets slow", cat: "growth" },
+      { text: "Stepping back to figure out what actually deserves my time", cat: "clarity" },
+      { text: "Finding someone to hand things off to, so I'm not doing all of it", cat: "capacity" }
+    ]
   },
   {
-    text: "If your business doubled in size tomorrow, what would break first?",
-    opts: ["I couldn't deliver the work — not enough capacity","The admin and operations would collapse","I'd lose track of clients and leads","I don't know — nothing is documented"]
+    text: "If your business doubled overnight, what would break first?",
+    opts: [
+      { text: "Me. There's only one of me and I'm already maxed out", cat: "capacity" },
+      { text: "Everything — nothing is written down, so nobody could step in and help", cat: "operations" },
+      { text: "Nothing breaks — I just don't have a way to bring in that many new clients in the first place", cat: "growth" },
+      { text: "Honestly, I don't know. I've never mapped out what growth would even require", cat: "clarity" }
+    ]
   },
   {
-    text: "How would you describe how your business finds new clients right now?",
-    opts: ["Word of mouth — mostly referrals","I actively market and it works okay","I market but it's inconsistent","I don't have a real system — it just happens"]
+    text: "How would you describe the way new clients find you right now?",
+    opts: [
+      { text: "Mostly word of mouth — when it comes, it comes", cat: "growth" },
+      { text: "I know it should be more intentional, but I haven't built an actual plan", cat: "clarity" },
+      { text: "I market sometimes, but there's no consistent process behind it", cat: "operations" },
+      { text: "I'd market more if I weren't buried in client work all the time", cat: "capacity" }
+    ]
   },
   {
-    text: "When a new client says yes, what happens next?",
-    opts: ["I have a clear onboarding process they go through","I figure it out as I go — it varies","It takes longer than it should to get started","Honestly it's a little chaotic"]
+    text: "When a new client says yes, what happens next on your end?",
+    opts: [
+      { text: "It varies every time — there's no real onboarding process", cat: "operations" },
+      { text: "I scramble to make room for them because I was already full", cat: "capacity" },
+      { text: "I'm not totally sure what the first 30 days should even look like", cat: "clarity" },
+      { text: "I celebrate the win and don't think much about how the next one shows up", cat: "growth" }
+    ]
   },
   {
-    text: "How much of your business knowledge lives only in your head?",
-    opts: ["Almost all of it — nothing is written down","Some things are documented but most aren't","We have processes but they need work","Most things are documented and followed"]
+    text: "How much of what makes your business work lives only in your head?",
+    opts: [
+      { text: "Almost all of it — if I stepped away tomorrow, nobody could run it", cat: "operations" },
+      { text: "Enough that I can't take real time off without everything slowing down", cat: "capacity" },
+      { text: "I've never actually stopped to think about it", cat: "clarity" },
+      { text: "Everything except the marketing — I never got around to building that in the first place", cat: "growth" }
+    ]
   },
   {
-    text: "What does your relationship with technology in your business look like?",
-    opts: ["I use basic tools but nothing sophisticated","I have a lot of tools but they don't talk to each other","I'm pretty tech-savvy and always looking for better ways","I avoid new tools — too much to learn"]
+    text: "What's your honest relationship with the tools and tech in your business?",
+    opts: [
+      { text: "A pile of tools that don't talk to each other, and I patch the gaps manually", cat: "operations" },
+      { text: "I don't know which tools would actually move the needle, so I haven't picked any", cat: "clarity" },
+      { text: "I don't have time to learn new tools, even ones that would save me time", cat: "capacity" },
+      { text: "I use the basics, but nothing that actually helps me reach new people", cat: "growth" }
+    ]
   },
   {
     text: "Honestly — what's the main thing stopping you from growing faster?",
-    opts: ["Not enough hours in the day","Not enough leads or new clients","Not enough money to invest","Not enough clarity on what to focus on"]
+    opts: [
+      { text: "Not enough hours in the day", cat: "capacity" },
+      { text: "Not enough leads or new clients coming in", cat: "growth" },
+      { text: "Not enough clarity on what to actually focus on", cat: "clarity" },
+      { text: "The business isn't built to handle more, even if more showed up", cat: "operations" }
+    ]
+  },
+  {
+    text: "How do you feel most days by the time the work is done?",
+    opts: [
+      { text: "Wiped out — like I did three people's jobs and I'm still behind", cat: "capacity" },
+      { text: "Fine on the work itself, frustrated that so much time went to things that should run themselves by now", cat: "operations" },
+      { text: "Busy all day, but not sure I actually moved anything forward", cat: "clarity" },
+      { text: "Fine day to day, but a little uneasy about where the next client is coming from", cat: "growth" }
+    ]
+  },
+  {
+    text: "What actually happens when you try to take a few days off?",
+    opts: [
+      { text: "I can't really disconnect — I'm still handling things from my phone", cat: "capacity" },
+      { text: "Things get a little shaky because nobody else knows how they work", cat: "operations" },
+      { text: "New business goes quiet while I'm gone, so I come back to a slower pipeline", cat: "growth" },
+      { text: "I come back and can't quite remember what I was even prioritizing before I left", cat: "clarity" }
+    ]
+  },
+  {
+    text: "How do most decisions get made in your business day to day?",
+    opts: [
+      { text: "Gut feel, in the moment — I don't have a framework I actually trust", cat: "clarity" },
+      { text: "Whatever's on fire gets decided first, everything else waits", cat: "capacity" },
+      { text: "Case by case, since we don't have documented ways of doing things", cat: "operations" },
+      { text: "Focused on keeping current clients happy — new client strategy takes a back seat", cat: "growth" }
+    ]
+  },
+  {
+    text: "If you magically had 10 extra hours this week, what would you actually do with them?",
+    opts: [
+      { text: "Finally document how a few things work, so I'm not the only one who knows", cat: "operations" },
+      { text: "Get serious about marketing and actually reaching new people", cat: "growth" },
+      { text: "Just breathe. Catch up. Maybe sleep", cat: "capacity" },
+      { text: "Honestly, I'd probably still struggle to decide what to spend it on", cat: "clarity" }
+    ]
   }
 ];
+
+const CATEGORY_LABELS = {
+  capacity: "Capacity",
+  operations: "Operations",
+  growth: "Growth",
+  clarity: "Clarity"
+};
 
 const RESULTS = {
   capacity: {
     diagnosis: "Capacity Ceiling",
-    sub: "You're doing too much yourself and it's becoming the lid on your business.",
-    insight: "Your business has likely outgrown what one person can manage without systems. You're not failing — you're full. The problem isn't effort, it's that effort alone can't scale. Every hour you spend doing work that could be delegated or automated is an hour not spent growing.",
-    tip: "Write down every task you did this week that someone else — or a tool — could have done. That list is your starting point."
+    sub: "You're doing too much yourself, and it's becoming the lid on your business.",
+    seeing: "You see the work. You know it's good, you know it needs to get done right, and you're the one making sure of that. That instinct isn't the problem.",
+    blindspot: "What's harder to see from inside the day-to-day is that your business is being capped by your own two hands, not by your ability. Every hour you spend doing what could be delegated or automated is an hour the business can't use to grow. You're not failing. You're full. But full isn't the same as sustainable.",
+    cost: "Every month this goes unaddressed, you're trading your own hours for the business's ceiling. That's hours you can't spend on the highest-value work, time with people you love that you don't get back, and a business that's worth less than it should be because it can't run without you in every room.",
+    secondaryBlurb: "Capacity is also showing up in your answers. It's not the main story yet, but watch for the weeks when everything starts running through you — that's usually the first sign it's becoming the bigger issue.",
+    tip: "Write down every task you did this week that someone else — or a tool — could have done instead. That list is where you start."
   },
   operations: {
     diagnosis: "Operations Gap",
-    sub: "Your business runs on you knowing things nobody else knows.",
-    insight: "When the process only exists in your head, every client interaction depends on your memory and your mood that day. That's not a business — that's a job. One documented process, even a rough one, is worth more than perfect work nobody can replicate.",
-    tip: "Pick your most repeated client task and write out every step, no matter how obvious it seems. That's your first system."
+    sub: "Your business runs on what's in your head, not on what's written down.",
+    seeing: "You know your business inside and out. You can walk any client through anything, adjust on the fly, and catch problems before they become real ones.",
+    blindspot: "What's harder to see is that all of that knowledge only exists in one place — you. Every client interaction depends on your memory and your mood that day. That's not a business yet. That's a very well-run job. One documented process, even a rough one, is worth more than perfect work nobody else can repeat.",
+    cost: "Every new hire takes longer to train than it should. Every client experience depends on catching you on a good day. And every time you try to actually step back, even for a few days, something slips — because nothing lives anywhere but your memory.",
+    secondaryBlurb: "Operations is also showing up in your answers. Even a rough version of documentation now saves you from a much bigger rebuild later, if this becomes your primary blind spot.",
+    tip: "Pick your most-repeated client task and write out every step, even the ones that feel obvious. That's your first real system."
   },
   growth: {
     diagnosis: "Growth Bottleneck",
-    sub: "You're good at the work but the business isn't growing the way you want.",
-    insight: "Most small businesses that plateau aren't there because the work is bad — they're there because lead generation is inconsistent. When business is good you stop marketing. When it slows you scramble. Breaking that cycle requires a simple, repeatable way to keep the pipeline moving even when you're busy.",
-    tip: "Block 30 minutes every Monday for one outreach action — one email, one post, one conversation. Consistency beats campaigns."
+    sub: "You're good at the work. The business isn't growing the way it should.",
+    seeing: "You know your work is solid. Clients who find you are happy, and word gets around. That reputation is real and it matters.",
+    blindspot: "What's harder to see is that 'word gets around' isn't a system — it's luck with a track record. Most businesses that plateau aren't there because the work is bad. They're there because lead generation only happens when things are slow, and stops the second things get busy. Breaking that cycle takes a simple, repeatable way to keep the pipeline moving, even when you're buried.",
+    cost: "Every slow month becomes a crisis instead of a blip, because there's no pipeline built ahead of time to cushion it. Referrals are a great compliment, but a poor growth strategy — they show up on their own schedule, not yours.",
+    secondaryBlurb: "Growth is also showing up in your answers. It's not your biggest issue yet, but an inconsistent pipeline has a way of becoming the main problem the moment your primary blind spot gets solved.",
+    tip: "Block 30 minutes every Monday for one outreach action — one email, one post, one conversation. Consistency beats a campaign."
   },
   clarity: {
     diagnosis: "Clarity Gap",
-    sub: "You're working hard but not always sure what to work on.",
-    insight: "This is more common than most business owners admit. When the path isn't clear, you default to busy. You do what's in front of you instead of what moves the needle. The fix isn't more effort — it's a clearer picture of what actually matters and what the next real step is.",
-    tip: "Ask yourself: if I could only accomplish one thing this week that would still matter in six months, what would it be? Do that first."
+    sub: "You're working hard. You're not always sure what you're working toward.",
+    seeing: "You show up. You put in the hours. Nobody could accuse you of coasting.",
+    blindspot: "What's harder to see is that effort and direction aren't the same thing. When the path isn't clear, the default is busy — doing what's in front of you instead of what actually moves things forward. The fix isn't more hours. It's a clearer picture of what matters right now and what the next real step actually is.",
+    cost: "Every day without a clear filter for what matters, real hours go toward things that won't matter in six months. That's not laziness — it's just missing direction. Left alone, effort quietly leaks out through a hundred small decisions.",
+    secondaryBlurb: "Clarity is also showing up in your answers. Keep an eye on it — once your primary blind spot clears up, a lack of clear priorities is often what's waiting right underneath.",
+    tip: "Ask yourself: if I could only get one thing done this week that would still matter in six months, what would it be? Do that first."
   }
 };
 
-const SCORING = {
-  0: ['capacity','capacity','operations','growth','operations','operations','growth','capacity'],
-  1: ['operations','growth','capacity','growth','operations','operations','capacity','growth'],
-  2: ['capacity','operations','growth','clarity','capacity','operations','growth','clarity'],
-  3: ['growth','clarity','clarity','clarity','operations','clarity','capacity','clarity']
-};
+function getSeverity(sorted) {
+  const top = sorted[0][1];
+  const second = sorted[1][1];
+  if (top >= 7) return "Dominant Pattern";
+  if (top - second >= 2) return "Leading Pattern";
+  return "Mixed Signals";
+}
 
 let current = 0;
-let answers = [];
+let answers = []; // array of category strings, one per answered question
 let selected = null;
 
 function startQuiz() {
@@ -256,18 +382,21 @@ function showQuestion(idx) {
   document.getElementById('q-num').textContent = `Question ${idx + 1} of ${QUESTIONS.length}`;
   document.getElementById('q-text').textContent = q.text;
   document.getElementById('prog').style.width = ((idx / QUESTIONS.length) * 100) + '%';
-  selected = null;
+  selected = answers[idx] !== undefined ? q.opts.findIndex(o => o.cat === answers[idx]) : null;
+
+  document.getElementById('back-btn').disabled = idx === 0;
 
   const btn = document.getElementById('next-btn');
-  btn.disabled = true;
-  btn.style.opacity = '.4';
-  btn.style.cursor = 'not-allowed';
+  btn.disabled = selected === null;
+  btn.style.opacity = selected === null ? '.4' : '1';
+  btn.style.cursor = selected === null ? 'not-allowed' : 'pointer';
+  btn.textContent = idx === QUESTIONS.length - 1 ? 'See My Result →' : 'Continue →';
 
   const container = document.getElementById('options');
   container.innerHTML = q.opts.map((o, i) => `
-    <button class="opt" onclick="selectOpt(${i})" id="opt-${i}">
+    <button type="button" class="opt${i === selected ? ' selected' : ''}" onclick="selectOpt(${i})" id="opt-${i}">
       <div class="opt-letter">${['A','B','C','D'][i]}</div>
-      <div class="opt-text">${o}</div>
+      <div class="opt-text">${o.text}</div>
     </button>`).join('');
 }
 
@@ -282,9 +411,15 @@ function selectOpt(i) {
   btn.style.cursor = 'pointer';
 }
 
+function prevQuestion() {
+  if (current === 0) return;
+  current--;
+  showQuestion(current);
+}
+
 function nextQuestion() {
   if (selected === null) return;
-  answers.push(selected);
+  answers[current] = QUESTIONS[current].opts[selected].cat;
   if (current < QUESTIONS.length - 1) {
     current++;
     showQuestion(current);
@@ -298,28 +433,56 @@ function showResult() {
   document.getElementById('screen-question').classList.add('hidden');
   document.getElementById('screen-result').classList.remove('hidden');
 
-  // Tally scores
-  const tally = { capacity:0, operations:0, growth:0, clarity:0 };
-  answers.forEach((ans, qi) => {
-    const key = SCORING[ans][qi];
-    if (key) tally[key]++;
-  });
-  const winner = Object.entries(tally).sort((a,b) => b[1]-a[1])[0][0];
-  const r = RESULTS[winner];
+  const tally = { capacity: 0, operations: 0, growth: 0, clarity: 0 };
+  answers.forEach(cat => { if (tally[cat] !== undefined) tally[cat]++; });
 
+  const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+  const winnerKey = sorted[0][0];
+  const secondKey = sorted[1][0];
+  const r = RESULTS[winnerKey];
+  const r2 = RESULTS[secondKey];
+
+  document.getElementById('result-severity').textContent = getSeverity(sorted);
   document.getElementById('result-diagnosis').textContent = r.diagnosis;
   document.getElementById('result-sub').textContent = r.sub;
-  document.getElementById('result-insight').textContent = r.insight;
+  document.getElementById('result-seeing').textContent = r.seeing;
+  document.getElementById('result-blindspot').textContent = r.blindspot;
+  document.getElementById('result-cost').textContent = r.cost;
   document.getElementById('result-tip').textContent = r.tip;
+
+  // Secondary blind spot — always shown, gives the report a primary + secondary read
+  document.getElementById('result-secondary-h').textContent = r2.diagnosis;
+  document.getElementById('result-secondary-text').textContent = r2.secondaryBlurb;
+
+  // Full breakdown bars, highest to lowest
+  const total = QUESTIONS.length;
+  const rowsHtml = sorted.map(([key, count]) => {
+    const pct = Math.round((count / total) * 100);
+    const isPrimary = key === winnerKey;
+    return `
+      <div class="breakdown-row${isPrimary ? ' primary' : ''}">
+        <div class="breakdown-name">${CATEGORY_LABELS[key]}</div>
+        <div class="breakdown-track"><div class="breakdown-fill" style="width:${pct}%"></div></div>
+        <div class="breakdown-count">${count}/${total}</div>
+      </div>`;
+  }).join('');
+  document.getElementById('breakdown-rows').innerHTML = rowsHtml;
+
+  // Animate bars in after paint
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.breakdown-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0%';
+      requestAnimationFrame(() => { el.style.width = w; });
+    });
+  });
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !document.getElementById('screen-question').classList.contains('hidden')) {
-    if (selected !== null) nextQuestion();
-  }
-  if (['1','2','3','4'].includes(e.key) && !document.getElementById('screen-question').classList.contains('hidden')) {
-    selectOpt(parseInt(e.key) - 1);
-  }
+  const onQuestion = !document.getElementById('screen-question').classList.contains('hidden');
+  if (!onQuestion) return;
+  if (e.key === 'Enter' && selected !== null) nextQuestion();
+  if (['1','2','3','4'].includes(e.key)) selectOpt(parseInt(e.key) - 1);
 });
 </script>
 </body>
