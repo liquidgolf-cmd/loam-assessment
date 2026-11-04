@@ -31,6 +31,13 @@ window.LOAM_CONFIG = {
   // Where admin notifications go.
   MIKE_EMAIL: 'loamstrategy@gmail.com',
 
+  // The only two places a client sees a person's name. Everything else
+  // on the site speaks as "we" / Loam Strategy. Change these if someone
+  // else runs sessions or answers quiz opt-ins. Leave one blank ('') and
+  // the site says "a Loam strategist" or "The Loam Strategy team" instead.
+  SESSION_LEAD:    'Mike',   // who runs the 60-minute session
+  QUIZ_REPLY_FROM: 'Mike',   // who signs the reply to a free quiz opt-in
+
   // EmailJS credentials — create free account at https://emailjs.com
   // (200 emails/month free). See SETUP.md for the template to create.
   EMAILJS: {
@@ -46,7 +53,25 @@ window.LOAM_CONFIG = {
   // from your notification emails and switch this off when you hit 5.
   PROMO: {
     enabled: true,
-    text:    'Launch offer: the first 5 people to complete the full Assessment get it free — normally $500.',
+    text:    'Launch offer: the first 5 people to complete the full Assessment get it free. Normally $500.',
     ctaText: 'Claim your spot'   // button label on the homepage bar
   }
 };
+
+// ─────────────────────────────────────────────────────────────
+// No need to edit below. Turns the names above into page text:
+// any element with data-lead or data-reply-from gets the name.
+// ─────────────────────────────────────────────────────────────
+window.LOAM_PEOPLE = (function () {
+  var c = window.LOAM_CONFIG || {};
+  var lead = (c.SESSION_LEAD || '').trim();
+  var reply = (c.QUIZ_REPLY_FROM || '').trim();
+  return {
+    lead:      lead  || 'a Loam strategist',
+    replyFrom: reply || 'The Loam Strategy team'
+  };
+})();
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-lead]').forEach(function (el) { el.textContent = window.LOAM_PEOPLE.lead; });
+  document.querySelectorAll('[data-reply-from]').forEach(function (el) { el.textContent = window.LOAM_PEOPLE.replyFrom; });
+});
