@@ -66,9 +66,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .intro-body{font-size:16px;line-height:1.75;color:var(--muted);margin-bottom:36px;}
 .what-you-get{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:44px;}
 .wyg-item{background:var(--bg2);border:1px solid var(--rule);border-radius:var(--r);padding:18px 20px;}
-.wyg-icon{font-size:20px;margin-bottom:8px;}
-.wyg-label{font-size:13px;font-weight:600;color:var(--cream);margin-bottom:4px;}
-.wyg-sub{font-size:12px;color:var(--muted);line-height:1.5;}
+.wyg-label{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.25;margin-bottom:8px;}
+.wyg-sub{font-size:13px;color:var(--muted);line-height:1.55;}
 .price-note{font-size:13px;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:8px;}
 .price-badge{background:var(--amber-dim);border:1px solid var(--primary-border);color:var(--amber);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;}
 
@@ -79,12 +78,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .focus-card{background:var(--bg2);border:1.5px solid var(--rule);border-radius:var(--r);padding:22px;cursor:pointer;transition:all .2s;text-align:left;}
 .focus-card:hover{border-color:hsl(33 42% 48% / 0.4);background:var(--amber-dim);}
 .focus-card.selected{border-color:var(--amber);background:var(--amber-dim);}
-.focus-icon{font-size:24px;margin-bottom:10px;}
-.focus-label{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
-.focus-desc{font-size:12px;color:var(--muted);line-height:1.5;}
-.focus-check{width:18px;height:18px;border-radius:50%;background:var(--amber);display:none;align-items:center;justify-content:center;float:right;margin-top:-2px;}
+.focus-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.focus-label{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.25;}
+.focus-desc{font-size:13px;color:var(--muted);line-height:1.55;}
+.focus-check{width:20px;height:20px;border-radius:50%;background:var(--amber);color:var(--bg);font-size:12px;font-weight:700;display:none;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
 .focus-card.selected .focus-check{display:flex;}
 .focus-note{font-size:12px;color:var(--muted);margin-bottom:28px;font-style:italic;}
+.contact-lbl{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;}
+.contact-group{border-top:1px solid var(--rule);padding-top:14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.contact-hint{font-size:12px;color:var(--muted);margin-top:6px;}
+.txt-input.invalid,.txt-input.invalid:focus{border-color:hsl(0 65% 60%);}
 
 /* CHAT */
 .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
@@ -152,6 +155,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .nsl-card.soon .nsl-label{color:hsl(210,25%,30%);}
 .nsl-card.later .nsl-label{color:hsl(220 15% 16% / 0.4);}
 .nsl-item{font-size:13px;line-height:1.6;color:var(--muted-on-light);margin-bottom:6px;padding-left:10px;border-left:2px solid hsl(220 15% 16% / 0.1);}
+.heard-row{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:14px 0;border-top:1px solid hsl(220 15% 16% / 0.08);}
+.heard-k{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-on-light);padding-top:3px;}
+.heard-v{font-size:15px;line-height:1.7;color:var(--text-on-light);}
+.heard-v p{margin:0;}
+.heard-list{margin:0;padding-left:18px;}
+.heard-list li{margin-bottom:4px;}
+.heard-note{font-size:13px;color:var(--muted-on-light);font-style:italic;margin-top:14px;line-height:1.6;}
+.next-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid hsl(220 15% 16% / 0.08);}
+.next-num{width:28px;height:28px;background:var(--primary-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--amber);flex-shrink:0;}
+.next-t{font-size:15px;font-weight:600;color:var(--text-on-light);margin-bottom:4px;}
+.next-b{font-size:14px;line-height:1.7;color:var(--muted-on-light);}
+.send-warn{background:hsl(0 60% 50% / .12);border:1px solid hsl(0 60% 55% / .35);border-radius:var(--r);padding:16px 20px;margin-bottom:20px;font-size:14px;line-height:1.6;color:var(--cream);}
+.send-warn a{color:var(--amber);}
 .cta-block{background:var(--bg);border-radius:var(--r);padding:36px;text-align:center;margin-top:8px;}
 .cta-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:14px;}
 .cta-heading{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:-.01em;}
@@ -183,6 +199,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
   .what-you-get,.focus-grid,.now-soon{grid-template-columns:1fr}
   .rep-cover,.rep-body{padding:28px 24px}
   .cta-block{padding:24px 20px}
+  .heard-row{grid-template-columns:1fr;gap:4px}
 }
 
 /* TEST MODE */
@@ -226,38 +243,56 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
   <!-- ── INTRO ── -->
   <div id="s-intro">
     <div class="intro-eyebrow">Paid Assessment + 60-Min Session</div>
-    <h1 class="intro-title">A real look at<br><strong>your business.</strong></h1>
-    <p class="intro-body">This isn't a generic audit. You choose what to focus on. An AI coach asks the right questions. You get a report built around your specific situation — then we sit down together and build your next steps.</p>
+    <h1 class="intro-title">Find what's really<br><strong>costing you.</strong></h1>
+    <p class="intro-body">Most assessments hand you a list of tools. We find out what's actually wrong first. Then we put a number on what it's costing you and show you the first moves, including the tools worth trying.</p>
     <div class="what-you-get">
-      <div class="wyg-item"><div class="wyg-icon">🎯</div><div class="wyg-label">You choose the focus</div><div class="wyg-sub">AI tools, business health, brand clarity — or all three</div></div>
-      <div class="wyg-item"><div class="wyg-icon">🤖</div><div class="wyg-label">AI-powered assessment</div><div class="wyg-sub">30-45 min deep-dive conversation tailored to your specific situation</div></div>
-      <div class="wyg-item"><div class="wyg-icon">📋</div><div class="wyg-label">Your personal report</div><div class="wyg-sub">Blind spots, opportunities, and a Now / Soon / Later plan</div></div>
-      <div class="wyg-item"><div class="wyg-icon">📞</div><div class="wyg-label">60-min session with Mike</div><div class="wyg-sub">Walk through the findings and build your action plan together</div></div>
+      <div class="wyg-item"><div class="wyg-label">A 30 to 45 minute conversation</div><div class="wyg-sub">With our AI coach, whenever it suits you. It asks and listens. No pitch, no advice yet.</div></div>
+      <div class="wyg-item"><div class="wyg-label">We do the homework</div><div class="wyg-sub">We look at your business the way a customer would: your site, your reviews, your competitors.</div></div>
+      <div class="wyg-item"><div class="wyg-label">Your report in 2 business days</div><div class="wyg-sub">What it's costing you, what you're not seeing, tools worth trying with real prices, and a Now / Soon / Later plan.</div></div>
+      <div class="wyg-item"><div class="wyg-label">60-min session with <span data-lead>Mike</span></div><div class="wyg-sub">Walk through it together and pick what to do first.</div></div>
     </div>
     <div id="promo-callout" class="hidden" style="background:var(--amber-dim);border:1px solid var(--primary-border);border-radius:var(--r);padding:16px 20px;margin-bottom:24px;display:flex;align-items:flex-start;gap:12px;">
-      <span style="font-size:20px;line-height:1;">🎁</span>
       <div>
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);margin-bottom:5px;">Launch Offer</div>
         <div id="promo-callout-text" style="font-size:14px;line-height:1.6;color:var(--cream);"></div>
       </div>
     </div>
-    <div class="price-note" id="price-note"><span class="price-badge">$500 – $1,000</span> Payment collected after assessment, before your session.</div>
+    <div class="price-note" id="price-note"><span class="price-badge">$500</span> Payment collected after assessment, before your session.</div>
     <button class="btn" onclick="showContact()">Start My Assessment <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
   </div>
 
   <!-- ── CONTACT CAPTURE ── -->
   <div id="s-contact" class="hidden">
-    <div class="intro-eyebrow">Step 1 of 3 — Your Info</div>
-    <div class="focus-title">Before we start —<br>where should we send<br>your session confirmation?</div>
-    <div class="focus-sub">Just your first name and email. This is how Mike follows up and how your session gets confirmed.</div>
+    <div class="intro-eyebrow">Step 1 of 3 · Your Info</div>
+    <div class="focus-title">Before we start,<br>who are you and<br>where can we find you?</div>
+    <div class="focus-sub">Your name and email are how we follow up and confirm your session. Your business name, website, and the area you serve let us look at your business the way a customer would, and compare it to who you're up against, before you meet.</div>
     <div style="display:flex;flex-direction:column;gap:14px;max-width:420px;margin-bottom:10px;">
       <div>
-        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;" for="contact-name">First Name</label>
-        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-name" placeholder="First name" autocomplete="given-name" onkeydown="if(event.key==='Enter')document.getElementById('contact-email').focus()">
+        <label class="contact-lbl" for="contact-name">First Name</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-name" placeholder="First name" autocomplete="given-name" required onkeydown="if(event.key==='Enter')document.getElementById('contact-email').focus()">
       </div>
       <div>
-        <label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;" for="contact-email">Email</label>
-        <input class="txt-input" style="width:100%;min-height:0;" type="email" id="contact-email" placeholder="you@yourbusiness.com" autocomplete="email" onkeydown="if(event.key==='Enter')submitContact()">
+        <label class="contact-lbl" for="contact-email">Email</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="email" id="contact-email" placeholder="you@yourbusiness.com" autocomplete="email" required onkeydown="if(event.key==='Enter')document.getElementById('contact-biz').focus()">
+      </div>
+      <div class="contact-group">About the business</div>
+      <div>
+        <label class="contact-lbl" for="contact-biz">Business name</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-biz" placeholder="Smith Plumbing" autocomplete="organization" required onkeydown="if(event.key==='Enter')document.getElementById('contact-site').focus()">
+      </div>
+      <div>
+        <label class="contact-lbl" for="contact-site">Website</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-site" placeholder="smithplumbing.com" autocomplete="url" inputmode="url" required onkeydown="if(event.key==='Enter')document.getElementById('contact-location').focus()">
+        <div class="contact-hint">No website? Paste your Facebook page or Google Business link instead.</div>
+      </div>
+      <div>
+        <label class="contact-lbl" for="contact-location">City or area you serve</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-location" placeholder="Orem, Utah County, or online only" required onkeydown="if(event.key==='Enter')document.getElementById('contact-social').focus()">
+      </div>
+      <div class="contact-group">Optional</div>
+      <div>
+        <label class="contact-lbl" for="contact-social">Main social account or Google Business profile</label>
+        <input class="txt-input" style="width:100%;min-height:0;" type="text" id="contact-social" placeholder="@smithplumbing on Instagram" onkeydown="if(event.key==='Enter')submitContact()">
       </div>
     </div>
     <div class="focus-note" id="contact-note" style="min-height:18px;"></div>
@@ -266,40 +301,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
   <!-- ── FOCUS SELECTOR ── -->
   <div id="s-focus" class="hidden">
-    <div class="intro-eyebrow">Step 2 of 3 — Choose Your Focus</div>
+    <div class="intro-eyebrow">Step 2 of 3 · Choose Your Focus</div>
     <div class="focus-title">What do you want to<br>get clarity on?</div>
     <div class="focus-sub">Pick one or combine them. Your assessment adapts to what you choose.</div>
     <div class="focus-grid">
       <div class="focus-card" onclick="toggleFocus('ai')" id="fc-ai">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div class="focus-icon">⚡</div>
+        <div class="focus-head">
+          <div class="focus-label">AI Tools</div>
           <div class="focus-check">✓</div>
         </div>
-        <div class="focus-label">AI Tools</div>
         <div class="focus-desc">Where can AI save you time, cut costs, or help you grow? What tools fit your actual business?</div>
       </div>
       <div class="focus-card" onclick="toggleFocus('health')" id="fc-health">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div class="focus-icon">🏥</div>
+        <div class="focus-head">
+          <div class="focus-label">Business Health</div>
           <div class="focus-check">✓</div>
         </div>
-        <div class="focus-label">Business Health</div>
         <div class="focus-desc">People, process, revenue, time. Where are the leaks and what's holding you back from scaling?</div>
       </div>
       <div class="focus-card" onclick="toggleFocus('brand')" id="fc-brand">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div class="focus-icon">🎨</div>
+        <div class="focus-head">
+          <div class="focus-label">Brand Clarity</div>
           <div class="focus-check">✓</div>
         </div>
-        <div class="focus-label">Brand Clarity</div>
         <div class="focus-desc">Is your message clear? Does your positioning actually connect with the right people?</div>
       </div>
       <div class="focus-card" onclick="toggleFocus('all')" id="fc-all">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div class="focus-icon">🔭</div>
+        <div class="focus-head">
+          <div class="focus-label">Full Picture</div>
           <div class="focus-check">✓</div>
         </div>
-        <div class="focus-label">Full Picture</div>
         <div class="focus-desc">Combine all three for a complete view of where your business stands and where to focus first.</div>
       </div>
     </div>
@@ -368,11 +399,29 @@ window.addEventListener('DOMContentLoaded', () => {
 // deploy to every visitor. localStorage (set on the admin page)
 // can override EmailJS credentials on this device for testing.
 const SITE = window.LOAM_CONFIG || {};
+const LEAD = (window.LOAM_PEOPLE && window.LOAM_PEOPLE.lead) || 'a Loam strategist';
 const isRealLink = (u) => typeof u === 'string' && /^https:\/\//.test(u) && !/YOUR_/.test(u);
 const STRIPE_LINK    = isRealLink(SITE.STRIPE_LINK)   ? SITE.STRIPE_LINK   : '';
 const CALENDLY_LINK  = isRealLink(SITE.CALENDLY_LINK) ? SITE.CALENDLY_LINK : '';
 const MIKE_EMAIL     = SITE.MIKE_EMAIL || 'loamstrategy@gmail.com';
 const SAVE_KEY       = 'loam_v2';
+
+// Free quiz result, saved by quiz.html on this same site. Used to
+// prefill contact info and to give Mike the quiz context in the handoff.
+const QUIZ = (() => {
+  try {
+    const q = JSON.parse(localStorage.getItem('loam_quiz') || 'null');
+    if (!q || !q.completedAt || !q.summary) return null;
+    if (Date.now() - q.completedAt > 60*24*60*60*1000) return null; // older than 60 days
+    return q;
+  } catch(e) { return null; }
+})();
+function quizBlock() {
+  if (!QUIZ) return 'Did not take the free quiz on this device.';
+  const when = new Date(QUIZ.completedAt).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const biz = QUIZ.contact && QUIZ.contact.business ? `\nBusiness (from quiz opt-in): ${QUIZ.contact.business}` : '';
+  return `Taken ${when}${QUIZ.contact ? ' (opted in for a personal note)' : ''}\n${QUIZ.summary}${biz}`;
+}
 
 function getEmailConfig() {
   // Device-level override (admin page) wins, then site config.
@@ -402,79 +451,236 @@ async function loadEmailJs(publicKey) {
 }
 
 // ── SECTIONS BY FOCUS ───────────────────────────────────
-const SECTION_SETS = {
-  ai: [
-    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
-    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
-    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
-    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? And what does a typical week actually look like for you day to day?' },
-    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What is the one thing in your business that eats the most time right now — and be specific, not "everything."' },
-    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools yet — if so, which ones?' },
-    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'This helps me calculate real ROI for you: roughly what is your time worth per hour, and what are you currently spending on software tools each month?' },
-    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — not "grow the business," something concrete and measurable?' },
-    { id:'ai_ready',  tag:'Section 9 of 9', name:'AI Readiness',           opener:'On a scale of 1 to 5, how comfortable are you with technology? And what is your biggest concern about actually using AI in your business?' }
-  ],
-  health: [
-    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
-    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
-    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
-    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? What does a typical week actually look like for you day to day?' },
-    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? And what keeps getting pushed to tomorrow that you know you need to deal with?' },
-    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools — if so, which ones and how?' },
-    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me be useful here: what is your time worth per hour, and what are you spending on software tools each month?' },
-    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — something concrete, not a direction?' },
-    { id:'growth',    tag:'Section 9 of 9', name:'Growth & Revenue',       opener:'How is your revenue looking right now — growing, flat, or declining? And what has been your best source of new clients historically?' }
-  ],
-  brand: [
-    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
-    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
-    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
-    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? What does a typical week actually look like for you?' },
-    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? What keeps getting pushed to tomorrow?' },
-    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? Any AI tools in the mix?' },
-    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me be useful: what is your time worth per hour, and what are you spending on software tools each month?' },
-    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — concrete, not general?' },
-    { id:'message',   tag:'Section 9 of 9', name:'Message & Market',       opener:'When someone asks what you do at a networking event or a dinner party, what do you actually say? Give me the real version, not the polished one.' }
-  ],
-  all: [
-    { id:'at_bat',    tag:'Section 1 of 9', name:'At Bat — The Person',    opener:'Let\'s start with you, not your business. Why did you actually start this — not the version you put on LinkedIn, the real reason?' },
-    { id:'overview',  tag:'Section 2 of 9', name:'Business Overview',      opener:'What\'s your name, what\'s the business called, and in one sentence what do you do?' },
-    { id:'model',     tag:'Section 3 of 9', name:'Business Model',         opener:'Walk me through how you make money — is it one-time work, retainers, products, something else? And who are you selling to, businesses or consumers?' },
-    { id:'ops',       tag:'Section 4 of 9', name:'Team & Operations',      opener:'Are you running this solo or do you have people helping you? And what does a typical week actually look like for you day to day?' },
-    { id:'pain',      tag:'Section 5 of 9', name:'Pain Points',            opener:'What eats the most time in your business right now? And what is the one thing that — if it were fixed — would change everything?' },
-    { id:'tools',     tag:'Section 6 of 9', name:'Tools & AI',             opener:'What tools are you using to run the business day to day? And are you using any AI tools yet — if so, which ones and how?' },
-    { id:'financial', tag:'Section 7 of 9', name:'Financial Context',      opener:'Rough numbers help me calculate real ROI for you: what is your time worth per hour, and what are you spending on software tools each month?' },
-    { id:'goals',     tag:'Section 8 of 9', name:'Goals',                  opener:'What specifically do you want to accomplish in the next 90 days — something concrete and measurable, not a direction?' },
-    { id:'ai_ready',  tag:'Section 9 of 9', name:'AI & Growth',            opener:'Two quick things: on a 1-5 scale, how comfortable are you with technology? And how is revenue trending right now — growing, flat, or declining?' }
-  ]
+// Built around what the loam-blind-spot-assessment skill needs. A blind
+// spot is a gap between what the owner believes and what's true, so each
+// section collects one side of a gap the strategist will later check
+// against outside evidence (website, reviews, competitors).
+//   needs:  what the coach must come away with before [DONE]
+//   listen: the gap this section feeds. Guides follow-ups, never said aloud.
+// Bump SECTION_VERSION whenever section ids change, so an old saved
+// session can't resume into the wrong questions.
+const SECTION_VERSION = 2;
+
+const SEC = {
+  overview: {
+    name: 'The Business',
+    opener: 'In one sentence, what does your business do?',
+    needs: [
+      'What the business does, in their words',
+      'Who their best customer is, the kind they wish they had more of',
+      'How many people work in the business, including them',
+      'How long they have been running it'
+    ],
+    listen: 'How they describe what they do. Is it the process they deliver or the result a customer gets? Keep their exact phrasing.'
+  },
+  problem: {
+    name: "The Problem You'd Fix",
+    opener: 'If we could fix one thing in your business over the next 90 days, what would it be? And what do you think is causing it?',
+    needs: [
+      'The one problem they most want fixed, in their words',
+      'What they believe is causing it',
+      'How long it has been a problem',
+      'What they have already tried, and what happened'
+    ],
+    listen: 'This is the stated problem the strategist will test against evidence. Get their theory of the cause clearly and exactly. Do not challenge it.'
+  },
+  customers: {
+    name: 'How Customers Find You',
+    opener: 'Think about your most recent new customer. How did they find you, how did they get in touch, and what made them say yes?',
+    needs: [
+      'How that customer found them and how they made contact',
+      "Why that customer chose them, in the customer's own words if they know them",
+      'Roughly how many new inquiries come in each month, and about how many become paying customers',
+      'One recent customer who got away, and why they think it happened'
+    ],
+    listen: 'Gaps between why the owner thinks people buy and why customers actually buy. Whether they know their own inquiry and close numbers at all.'
+  },
+  reputation: {
+    name: "What You're Known For",
+    opener: 'What do you want customers to say about you? And what do they actually say, in reviews or when they send a friend your way?',
+    needs: [
+      'What they believe they are known for',
+      'What customers actually say, as close to word for word as they can remember',
+      'Any complaint or criticism that has come up more than once',
+      'How they handle a bad review or an unhappy customer'
+    ],
+    listen: 'The difference between what they say they are known for and what customers say. The strategist will read their reviews, so get specific claims that can be checked.'
+  },
+  pricing: {
+    name: 'Pricing & Money',
+    opener: 'How do you set your prices? And be honest, how does it feel when you tell someone the number?',
+    needs: [
+      'How they set prices, and when they last raised them',
+      'How quoting feels, and how often they discount or get pushback',
+      'What a typical job, sale, or client is worth to them',
+      'Whether revenue over the last year is up, flat, or down, and roughly by how much'
+    ],
+    listen: "Apologizing for the price, discounting before anyone asks, \"I'm not a salesperson.\" These often point to a self-worth issue under the business problem."
+  },
+  week: {
+    name: 'Where Your Week Goes',
+    opener: 'Walk us through last week. Where did most of your hours actually go?',
+    needs: [
+      'A rough breakdown of where their hours went last week',
+      'Tasks that only they can do, or believe only they can do',
+      "The one thing that would move the business forward that didn't get done",
+      'What got in the way of it'
+    ],
+    listen: "Time going to busy work while the valuable thing waits. Anything they could hand off but don't."
+  },
+  known: {
+    name: 'What You Already Know',
+    opener: "Last section. What's something you already know needs fixing that keeps sliding to next week? And what's kept it there?",
+    needs: [
+      'Things they already know are broken or missing',
+      'What has kept each one from getting done',
+      "Anything we didn't ask about that they want us to know before the report"
+    ],
+    listen: "Anything they name here is something they already see, so it can't be a blind spot. What keeps it stuck often is one."
+  },
+
+  // ── Focus sections ──
+  tools: {
+    name: 'Tools & Tech',
+    opener: 'What do you use to run the business day to day? Scheduling, quotes, invoices, email, customer records. And what still lives on paper or in your head?',
+    needs: [
+      'The main tools they use, and roughly what they pay each month',
+      'What is still done by hand, on paper, or from memory',
+      'Where the same information gets typed in more than once',
+      'How comfortable they are with new tech on a 1 to 5 scale, and any AI they already use'
+    ],
+    listen: "Tools they pay for and don't use. Workarounds they treat as normal."
+  },
+  repeat: {
+    name: 'Repeat Work',
+    opener: 'What do you do every week that feels like the same thing over and over? Emails, quotes, follow-ups, scheduling, posts, anything.',
+    needs: [
+      'Two or three repeated tasks, with rough hours per week for each',
+      'The one they would hand off first if they could',
+      'Their biggest worry about using AI in the business',
+      'What they would spend each month on a tool that actually saved them time'
+    ],
+    listen: 'Whether the repeated work is really a tool problem or a people or process problem. A tool on top of a people problem just makes a faster people problem.'
+  },
+  team: {
+    name: 'Team & Handoffs',
+    opener: 'Who does what in the business right now, including you?',
+    needs: [
+      'Who does what, including the owner',
+      'What only the owner can do, and why',
+      'What breaks or slows down when they are gone for a week',
+      "How work gets handed off: written down, or in someone's head"
+    ],
+    listen: "The owner as the bottleneck. Work that can't be handed off because it was never written down."
+  },
+  after: {
+    name: 'After the Sale',
+    opener: "What happens after a job is done or a sale is made? Walk us through the next few weeks from the customer's side.",
+    needs: [
+      'What follow-up happens after the sale, if any',
+      'Whether they ask for reviews or referrals, and how',
+      'Roughly how much of their business is repeat or referral',
+      'Their best source of new customers over the years'
+    ],
+    listen: 'Money left on the table after the sale: no follow-up, no review ask, no reason to come back.'
+  },
+  message: {
+    name: 'Your Message',
+    opener: 'When someone at a dinner party asks what you do, what do you actually say? The real version, not the polished one.',
+    needs: [
+      'Their spoken pitch, word for word',
+      'What their website headline says, if they know',
+      'Who they are for, and who they are not for',
+      'What they wish customers understood about them'
+    ],
+    listen: "Whether the message describes their process or the customer's outcome, and whether it could describe any business in their field."
+  },
+  competitors: {
+    name: "Who You're Up Against",
+    opener: 'When a customer is deciding, who else are they looking at? Name names if you can.',
+    needs: [
+      'Two or three competitors by name',
+      'How the owner thinks they are different',
+      'What everyone in their field tends to say about themselves',
+      'Why a customer might pick a competitor over them'
+    ],
+    listen: 'Whether their difference is real and visible to a customer, or only true from the inside.'
+  },
+  market: {
+    name: 'Message & Market',
+    opener: 'When someone at a dinner party asks what you do, what do you actually say? The real version, not the polished one.',
+    needs: [
+      'Their spoken pitch, word for word',
+      'Who they are for, and who they are not for',
+      'Two or three competitors by name',
+      'Why a customer picks them over those competitors, and why one might not'
+    ],
+    listen: "Whether the message describes their process or the customer's outcome, and whether their difference is visible to a customer or only true from the inside."
+  },
+  team_tools: {
+    name: 'Team & Tools',
+    opener: 'Who does what in the business right now, including you? And what do you use to keep track of it all?',
+    needs: [
+      'Who does what, including the owner',
+      'What breaks or slows down when the owner is gone for a week',
+      'The main tools they use, and what is still on paper or in their head',
+      'How comfortable they are with new tech on a 1 to 5 scale, and any AI they already use'
+    ],
+    listen: 'The owner as the bottleneck. Workarounds they treat as normal.'
+  }
 };
 
-const SYSTEM = (section, focus, known) => `You are Mike Hill's AI assessment coach at Loam Strategy. You are running a paid Business Assessment for a small business owner (1-10 people). They are paying for this and expecting real insight, not a form.
+// Every focus shares the core. The focus adds two deep sections (three
+// for Full Picture) before the closing "What You Already Know".
+const CORE_START = ['overview', 'problem', 'customers', 'reputation', 'pricing', 'week'];
+const CORE_END   = ['known'];
+const FOCUS_SECTIONS = {
+  ai:     ['tools', 'repeat'],
+  health: ['team', 'after'],
+  brand:  ['message', 'competitors'],
+  all:    ['market', 'team_tools', 'after']
+};
+const SECTION_SETS = Object.fromEntries(Object.entries(FOCUS_SECTIONS).map(([focus, deep]) => {
+  const ids = [...CORE_START, ...deep, ...CORE_END];
+  return [focus, ids.map((id, i) => ({ id, ...SEC[id], tag: `Section ${i + 1} of ${ids.length}` }))];
+}));
 
-FOCUS CHOSEN: ${focus}
-CURRENT SECTION: ${section}
+const FOCUS_LABELS = { ai:'AI Tools', health:'Business Health', brand:'Brand Clarity', all:'Full Picture' };
 
-WHAT YOU ALREADY KNOW ABOUT THIS PERSON:
-${known || 'Nothing yet — this is the first section.'}
+const SYSTEM = (sec, focus, known, answersSoFar) => {
+  const idx = sections.findIndex(s => s.id === sec.id);
+  return `You are the Loam AI Coach, running a paid Business Assessment for Loam Strategy. The owner runs a small business, usually 1 to 20 people. They paid for this and expect a real conversation, not a form.
 
-YOUR LENS — THE HOMERUN METHOD:
-You are always looking for the WHY underneath the surface answer. What they say is not always what the real problem is. Your job is to get past the polished version and find the specific truth that will make the report actually useful.
+You are an AI. If they ask, say so plainly. When you refer to the company, say "we" or "Loam". Never claim to be a person.
 
-TONE BY SECTION TYPE:
-- At Bat sections (The Person, WHY): warm, personal, curious — like a coach at the beginning of a session
-- Audit sections (Business Model, Operations, Tools, Financial): direct consultant tone — efficient, specific, no small talk
-- Pain and Goals sections: empathetic but pushback-ready — "that's common, but tell me specifically"
+YOUR JOB IS TO COLLECT, NOT TO DIAGNOSE.
+After this conversation, a strategist compares what the owner said against outside evidence (their website, their reviews, their competitors) to find blind spots: gaps between what the owner believes and what is actually true. That only works if you capture what they really think, in their own words, with real examples and rough numbers. Do not tell them what their problem is, give advice, recommend tools, or hint at a blind spot. If they ask for advice, say that's what the report and the session are for, then keep going.
 
-RULES:
-- One question per response. No exceptions.
-- Never ask for anything already covered in WHAT YOU ALREADY KNOW.
-- Push back on vague answers immediately. "I help businesses grow" gets: "That could describe 500 businesses. What specifically changes for a client after working with you?"
-- For the Financial section: ask for actual dollar amounts and time estimates — the report needs real numbers to calculate ROI.
-- Short responses: 1-3 sentences, then one question.
-- No em dashes. No ellipsis. No hollow affirmations like "great" or "that makes sense."
-- Warm but direct. Seen-it-all tone.
+FOCUS: ${FOCUS_LABELS[focus] || 'Full Picture'}
+SECTION ${idx + 1} OF ${sections.length}: ${sec.name}
+THEIR ANSWERS SO FAR IN THIS SECTION: ${answersSoFar}
 
-Signal [DONE] only after 3-4 genuinely specific exchanges with real answers — not after one polished surface answer.`;
+WHAT THIS SECTION NEEDS:
+${sec.needs.map(n => '- ' + n).join('\n')}
+
+LISTEN FOR (guides your follow-ups, never say it to them):
+${sec.listen}
+
+WHAT YOU ALREADY KNOW (never ask for any of this again):
+${known || 'Nothing yet.'}
+
+HOW TO ASK
+- One question per reply. One or two short sentences before it, at most.
+- Ask for the specific case, not the general rule: their last customer, last week, the last quote they sent.
+- When they summarize or paraphrase, ask for the actual words: what the customer said, what the review said, what they say on the phone.
+- Rough numbers and ranges are fine. If they don't know a number, that is useful too. Accept it and move on. Don't make them guess twice.
+- If an answer is vague, push back once, kindly and specifically. For example: "That could describe a lot of businesses. What happened with the last customer who called?" If the next answer is still vague, or they would rather not say, accept it, move to the next thing, and put [THIN] at the very end of your reply.
+- Never pressure them. Thin and skipped answers are information for the strategist.
+- Warm, direct, plain words. Don't compliment their answers ("great," "love that," "that makes sense"). No em dashes. No ellipses. No lists.
+
+WHEN TO FINISH THE SECTION
+Put [DONE] at the very end of your reply once you have everything in WHAT THIS SECTION NEEDS, or once they have given five answers in this section, whichever comes first. A [DONE] reply is one short sentence that closes the section. It must not ask a question.`;
+};
 
 // ── STATE ───────────────────────────────────────────────
 let selectedFocus = new Set();
@@ -487,12 +693,20 @@ let currentAnswers = '';
 let isLoading = false;
 let clientName = '';
 let clientEmail = '';
+// Business details from the contact step. Name, website and area served
+// are required; Mike uses them to research the business before the session.
+let biz = { name:'', site:'', location:'', social:'' };
+// Full two-sided record of every section: what the coach asked, what the
+// owner said, and whether the section was finished or skipped.
+// { [sectionId]: { name, status, turns:[{ role:'coach'|'owner', text }] } }
+let transcript = {};
+let transcriptSent = false;
 
 // ── PERSISTENCE ─────────────────────────────────────────
 function save() {
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify({
-      focusKey, allAnswers, currentSec, clientName, clientEmail, savedAt: Date.now()
+      sectionVersion: SECTION_VERSION, focusKey, allAnswers, currentSec, clientName, clientEmail, biz, transcript, transcriptSent, savedAt: Date.now()
     }));
     flashSave();
   } catch(e){}
@@ -508,6 +722,11 @@ function flashSave() {
 }
 function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch(e){} }
 
+function ownerTurnCount(state) {
+  return Object.values(state.transcript || {})
+    .reduce((n, t) => n + (t.turns || []).filter(x => x.role === 'owner').length, 0);
+}
+
 // Check on load
 window.addEventListener('DOMContentLoaded', () => {
   try {
@@ -515,8 +734,11 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!raw) return;
     const state = JSON.parse(raw);
     if (Date.now() - state.savedAt > 7*24*60*60*1000) { localStorage.removeItem(SAVE_KEY); return; }
+    // Saved against older questions. Its answers wouldn't line up with
+    // the current sections, so start fresh.
+    if (state.sectionVersion !== SECTION_VERSION) { localStorage.removeItem(SAVE_KEY); return; }
     const done = Object.keys(state.allAnswers||{}).filter(k => !k.endsWith('_p')).length;
-    if (done < 1) return;
+    if (done < 1 && ownerTurnCount(state) < 1) return;
     showResumeBanner(state);
   } catch(e){}
 });
@@ -524,6 +746,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function showResumeBanner(state) {
   const intro = document.getElementById('s-intro');
   const b = document.createElement('div');
+  b.id = 'resume-banner';
   b.style.cssText = 'background:hsl(33 42% 48% / 0.1);border:1px solid hsl(33 42% 48% / 0.2);border-radius:10px;padding:18px 22px;margin-bottom:28px;';
   const done = Object.keys(state.allAnswers||{}).filter(k=>!k.endsWith('_p')).length;
   b.innerHTML = `
@@ -531,7 +754,7 @@ function showResumeBanner(state) {
     <div style="font-size:14px;color:rgba(255,255,255,.8);margin-bottom:16px;">${done} section${done!==1?'s':''} complete · Last saved ${new Date(state.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
     <div style="display:flex;gap:10px;">
       <button onclick="resumeSession()" style="background:var(--amber);color:var(--bg);border:none;border-radius:6px;padding:9px 18px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;">Continue</button>
-      <button onclick="this.closest('div[style]').remove()" style="background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--rule);border-radius:6px;padding:9px 16px;font-family:inherit;font-size:13px;cursor:pointer;">Start Over</button>
+      <button onclick="clearSave();document.getElementById('resume-banner').remove()" style="background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--rule);border-radius:6px;padding:9px 16px;font-family:inherit;font-size:13px;cursor:pointer;">Start Over</button>
     </div>`;
   intro.insertBefore(b, intro.firstChild);
   window._savedState = state;
@@ -545,15 +768,16 @@ function resumeSession() {
   currentSec  = s.currentSec || 0;
   clientName  = s.clientName || '';
   clientEmail = s.clientEmail || '';
+  biz         = Object.assign({ name:'', site:'', location:'', social:'' }, s.biz || {});
+  transcript  = s.transcript || {};
+  transcriptSent = !!s.transcriptSent;
   sections   = SECTION_SETS[focusKey];
   selectedFocus = new Set(focusKey === 'all' ? ['all'] : [focusKey]);
   document.getElementById('s-intro').classList.add('hidden');
-  if (!clientEmail) {
-    // Saved session from before contact capture existed — collect it now.
+  if (!hasRequiredProfile(clientName, clientEmail, biz)) {
+    // Saved session from before these fields were required. Collect them now.
     window._resumeAfterContact = true;
-    document.getElementById('s-contact').classList.remove('hidden');
-    document.getElementById('hdr-phase').textContent = 'Your Info';
-    document.getElementById('contact-name').focus();
+    showContact();
     return;
   }
   enterChat();
@@ -566,24 +790,91 @@ function enterChat() {
   loadSection(currentSec);
 }
 
+// ── CLIENT PROFILE ──────────────────────────────────────
+// The quiz opt-in has one "business name or website" field. Split it.
+function splitBizField(v) {
+  v = (v || '').trim();
+  const m = v.match(/(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}(?:\/\S*)?/i);
+  if (!m) return { name: v, site: '' };
+  const name = v.replace(m[0], '').replace(/^[\s,;|-]+|[\s,;|-]+$/g, '').trim();
+  return { name, site: m[0] };
+}
+
+function profileLines() {
+  return [
+    `Name: ${clientName || 'not given'}`,
+    `Email: ${clientEmail || 'not given'}`,
+    `Business: ${biz.name || 'not given'}`,
+    `Website: ${biz.site || 'not given'}`,
+    `City or area served: ${biz.location || 'not given'}`,
+    `Social or Google profile: ${biz.social || 'not given'}`
+  ].join('\n');
+}
+
 // ── FLOW ────────────────────────────────────────────────
 function showContact() {
   document.getElementById('s-intro').classList.add('hidden');
   document.getElementById('s-contact').classList.remove('hidden');
   document.getElementById('prog').style.width = '3%';
   document.getElementById('hdr-phase').textContent = 'Your Info';
-  document.getElementById('contact-name').focus();
+  const fill = (id, v) => { const el = document.getElementById(id); if (el && !el.value && v) el.value = v; };
+  // Anything already known (a resumed session, then the free quiz opt-in).
+  fill('contact-name', clientName);
+  fill('contact-email', clientEmail);
+  fill('contact-biz', biz.name);
+  fill('contact-site', biz.site);
+  fill('contact-location', biz.location);
+  fill('contact-social', biz.social);
+  if (QUIZ && QUIZ.contact) {
+    fill('contact-name', QUIZ.contact.name);
+    fill('contact-email', QUIZ.contact.email);
+    const qb = splitBizField(QUIZ.contact.business);
+    fill('contact-biz', qb.name);
+    fill('contact-site', qb.site);
+  }
+  const firstEmpty = REQUIRED_FIELDS.map(f => document.getElementById(f.id)).find(el => !el.value.trim());
+  (firstEmpty || document.getElementById('contact-name')).focus();
+}
+
+// Mike's research needs these every time: who to look up, where to find
+// them online, and which local market to compare them against.
+const REQUIRED_FIELDS = [
+  { id:'contact-name',     msg:'Please enter your first name.' },
+  { id:'contact-email',    msg:'Please enter a valid email address.', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) },
+  { id:'contact-biz',      msg:'Please enter your business name.' },
+  { id:'contact-site',     msg:'Please enter your website, or a Facebook or Google Business link if you don\'t have one.', test: v => /^\S+\.[a-z]{2,}(\/\S*)?$/i.test(v.replace(/^https?:\/\//i,'')) },
+  { id:'contact-location', msg:'Please enter the city or area you serve.' }
+];
+
+document.addEventListener('input', e => {
+  if (e.target.classList && e.target.classList.contains('invalid')) {
+    e.target.classList.remove('invalid');
+    document.getElementById('contact-note').textContent = '';
+  }
+});
+
+function hasRequiredProfile(name, email, b) {
+  return !!(name && email && b && b.name && b.site && b.location);
 }
 
 function submitContact() {
-  const name  = document.getElementById('contact-name').value.trim();
-  const email = document.getElementById('contact-email').value.trim();
+  const val   = (id) => document.getElementById(id).value.trim();
   const note  = document.getElementById('contact-note');
-  if (!name) { note.textContent = 'Please enter your first name.'; return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { note.textContent = 'Please enter a valid email address.'; return; }
+  REQUIRED_FIELDS.forEach(f => document.getElementById(f.id).classList.remove('invalid'));
+  for (const f of REQUIRED_FIELDS) {
+    const v = val(f.id);
+    if (!v || (f.test && !f.test(v))) {
+      note.textContent = f.msg;
+      const el = document.getElementById(f.id);
+      el.classList.add('invalid');
+      el.focus();
+      return;
+    }
+  }
   note.textContent = '';
-  clientName  = name;
-  clientEmail = email;
+  clientName  = val('contact-name');
+  clientEmail = val('contact-email');
+  biz = { name: val('contact-biz'), site: val('contact-site'), location: val('contact-location'), social: val('contact-social') };
   save();
   sendStartNotification();
   if (window._resumeAfterContact) {
@@ -594,7 +885,7 @@ function submitContact() {
   }
 }
 
-// Heads-up email to Mike the moment someone starts — so no lead
+// Heads-up email to Mike the moment someone starts, so no lead
 // is lost even if they close the tab mid-assessment.
 async function sendStartNotification() {
   try {
@@ -606,7 +897,7 @@ async function sendStartNotification() {
       client_name:    clientName + (IS_TEST ? ' [TEST]' : ''),
       client_email:   clientEmail,
       focus:          'Assessment just started',
-      report_summary: `${clientName} (${clientEmail}) just started the assessment. If no completion email follows, this is your follow-up lead.`,
+      report_summary: `${clientName} (${clientEmail}) just started the assessment. If no completion email follows, this is your follow-up lead.\n\n${profileLines()}\n\nFREE QUIZ:\n${quizBlock()}`,
       cowork_prompt:  '',
       date:           new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
     });
@@ -637,7 +928,7 @@ function toggleFocus(key) {
   const btn = document.getElementById('focus-btn');
   btn.disabled = !hasAny;
   document.getElementById('focus-note').textContent = hasAny
-    ? selectedFocus.has('all') ? 'Full picture selected — all three areas.' : [...selectedFocus].map(k=>({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity'}[k])).join(' + ') + ' selected.'
+    ? selectedFocus.has('all') ? 'Full picture selected: all three areas.' : [...selectedFocus].map(k=>({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity'}[k])).join(' + ') + ' selected.'
     : 'Select at least one focus area to continue.';
 }
 
@@ -648,38 +939,64 @@ function startAssessment() {
   sections = SECTION_SETS[focusKey];
   currentSec = 0;
   allAnswers = {};
+  transcript = {};
+  transcriptSent = false;
   document.getElementById('s-focus').classList.add('hidden');
   document.getElementById('s-chat').classList.remove('hidden');
   loadSection(0);
 }
 
+// The contact step already has their name and business name, so the
+// overview opener uses it instead of asking again.
+function openerFor(s) {
+  if (s.id === 'overview' && biz.name) return `In one sentence, what does ${biz.name} do?`;
+  return s.opener;
+}
+
 function loadSection(idx) {
   currentSec = idx;
   const s = sections[idx];
-  history = [];
-  currentAnswers = '';
   document.getElementById('sec-tag').textContent  = s.tag;
   document.getElementById('sec-name').textContent = s.name;
   document.getElementById('chat-msgs').innerHTML  = '';
   document.getElementById('prog').style.width = ((idx / sections.length) * 100) + '%';
   document.getElementById('hdr-phase').textContent = s.name;
-  // Remove any continue button
-  const cb = document.getElementById('continue-row');
-  if (cb) cb.remove();
-  // Re-enable input
-  document.getElementById('send-btn').disabled = false;
-  document.getElementById('txt').disabled = false;
-  addMsg('coach', s.opener);
-  history.push({ role:'assistant', content:s.opener });
-  document.getElementById('txt').focus();
+
+  let entry = transcript[s.id];
+  if (!entry || !entry.turns || !entry.turns.length) {
+    entry = transcript[s.id] = { name: s.name, status: 'in_progress', turns: [{ role: 'coach', text: openerFor(s) }] };
+  }
+  // A message that never got a reply (tab closed mid-request) goes back
+  // in the box instead of sitting unanswered in the history.
+  let pending = '';
+  if (entry.status !== 'done' && entry.turns.length > 1 && entry.turns[entry.turns.length - 1].role === 'owner') {
+    pending = entry.turns.pop().text;
+  }
+  // Rebuild the chat. This also restores a half-finished section after a refresh.
+  history = entry.turns.map(t => ({ role: t.role === 'coach' ? 'assistant' : 'user', content: t.text }));
+  currentAnswers = entry.turns.filter(t => t.role === 'owner').map(t => t.text).join(' ');
+  if (currentAnswers) allAnswers[s.id + '_p'] = currentAnswers;
+  entry.turns.forEach(t => addMsg(t.role === 'coach' ? 'coach' : 'user', t.text));
+
+  const txt = document.getElementById('txt');
+  const finished = entry.status === 'done';
+  document.getElementById('send-btn').disabled = finished;
+  txt.disabled = finished;
+  txt.value = pending;
+  autoR(txt);
+  if (finished) showContinueBtn(); else txt.focus();
+  save();
 }
 
 // ── CHAT ────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 function addMsg(role, text) {
   const c = document.getElementById('chat-msgs');
   const d = document.createElement('div');
   d.className = 'msg ' + role;
-  d.innerHTML = `<div class="av ${role}">${role==='coach'?'M':'You'}</div><div class="msg-inner"><div class="msg-name">${role==='coach'?'Mike (AI Coach)':'You'}</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div></div>`;
+  d.innerHTML = `<div class="av ${role}">${role==='coach'?'L':'You'}</div><div class="msg-inner"><div class="msg-name">${role==='coach'?'Loam AI Coach':'You'}</div><div class="bubble">${escHtml(text).replace(/\n/g,'<br>')}</div></div>`;
   c.appendChild(d);
   c.scrollTop = c.scrollHeight;
 }
@@ -687,7 +1004,7 @@ function showTyping() {
   const c = document.getElementById('chat-msgs');
   const d = document.createElement('div');
   d.className='msg coach';d.id='typing';
-  d.innerHTML=`<div class="av coach">M</div><div class="msg-inner"><div class="msg-name">Mike (AI Coach)</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  d.innerHTML=`<div class="av coach">L</div><div class="msg-inner"><div class="msg-name">Loam AI Coach</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
 function rmTyping(){const t=document.getElementById('typing');if(t)t.remove();}
@@ -697,19 +1014,28 @@ async function send() {
   const el = document.getElementById('txt');
   const text = el.value.trim();
   if (!text) return;
+  const sec = sections[currentSec];
+  const entry = transcript[sec.id];
   el.value=''; el.style.height='auto';
   addMsg('user', text);
   history.push({role:'user',content:text});
-  currentAnswers += ' ' + text;
-  allAnswers[sections[currentSec].id + '_p'] = currentAnswers.trim();
+  entry.turns.push({ role:'owner', text });
+  const prevAnswers = currentAnswers;
+  currentAnswers = (currentAnswers + ' ' + text).trim();
+  allAnswers[sec.id + '_p'] = currentAnswers;
   save();
   document.getElementById('send-btn').disabled = true;
   isLoading = true;
   showTyping();
 
-  const known = Object.entries(allAnswers)
-    .filter(([k,v]) => v && !k.endsWith('_p'))
-    .map(([k,v]) => `${k}: ${v}`).join('\n');
+  // Earlier sections, so the coach never asks for the same thing twice.
+  const known = [
+    `From the contact form:\n${profileLines()}`,
+    ...sections
+      .filter(s => s.id !== sec.id && allAnswers[s.id] && allAnswers[s.id] !== 'Skipped')
+      .map(s => `${s.name}: ${allAnswers[s.id]}`)
+  ].join('\n\n');
+  const answersSoFar = entry.turns.filter(t => t.role === 'owner').length;
 
   try {
     const res = await fetch('/api/chat', {
@@ -717,32 +1043,52 @@ async function send() {
       body:JSON.stringify({
         model:'claude-sonnet-5', max_tokens:800,
         thinking:{type:'disabled'},
-        system: SYSTEM(sections[currentSec].name, focusKey, known),
+        system: SYSTEM(sec, focusKey, known, answersSoFar),
         messages: history
       })
     });
     const data = await res.json();
-    let reply = data.content?.find(b => b.type === 'text')?.text || 'Connection issue — please try again.';
-    const done = reply.includes('[DONE]');
-    reply = reply.replace(/\[DONE\]/g,'').trim();
+    const raw = res.ok ? data.content?.find(b => b.type === 'text')?.text : '';
+    if (!raw) throw new Error('No reply from /api/chat: ' + JSON.stringify(data).slice(0, 300));
+    const done = raw.includes('[DONE]');
+    // [THIN]: the coach pushed back once and moved on without a real answer.
+    // Hidden from the owner, kept in the transcript for the strategist.
+    const thin = raw.includes('[THIN]');
+    const reply = raw.replace(/\[(DONE|THIN)\]/g,'').trim();
     rmTyping();
-    addMsg('coach', reply);
-    history.push({role:'assistant',content:reply});
+    if (reply) {
+      addMsg('coach', reply);
+      history.push({role:'assistant',content:reply});
+      entry.turns.push(thin ? { role:'coach', text: reply, thin: true } : { role:'coach', text: reply });
+    }
 
     if (done) {
-      allAnswers[sections[currentSec].id] = currentAnswers.trim();
+      entry.status = 'done';
+      allAnswers[sec.id] = currentAnswers;
       save();
       document.getElementById('send-btn').disabled = true;
       document.getElementById('txt').disabled = true;
       showContinueBtn();
     } else {
+      save();
       document.getElementById('send-btn').disabled = false;
       document.getElementById('txt').disabled = false;
       document.getElementById('txt').focus();
     }
   } catch(e) {
+    console.warn('Chat request failed:', e);
     rmTyping();
-    addMsg('coach','Connection error. Please try again.');
+    // Undo the unanswered message and put it back in the box, so a resend
+    // doesn't leave a doubled-up or orphaned answer in the transcript.
+    history.pop();
+    entry.turns.pop();
+    currentAnswers = prevAnswers;
+    if (currentAnswers) allAnswers[sec.id + '_p'] = currentAnswers; else delete allAnswers[sec.id + '_p'];
+    save();
+    const mine = document.querySelectorAll('#chat-msgs .msg.user');
+    if (mine.length) mine[mine.length - 1].remove();
+    el.value = text; autoR(el);
+    addMsg('coach', "That didn't go through. Your answer is back in the box, so just send it again.");
     document.getElementById('send-btn').disabled = false;
   }
   isLoading = false;
@@ -762,592 +1108,358 @@ function showContinueBtn() {
 }
 
 function advance(isLast) {
-  if (isLast) {
-    clearSave();
-    generateReport();
-  } else {
-    loadSection(currentSec + 1);
-  }
+  if (isLast) finishAssessment();
+  else loadSection(currentSec + 1);
 }
 
 function skipSection() {
-  allAnswers[sections[currentSec].id] = currentAnswers.trim() || 'Skipped';
+  const sec = sections[currentSec];
+  const entry = transcript[sec.id] || (transcript[sec.id] = { name: sec.name, status: 'in_progress', turns: [] });
+  if (entry.status !== 'done') {
+    entry.status = entry.turns.some(t => t.role === 'owner') ? 'skipped_partway' : 'skipped';
+    allAnswers[sec.id] = currentAnswers.trim() || 'Skipped';
+  }
   save();
   if (currentSec < sections.length - 1) loadSection(currentSec + 1);
-  else { clearSave(); generateReport(); }
+  else finishAssessment();
+}
+
+// The full transcript goes to us first, so nothing is lost if they close
+// the tab. Saved progress is only cleared once that email has gone out.
+async function finishAssessment() {
+  showBuilding();
+  if (!transcriptSent) {
+    transcriptSent = await sendTranscriptEmail();
+    save();
+  }
+  const recap = await buildRecap();
+  renderEndScreen(recap);
+  saveSessionForAdmin(recap);
+  if (transcriptSent) clearSave();
+}
+
+function showBuilding() {
+  document.getElementById('s-chat').classList.add('hidden');
+  document.getElementById('s-report').classList.remove('hidden');
+  document.getElementById('report-content').innerHTML = '<div class="loading-block"><div class="ring"></div><div class="loading-txt">Sending your answers and wrapping up…</div></div>';
+  document.getElementById('prog').style.width = '95%';
+  document.getElementById('hdr-phase').textContent = 'Wrapping Up';
+}
+
+// ── TRANSCRIPT ──────────────────────────────────────────
+const STATUS_LABELS = {
+  done: 'finished',
+  skipped: 'skipped with no answer',
+  skipped_partway: 'skipped partway',
+  in_progress: 'not finished'
+};
+
+function sectionStatusLines() {
+  return sections.map((s, i) => {
+    const t = transcript[s.id];
+    const n = t ? t.turns.filter(x => x.role === 'owner').length : 0;
+    const thin = t ? t.turns.filter(x => x.thin).length : 0;
+    const status = t ? (STATUS_LABELS[t.status] || t.status) : 'not reached';
+    return `${i + 1}. ${s.name}: ${status}, ${n} answer${n === 1 ? '' : 's'}` +
+      (thin ? `, coach moved on after ${thin} thin answer${thin === 1 ? '' : 's'}` : '');
+  }).join('\n');
+}
+
+function transcriptText() {
+  return sections.map((s, i) => {
+    const t = transcript[s.id];
+    if (!t || !t.turns.length) return `=== ${i + 1}. ${s.name} (not reached) ===`;
+    const status = STATUS_LABELS[t.status] || t.status;
+    const lines = t.turns.map(x => `${x.role === 'coach' ? (x.thin ? 'COACH [moved on, answer above was thin]' : 'COACH') : 'OWNER'}: ${x.text}`).join('\n\n');
+    return `=== ${i + 1}. ${s.name} (${status}) ===\n${lines}`;
+  }).join('\n\n');
+}
+
+// EmailJS limits how much text fits in one email. The transcript sits at
+// the end of the Cowork Prompt, so only its tail is ever cut.
+const EMAIL_TEXT_LIMIT = 40000;
+function capForEmail(text) {
+  if (text.length <= EMAIL_TEXT_LIMIT) return text;
+  return text.slice(0, EMAIL_TEXT_LIMIT) +
+    `\n\n[Cut here to fit the email. The full text is ${text.length.toLocaleString()} characters. The client can download all of it with "Download My Answers" on their end screen.]`;
+}
+
+async function sendTranscriptEmail() {
+  try {
+    const config = getEmailConfig();
+    if (!config) { console.warn('Email not configured. Transcript not sent.'); return false; }
+    await loadEmailJs(config.publicKey);
+    await window.emailjs.send(config.serviceId, config.templateId, {
+      to_email:       config.toEmail,
+      client_name:    (clientName || 'Unknown') + (IS_TEST ? ' [TEST]' : ''),
+      client_email:   clientEmail || '',
+      focus:          'Assessment finished, full transcript',
+      report_summary: `${clientName || 'The client'} finished the assessment${biz.name ? ' for ' + biz.name : ''}. They were told their report arrives within two business days, before their session. The full Cowork Prompt and transcript are below.\n\n${profileLines()}\n\nSECTIONS\n${sectionStatusLines()}`,
+      cowork_prompt:  capForEmail(buildCoworkPrompt()),
+      date:           new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
+    });
+    return true;
+  } catch(e) {
+    console.warn('Transcript email failed:', e);
+    return false;
+  }
 }
 
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function autoR(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
 
 // ── REPORT ──────────────────────────────────────────────
-async function generateReport() {
-  document.getElementById('s-chat').classList.add('hidden');
-  document.getElementById('s-report').classList.remove('hidden');
-  document.getElementById('prog').style.width = '95%';
-  document.getElementById('hdr-phase').textContent = 'Building Your Report';
+// ── END SCREEN ──────────────────────────────────────────
+// No instant AI report. A report built from answers alone, with no research,
+// can't find a real blind spot, and it would compete with the real one. The
+// client sees what we heard (their own words), what happens next, and the
+// booking button. The report is built with the loam-blind-spot-assessment
+// skill after research and sent within two business days.
+async function buildRecap() {
+  const prompt = `You are helping Loam Strategy close out a Business Assessment conversation with a small business owner. Read the conversation below and write back what the owner told us, in their own words as much as possible.
 
-  const focusLabel = {ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Business Assessment'}[focusKey];
-  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k}: ${v}`).join('\n');
+This is NOT a diagnosis. Do not name blind spots, give advice, suggest tools, judge, or add anything they did not say. A strategist does the real analysis later, after researching the business. Your only job is to show the owner they were heard.
 
-  const hourlyRate = (() => {
-    const fin = allAnswers['financial'] || allAnswers['financial_p'] || '';
-    const m = fin.match(/\$?(\d+)\s*(?:\/hr|\/hour|per hour|an hour|hourly)/i);
-    return m ? parseInt(m[1]) : 75;
-  })();
+RULES
+- Talk to them as "you". Plain words, short.
+- Quote them where you can, using their exact words inside quotation marks.
+- If they did not cover something, return an empty string or an empty array for it. Never invent or infer.
+- No em dashes. No ellipses.
 
-  const prompt = `You are a senior AI business strategist at Loam Strategy. A small business owner just completed a paid Business Assessment. Generate a complete, specific, actionable 9-section report based entirely on their answers. Every section must reference something they actually said — no generic advice, no filler.
+CONVERSATION:
+${transcriptText()}
 
-CLIENT NAME: ${clientName || 'not provided'}
-CLIENT EMAIL: ${clientEmail || 'not provided'}
-FOCUS: ${focusLabel}
-ANSWERS:
-${answers}
-
-LABOR RATE: $${hourlyRate}/hour (extracted from their answers, or default $75 if not stated)
-
-CRITICAL RULES:
-- Every section must be grounded in their specific answers. If a section could apply to any business, rewrite it.
-- Blind Spot name must be 3-5 words, punchy, specific to them.
-- Recommended tools must match their stated tech comfort level (if given).
-- Financial numbers must use the labor rate above and be based on specific pain points they described — not round guesses.
-- The 4-Day Plan must name the specific tool and the specific task for that person's business.
-- The Closing Note should sound like a trusted advisor who actually read their answers, not a marketer.
-
-Return ONLY valid JSON — no markdown, no preamble, no trailing commas:
+Return ONLY valid JSON, no markdown, no preamble:
 {
-  "clientName": "use CLIENT NAME above if provided, otherwise extract first name from answers, or use Your Business",
-  "businessType": "1-3 word description extracted from their answers",
-  "focusLabel": "${focusLabel}",
-  "date": "${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}",
-
-  "executiveSummary": {
-    "pain": "2 sentences specific to what they described — not generic. Name the actual friction.",
-    "outcome": "2 sentences on what changes when the right AI tools and processes are in place for their specific situation.",
-    "hoursReclaimed": "realistic number like 8 or 12 — calculated from their specific pain points, not a round guess",
-    "primaryFocus": "the single highest-leverage area based on all their answers — one phrase, not a sentence"
-  },
-
-  "blindSpot": {
-    "name": "3-5 words, punchy and specific — e.g. The Invisible Bottleneck or The Founder-as-Operator Trap",
-    "summary": "2-3 sentences naming the real problem underneath what they described. Specific to their answers. No consulting clichés."
-  },
-
-  "perceivedVsActual": {
-    "perceived": "quote or close paraphrase of their exact words about what the problem is",
-    "actual": "the root cause based on everything they said — different from what they think",
-    "gap": "1 sentence on why the difference matters and what it costs them"
-  },
-
-  "matrixItems": [
-    {"label": "specific action or tool for their business", "effort": 0.2, "impact": 0.85, "type": "quick"},
-    {"label": "specific action or tool for their business", "effort": 0.25, "impact": 0.80, "type": "quick"},
-    {"label": "specific action or tool for their business", "effort": 0.30, "impact": 0.75, "type": "quick"},
-    {"label": "specific action or tool for their business", "effort": 0.55, "impact": 0.90, "type": "strategic"},
-    {"label": "specific action or tool for their business", "effort": 0.70, "impact": 0.85, "type": "strategic"},
-    {"label": "specific action or tool for their business", "effort": 0.80, "impact": 0.40, "type": "defer"},
-    {"label": "specific action or tool for their business", "effort": 0.15, "impact": 0.30, "type": "fillin"},
-    {"label": "specific action or tool for their business", "effort": 0.65, "impact": 0.60, "type": "strategic"}
-  ],
-
-  "quickWins": [
-    {"pain": "specific pain from something they actually said", "fix": "specific tool or action — not a category"},
-    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
-    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
-    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
-    {"pain": "specific pain from their answers", "fix": "specific tool or action"},
-    {"pain": "specific pain from their answers", "fix": "specific tool or action"}
-  ],
-
-  "solutions": [
-    {"num": "01", "tool": "Tool Name", "useCase": "exactly how this person uses it given their business and workflow", "cost": "$X/mo or Free", "setup": "Easy / Medium / Hard", "saves": "X hrs/week"},
-    {"num": "02", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "03", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "04", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."},
-    {"num": "05", "tool": "Tool Name", "useCase": "specific to their situation", "cost": "...", "setup": "...", "saves": "..."}
-  ],
-
-  "dayPlan": [
-    {"day": "1", "label": "Day One", "task": "Set up [specific tool] for [specific use case in their business] — this is the highest-leverage starting point because [reason tied to their pain]", "tool": "Tool Name"},
-    {"day": "2", "label": "Day Two", "task": "Create their first reusable [prompt / template / automation] inside [tool] for [specific repeating task they described]", "tool": "Tool Name"},
-    {"day": "3", "label": "Day Three", "task": "Run [specific tool] on a real [task from their business] and document what worked and what to adjust", "tool": "Tool Name"},
-    {"day": "4", "label": "Day Four", "task": "Review results, refine the [prompt / workflow / setup], and identify the next highest-leverage task to automate", "tool": "Tool Name"}
-  ],
-
-  "whatComesAfter": [
-    {"n": "01", "opportunity": "Opportunity title — specific to their business", "why": "Why it matters for their situation based on what they said", "tool": "Specific tool or approach"},
-    {"n": "02", "opportunity": "...", "why": "...", "tool": "..."},
-    {"n": "03", "opportunity": "...", "why": "...", "tool": "..."}
-  ],
-
-  "financial": {
-    "hoursPerWeek": "X-Y — realistic total hours saved, calculated from their specific pain points",
-    "monthlyHoursValue": "$X,XXX — hours x 4 x $${hourlyRate} labor rate",
-    "monthlyToolCost": "$XXX-$XXX — realistic total based on the 5 recommended tools above",
-    "monthlyNetROI": "$X,XXX — monthlyHoursValue minus monthlyToolCost",
-    "roiNote": "1 sentence on what those freed hours can specifically go toward in their business"
-  },
-
-  "nextSteps": [
-    {"title": "Start with [name the specific quick win]", "detail": "specific first action tied to their highest pain point"},
-    {"title": "Schedule your 2-week review", "detail": "After 2 weeks of using the first tool, assess what to expand next — bring your data to the session"},
-    {"title": "Track [specific metric] this week", "detail": "the one number that will tell you if this is working, based on what they described"}
-  ],
-
-  "closingNote": "2-3 sentences. Direct and honest. What they should bring to the 60-min session with Mike. Written like a trusted advisor who actually read their answers — not a marketer."
+  "statedProblem": "1 to 2 sentences: the problem they most want fixed, in their words",
+  "theirTheory": "1 sentence: what they believe is causing it, or empty",
+  "workingWell": ["up to 2 short things they said are going well or that they are proud of"],
+  "alreadyKnow": ["up to 3 short things they said they already know need fixing"],
+  "numbers": ["up to 4 numbers they gave, each a short phrase like: About 20 inquiries a month"]
 }`;
-
   try {
     const res = await fetch('/api/chat', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ model:'claude-sonnet-5', max_tokens:6000, thinking:{type:'disabled'}, messages:[{role:'user',content:prompt}] })
+      body:JSON.stringify({ model:'claude-sonnet-5', max_tokens:1500, thinking:{type:'disabled'}, messages:[{role:'user',content:prompt}] })
     });
     const data = await res.json();
-    let raw = data.content?.find(b => b.type === 'text')?.text || '{}';
+    let raw = res.ok ? data.content?.find(b => b.type === 'text')?.text : '';
+    if (!raw) throw new Error('No recap from /api/chat: ' + JSON.stringify(data).slice(0, 300));
     raw = raw.replace(/```json|```/g,'').trim();
-    renderReport(JSON.parse(raw));
-  } catch(e) { renderFallback(); }
+    const recap = JSON.parse(raw);
+    if (!recap || typeof recap !== 'object') throw new Error('Recap is not an object');
+    return recap;
+  } catch(e) {
+    // The end screen still works without it. Nothing is lost: we already
+    // have the full transcript by email.
+    console.warn('Recap failed:', e);
+    return null;
+  }
 }
 
-function renderReport(r) {
+function bookingCta() {
+  if (IS_TEST) {
+    return {
+      buttons: '<div style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:16px 24px;text-align:center;"><div style="font-size:12px;font-weight:600;color:#e74c3c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">TEST MODE</div><div style="font-size:13px;color:rgba(255,255,255,.5);">In production this is your Stripe payment link</div></div>',
+      note: ''
+    };
+  }
+  // Launch promo: no payment step, straight to booking.
+  const promo = (SITE.PROMO && SITE.PROMO.enabled);
+  if (promo && CALENDLY_LINK) {
+    return {
+      buttons: `<a class="btn btn-stripe" href="${CALENDLY_LINK}" target="_blank">Book Your Free Session →</a>`,
+      note: "Launch offer: this one's on us. Pick a time at least two business days out, so your report is in your inbox before we meet."
+    };
+  }
+  if (STRIPE_LINK && !promo) {
+    return {
+      buttons: `<a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Book &amp; Pay for Your Session · $500 →</a>`,
+      note: CALENDLY_LINK
+        ? "After payment you'll land on the booking calendar. Pick a time at least two business days out, so your report is in your inbox before we meet."
+        : "After payment you'll receive a booking link by email."
+    };
+  }
+  if (CALENDLY_LINK) {
+    return {
+      buttons: `<a class="btn btn-stripe" href="${CALENDLY_LINK}" target="_blank">Book Your Session →</a>`,
+      note: "Pick a time at least two business days out, so your report is in your inbox before we meet. Payment is collected before your session."
+    };
+  }
+  const subj = encodeURIComponent(`Assessment complete · ${clientName || 'New client'}`);
+  const body = encodeURIComponent(`Hi,\n\nI just finished my assessment for ${biz.name || 'my business'} and I'm ready to book my session.\n\nA few times that work for me:\n\n`);
+  return {
+    buttons: `<a class="btn btn-stripe" href="mailto:${MIKE_EMAIL}?subject=${subj}&body=${body}">Email Us to Book Your Session →</a>`,
+    note: 'We already have your answers. Just tell us a few times that work.'
+  };
+}
+
+function renderEndScreen(r) {
+  window._recap = r;
   document.getElementById('prog').style.width = '100%';
-  document.getElementById('hdr-phase').textContent = 'Your Report';
+  document.getElementById('hdr-phase').textContent = 'What We Heard';
   const today = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const esc = escHtml;
+  const items = (arr) => (Array.isArray(arr) ? arr : []).filter(x => x && String(x).trim());
+  const ul = (arr) => `<ul class="heard-list">${items(arr).map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
 
-  // Executive summary
-  const es = r.executiveSummary || {};
-
-  // Impact/Effort Matrix — numbered dots + legend below
-  const matrixItems = r.matrixItems || [];
-  const matrixColors = {quick:'var(--amber)', strategic:'#3D5A73', defer:'#888', fillin:'#bbb'};
-  const matrixDots = matrixItems.map((item, i) => {
-    const left = Math.min(Math.max(Math.round(item.effort * 100), 5), 95);
-    const top  = Math.min(Math.max(Math.round((1 - item.impact) * 100), 5), 95);
-    const color = matrixColors[item.type] || '#888';
-    return `<div style="position:absolute;left:${left}%;top:${top}%;transform:translate(-50%,-50%);z-index:2;">
-      <div style="width:26px;height:26px;background:${color};color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.18);border:2px solid #fff;">${i+1}</div>
-    </div>`;
-  }).join('');
-  const matrixLegend = matrixItems.map((item, i) => {
-    const color = matrixColors[item.type] || '#888';
-    return `<div style="display:flex;align-items:flex-start;gap:10px;">
-      <div style="width:20px;height:20px;background:${color};color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">${i+1}</div>
-      <div style="font-size:12px;color:var(--muted-on-light);line-height:1.5;">${item.label}</div>
-    </div>`;
-  }).join('');
-
-  // Quick wins — up to 6
-  const quickWins = (r.quickWins||[]).slice(0,6).map((q,i) => `
-    <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;align-items:center;padding:14px 16px;background:${i%2===0?'hsl(220 15% 16% / 0.03)':'#fff'};border-radius:8px;margin-bottom:8px;">
-      <div style="font-family:'Fraunces',serif;font-size:18px;color:hsl(220 15% 16% / 0.2);font-weight:600;width:24px;">0${i+1}</div>
-      <div style="font-size:13px;color:var(--muted-on-light);line-height:1.5;">${q.pain}</div>
-      <div style="color:var(--amber);font-size:16px;text-align:center;">→</div>
-      <div style="font-size:13px;font-weight:600;color:var(--text-on-light);line-height:1.5;">${q.fix}</div>
-    </div>`).join('');
-
-  // Solutions table
-  const solutions = (r.solutions||[]).map(s => `
-    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid hsl(220 15% 16% / 0.08);">
-      <div>
-        <div style="font-size:13px;font-weight:600;color:var(--text-on-light);margin-bottom:3px;">${s.num} — ${s.tool}</div>
-        <div style="font-size:12px;color:var(--muted-on-light);line-height:1.5;">${s.useCase}</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted-on-light);">${s.cost}</div>
-      <div style="font-size:12px;color:var(--muted-on-light);">${s.setup}</div>
-      <div style="font-size:12px;font-weight:600;color:#1a7a45;background:rgba(26,122,69,.08);padding:3px 8px;border-radius:4px;display:inline-block;">${s.saves}</div>
-    </div>`).join('');
-
-  // 4-Day plan
-  const dayPlan = (r.dayPlan||[]).map(d => `
-    <div style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px hsl(220 15% 16% / 0.06);">
-      <div style="font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:hsl(33 42% 48% / 0.25);line-height:1;margin-bottom:4px;">${d.day}</div>
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:10px;">${d.label}</div>
-      <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);margin-bottom:10px;">${d.task}</div>
-      <div style="font-size:11px;font-weight:600;color:var(--amber);">${d.tool}</div>
-    </div>`).join('');
-
-  // What comes after
-  const afterItems = (r.whatComesAfter||[]).map(a => `
-    <div style="background:#fff;border-radius:10px;padding:22px;box-shadow:0 2px 12px hsl(220 15% 16% / 0.06);">
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:8px;">${a.n}</div>
-      <div style="font-size:14px;font-weight:600;color:var(--text-on-light);margin-bottom:8px;">${a.opportunity}</div>
-      <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);margin-bottom:10px;">${a.why}</div>
-      <div style="font-size:11px;font-weight:600;color:#3D5A73;background:rgba(61,90,115,.08);padding:4px 10px;border-radius:4px;display:inline-block;">${a.tool}</div>
-    </div>`).join('');
-
-  // Next steps
-  const nextSteps = (r.nextSteps||[]).map((s,i) => `
-    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid hsl(220 15% 16% / 0.08);">
-      <div style="width:28px;height:28px;background:var(--primary-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--amber);flex-shrink:0;">${i+1}</div>
-      <div>
-        <div style="font-size:14px;font-weight:600;color:var(--text-on-light);margin-bottom:4px;">${s.title}</div>
-        <div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);">${s.detail}</div>
-      </div>
-    </div>`).join('');
-
-  const fin = r.financial || {};
-  // Extract just the short value before any " — description" the AI appends
-  const finVal = (str) => (str || '—').split(/\s*[—–]\s*/)[0].trim();
-
-  // Build Cowork handoff
-  const coworkPrompt = buildCoworkPrompt(r);
-  window._coworkPrompt = coworkPrompt;
-  window._clientName = clientName || r.clientName || 'Client';
-
-  // CTA buttons adapt to what's configured in config.js
-  let ctaButtons, ctaNote;
-  if (STRIPE_LINK) {
-    ctaButtons = `<a class="btn btn-stripe" href="${STRIPE_LINK}" target="_blank">Book &amp; Pay for Your Session — $500 →</a>`;
-    ctaNote = CALENDLY_LINK
-      ? 'After payment you\'ll land on the booking calendar — pick your time slot there.'
-      : 'After payment you\'ll receive a booking link by email.';
-  } else if (CALENDLY_LINK) {
-    ctaButtons = `<a class="btn btn-stripe" href="${CALENDLY_LINK}" target="_blank">Book Your Session →</a>`;
-    ctaNote = 'Payment is collected before your session — Mike will send details with your confirmation.';
-  } else {
-    const subj = encodeURIComponent(`Assessment complete — ${window._clientName}`);
-    const body = encodeURIComponent(`Hi Mike,\n\nI just completed my assessment and I'm ready to book my session.\n\nMy Cowork Prompt is pasted below:\n\n[paste your copied Cowork Prompt here]`);
-    ctaButtons = `<a class="btn btn-stripe" href="mailto:${MIKE_EMAIL}?subject=${subj}&body=${body}">Email Mike to Book Your Session →</a>`;
-    ctaNote = 'Copy your Cowork Prompt below and include it in your email — it helps Mike prepare for your session.';
+  let heard = '';
+  if (r) {
+    const rows = [];
+    if (r.statedProblem) rows.push(['What you want fixed', `<p>${esc(r.statedProblem)}</p>`]);
+    if (r.theirTheory)   rows.push(['What you think is causing it', `<p>${esc(r.theirTheory)}</p>`]);
+    if (items(r.workingWell).length) rows.push(["What's working", ul(r.workingWell)]);
+    if (items(r.alreadyKnow).length) rows.push(['What you already know needs fixing', ul(r.alreadyKnow)]);
+    if (items(r.numbers).length)     rows.push(['Your numbers', ul(r.numbers)]);
+    if (rows.length) {
+      heard = `
+        <div class="rep-section">
+          <div class="rep-sec-label">In Your Words</div>
+          <div class="rep-sec-title">Here's what you told us.</div>
+          ${rows.map(([k, v]) => `<div class="heard-row"><div class="heard-k">${k}</div><div class="heard-v">${v}</div></div>`).join('')}
+          <div class="heard-note">This isn't your report. It's what we're taking into the research. If we got something wrong, tell us in your session.</div>
+        </div>`;
+    }
   }
 
-  // Save session to localStorage for admin dashboard
+  const sendWarn = transcriptSent ? '' : `
+    <div class="send-warn">
+      Your answers are saved on this device, but they didn't reach us. Try sending them again, or download them and email them to
+      <a href="mailto:${MIKE_EMAIL}">${MIKE_EMAIL}</a>.
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+        <button class="hbtn primary" onclick="retrySendAnswers(this)">Send Again</button>
+        <button class="hbtn" onclick="dlTranscript()">Download My Answers</button>
+      </div>
+    </div>`;
+
+  const lookAt = biz.site ? `${esc(biz.site)}, your reviews,` : 'your website, your reviews,';
+  const where = biz.location ? ` in ${esc(biz.location)}` : '';
+  const cta = bookingCta();
+
+  document.getElementById('report-content').innerHTML = `
+    ${sendWarn}
+    <div class="report-wrap">
+      <div class="rep-cover">
+        <div class="rep-eyebrow">Loam Strategy · Business Assessment</div>
+        <div class="rep-title">Thanks${clientName ? ', ' + esc(clientName) : ''}.<br>Here's what we heard.</div>
+        <div class="rep-client">${biz.name ? esc(biz.name) + ' · ' : ''}${today}</div>
+        <div class="rep-meta">
+          <div><div class="rep-mk">Focus</div><div class="rep-mv">${FOCUS_LABELS[focusKey] || 'Full Picture'}</div></div>
+          <div><div class="rep-mk">Your Report</div><div class="rep-mv">Within 2 business days</div></div>
+        </div>
+      </div>
+
+      <div class="rep-body">
+        ${heard}
+
+        <div class="rep-section">
+          <div class="rep-sec-label">What Happens Next</div>
+          <div class="rep-sec-title">Three steps from here.</div>
+          <div class="next-step"><div class="next-num">1</div><div><div class="next-t">We do the homework</div><div class="next-b">We look at your business the way a customer would: ${lookAt} how you show up when someone${where} goes looking, and who you're up against.</div></div></div>
+          <div class="next-step"><div class="next-num">2</div><div><div class="next-t">Your report, within two business days</div><div class="next-b">Sent to ${esc(clientEmail || 'your inbox')}. What it's costing you, what's already working, what you're not seeing yet, tools worth trying with real prices, and a Now / Soon / Later plan.</div></div></div>
+          <div class="next-step"><div class="next-num">3</div><div><div class="next-t">Your 60-minute session with ${esc(LEAD)}</div><div class="next-b">We walk through the report together and pick what to do first. You leave with a plan, not a pile of homework.</div></div></div>
+        </div>
+
+        <div class="cta-block" id="report-cta-block">
+          <div class="cta-eyebrow">Last Step</div>
+          <div class="cta-heading">Book your session</div>
+          <div class="cta-sub">Pick your time now. Your report will be in your inbox before we meet.</div>
+          <div class="cta-btns" id="cta-btns-area">${cta.buttons}</div>
+          ${cta.note ? `<div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:16px;line-height:1.6;">${cta.note}</div>` : ''}
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;">
+      <button class="hbtn" onclick="dlTranscript()">Download My Answers</button>
+    </div>`;
+}
+
+async function retrySendAnswers(btn) {
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  transcriptSent = await sendTranscriptEmail();
+  save();
+  if (transcriptSent) clearSave();
+  renderEndScreen(window._recap || null);
+}
+
+// Past Assessments on the admin page (this browser only).
+function saveSessionForAdmin(recap) {
+  if (window._adminSaved) return;
+  window._adminSaved = true;
   try {
     const sessions = JSON.parse(localStorage.getItem('loam_sessions') || '[]');
     sessions.unshift({
       id: Date.now(),
       date: new Date().toISOString(),
-      clientName: clientName || r.clientName || 'Unknown',
+      clientName: clientName || 'Unknown',
       clientEmail: clientEmail || '',
-      focusLabel: r.focusLabel || 'Full Assessment',
+      business: { ...biz },
+      focusLabel: FOCUS_LABELS[focusKey] || 'Full Picture',
       isTest: IS_TEST,
+      transcriptSent,
       answers: Object.fromEntries(Object.entries(allAnswers).filter(([k]) => !k.endsWith('_p'))),
-      report: {
-        executiveSummary: r.executiveSummary,
-        blindSpot: r.blindSpot,
-        perceivedVsActual: r.perceivedVsActual,
-        financial: r.financial,
-        closingNote: r.closingNote,
-        nextSteps: r.nextSteps
-      },
-      coworkPrompt
+      recap: recap || null,
+      coworkPrompt: buildCoworkPrompt()
     });
     localStorage.setItem('loam_sessions', JSON.stringify(sessions.slice(0, 50)));
   } catch(e) {}
-
-  // Send email notification always (test or live), swap CTA in test mode
-  setTimeout(() => {
-    if (IS_TEST) {
-      const ctaBtns = document.getElementById('cta-btns-area');
-      if (ctaBtns) {
-        ctaBtns.innerHTML = '<div style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:16px 24px;text-align:center;"><div style="font-size:12px;font-weight:600;color:#e74c3c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">TEST MODE</div><div style="font-size:13px;color:rgba(255,255,255,.5);">In production this is your Stripe payment link</div></div>';
-      }
-    }
-    sendReportEmail(r, coworkPrompt);
-  }, 500);
-
-  document.getElementById('report-content').innerHTML = `
-    <div class="report-wrap">
-
-      <!-- 1. COVER -->
-      <div class="rep-cover">
-        <div class="rep-eyebrow">Loam Strategy · Business Assessment</div>
-        <div class="rep-title">Your Business<br>Assessment Report</div>
-        <div class="rep-client">Prepared for <strong style="color:rgba(255,255,255,.8)">${r.clientName||'Your Business'}</strong></div>
-        <div class="rep-meta">
-          <div><div class="rep-mk">Date</div><div class="rep-mv">${r.date||today}</div></div>
-          <div><div class="rep-mk">Business Type</div><div class="rep-mv">${r.businessType||r.focusLabel||'—'}</div></div>
-          <div><div class="rep-mk">Focus</div><div class="rep-mv">${r.focusLabel||'Full Assessment'}</div></div>
-          <div><div class="rep-mk">Next Step</div><div class="rep-mv">Book your 60-min session</div></div>
-        </div>
-      </div>
-
-      <div class="rep-body">
-
-        <!-- 2. EXECUTIVE SUMMARY -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Executive Summary</div>
-          <div style="display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start;">
-            <div>
-              <div style="margin-bottom:16px;">
-                <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:6px;">The Pain</div>
-                <div style="font-size:15px;line-height:1.75;color:#3A3A3A;">${es.pain||''}</div>
-              </div>
-              <div>
-                <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:6px;">The Outcome</div>
-                <div style="font-size:15px;line-height:1.75;color:#3A3A3A;">${es.outcome||''}</div>
-              </div>
-            </div>
-            <div>
-              <div style="background:var(--bg);border-radius:10px;padding:20px;text-align:center;margin-bottom:12px;">
-                <div style="font-family:'Fraunces',serif;font-size:40px;font-weight:600;color:var(--amber);line-height:1;">${es.hoursReclaimed||'—'}</div>
-                <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px;">hrs/week to reclaim</div>
-              </div>
-              <div style="background:rgba(232,147,42,.08);border:1px solid rgba(232,147,42,.15);border-radius:8px;padding:14px;">
-                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#8B4E00;margin-bottom:6px;">Primary Focus</div>
-                <div style="font-size:13px;font-weight:600;color:var(--bg);">${es.primaryFocus||'—'}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BLIND SPOT + PERCEIVED VS ACTUAL -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Primary Blind Spot</div>
-          <div class="rep-sec-title">${r.blindSpot?.name||'The Clarity Gap'}</div>
-          <div class="rep-sec-body" style="margin-bottom:20px;">${r.blindSpot?.summary||''}</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <div style="background:hsl(220 15% 16% / 0.04);border-radius:8px;padding:16px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-on-light);margin-bottom:8px;">What you said</div>
-              <div style="font-size:14px;color:var(--muted-on-light);font-style:italic;">"${r.perceivedVsActual?.perceived||'—'}"</div>
-            </div>
-            <div style="background:var(--primary-dim);border:1px solid hsl(33 42% 48% / 0.15);border-radius:8px;padding:16px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:hsl(33,42%,30%);margin-bottom:8px;">What it actually is</div>
-              <div style="font-size:14px;color:var(--text-on-light);font-weight:500;">${r.perceivedVsActual?.actual||'—'}</div>
-            </div>
-          </div>
-          ${r.perceivedVsActual?.gap ? `<div style="background:rgba(61,90,115,.06);border-left:3px solid #3D5A73;border-radius:0 6px 6px 0;padding:12px 16px;"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;margin-bottom:6px;">Why the gap matters</div><div style="font-size:13px;line-height:1.65;color:var(--muted-on-light);">${r.perceivedVsActual.gap}</div></div>` : ''}
-        </div>
-
-        <!-- 3. IMPACT / EFFORT MATRIX -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Impact / Effort Matrix</div>
-          <div style="position:relative;background:#fff;border:1px solid rgba(13,14,18,.1);border-radius:10px;overflow:hidden;aspect-ratio:2/1;max-height:320px;margin-top:12px;">
-            <div style="position:absolute;top:0;left:0;width:50%;height:50%;background:rgba(61,90,115,.05);border-right:1px solid rgba(13,14,18,.08);border-bottom:1px solid rgba(13,14,18,.08);padding:10px;">
-              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#3D5A73;">Strategic Bets</div>
-              <div style="font-size:10px;color:#aaa;">High impact · More effort</div>
-            </div>
-            <div style="position:absolute;top:0;right:0;width:50%;height:50%;background:rgba(232,147,42,.04);border-bottom:1px solid rgba(13,14,18,.08);padding:10px;text-align:right;">
-              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);">Quick Wins</div>
-              <div style="font-size:10px;color:#aaa;">High impact · Low effort</div>
-            </div>
-            <div style="position:absolute;bottom:0;left:0;width:50%;height:50%;padding:10px;border-right:1px solid rgba(13,14,18,.08);">
-              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Fill-Ins</div>
-            </div>
-            <div style="position:absolute;bottom:0;right:0;width:50%;height:50%;padding:10px;text-align:right;">
-              <div style="font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#ddd;">Ignore</div>
-            </div>
-            ${matrixDots}
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 4px;margin-bottom:16px;">
-            <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">← Low Effort</div>
-            <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.06em;">High Effort →</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;">${matrixLegend}</div>
-        </div>
-
-        <!-- 4. QUICK WINS -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Quick Wins — Current Pain → AI Fix</div>
-          <div style="margin-top:12px;">
-            <div style="display:grid;grid-template-columns:auto 1fr 20px 1fr;gap:12px;padding:10px 16px;margin-bottom:4px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;width:24px;"></div>
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Current Pain</div>
-              <div></div>
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">AI Fix</div>
-            </div>
-            ${quickWins}
-          </div>
-        </div>
-
-        <!-- 5. RECOMMENDED SOLUTIONS -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Recommended Solutions</div>
-          <div style="margin-top:12px;">
-            <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;padding:8px 0;border-bottom:1px solid rgba(13,14,18,.12);">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Tool</div>
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Cost</div>
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Setup</div>
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;">Saves</div>
-            </div>
-            ${solutions}
-          </div>
-        </div>
-
-        <!-- 6. 4-DAY PLAN -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Your 4-Day Quick Wins Plan</div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px;">
-            ${dayPlan}
-          </div>
-        </div>
-
-        <!-- 7. WHAT COMES AFTER -->
-        <div class="rep-section">
-          <div class="rep-sec-label">What Comes After Quick Wins</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px;">
-            ${afterItems}
-          </div>
-        </div>
-
-        <!-- 8. FINANCIAL IMPACT -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Financial Impact</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:12px;">
-            <div style="background:var(--amber);border-radius:10px;padding:24px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-bottom:8px;">Monthly Net ROI</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;margin-bottom:6px;">${finVal(fin.monthlyNetROI)}</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;">${fin.roiNote||''}</div>
-            </div>
-            <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Weekly Time Returned</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${finVal(fin.hoursPerWeek)} hrs</div>
-              <div style="font-size:12px;color:#666;">Est. monthly value: ${finVal(fin.monthlyHoursValue)}</div>
-            </div>
-            <div style="background:rgba(13,14,18,.04);border:1px solid rgba(13,14,18,.08);border-radius:10px;padding:24px;">
-              <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px;">Total Monthly Tool Cost</div>
-              <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--bg);line-height:1;margin-bottom:6px;">${finVal(fin.monthlyToolCost)}</div>
-              <div style="font-size:12px;color:#666;">Across all recommended tools</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 9. NEXT STEPS -->
-        <div class="rep-section">
-          <div class="rep-sec-label">Next Steps</div>
-          <div style="margin-top:8px;">${nextSteps}</div>
-        </div>
-
-        <!-- CLOSING NOTE -->
-        ${r.closingNote ? `<div class="rep-section">
-          <div class="rep-sec-label">Before Your Session</div>
-          <div style="background:var(--bg);border-radius:10px;padding:24px 28px;">
-            <div style="font-size:15px;line-height:1.85;color:rgba(255,255,255,.75);font-style:italic;">${r.closingNote}</div>
-          </div>
-        </div>` : ''}
-
-        <!-- CTA -->
-        <div class="cta-block" id="report-cta-block">
-          <div class="cta-eyebrow">You're Ready for the Session</div>
-          <div class="cta-heading">Book your 60-min call with Mike</div>
-          <div class="cta-sub">Pay below and book your session. Mike will have reviewed your report before you speak.</div>
-          <div class="cta-btns" id="cta-btns-area">
-            ${ctaButtons}
-          </div>
-          <div style="font-size:12px;color:rgba(255,255,255,.3);margin-top:16px;">${ctaNote}</div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="handoff-panel" style="margin-top:24px;">
-      <div class="handoff-label">⚡ Your Cowork Prompt</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.6;">This is the structured summary of your assessment. Copy it and include it when you book — it's how Mike prepares for your session.</div>
-      <div class="handoff-btns">
-        <button class="hbtn primary" onclick="copyCowork()">Copy Cowork Prompt</button>
-        <button class="hbtn" onclick="window.print()">Download PDF</button>
-        <button class="hbtn" onclick="dlTranscript()">Download Transcript</button>
-      </div>
-      <div class="copy-confirm" id="copy-confirm">Copied to clipboard.</div>
-    </div>`;
 }
 
-function buildCoworkPrompt(r) {
-  const get = (key) => allAnswers[key] || allAnswers[key+'_p'] || '—';
-  return `LOAM STRATEGY — COWORK PROMPT
+// The handoff Mike pastes into Claude with the loam-blind-spot-assessment
+// skill. Built from the full transcript.
+function buildCoworkPrompt() {
+  const who = clientName || 'this client';
+  const focusLabel = {ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Picture'}[focusKey] || 'Full Picture';
+  const parts = [
+`LOAM STRATEGY — COWORK PROMPT
 Generated: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
 
-CLIENT PROFILE
-Name: ${clientName || r.clientName || '—'}
-Email: ${clientEmail || '—'}
+Use the loam-blind-spot-assessment skill to build the Internal Blind Spot Report and the Client Assessment Report for ${who}${biz.name ? ' at ' + biz.name : ''}. Everything below is in the owner's own words and has not been checked against outside evidence yet.`,
 
-Use the blind-spot-report skill and homerun-action-plan skill to build a client package for ${clientName || r.clientName || 'this client'}.
+`--- CLIENT AND RESEARCH STARTING POINTS ---
+${profileLines()}
+Focus chosen: ${focusLabel}`,
 
-FOCUS: ${r.focusLabel}
+`--- FREE QUIZ (confirm, deepen, or overturn this result) ---
+${quizBlock()}`
+  ];
 
---- FOUNDER PROFILE (At Bat) ---
-${get('at_bat')}
+  parts.push(
+`--- WHAT THE CLIENT WAS TOLD ---
+They saw a "what we heard" recap of their own answers, no diagnosis. They were promised the report within two business days, before their 60-minute session with ${LEAD}.`);
 
---- BUSINESS OVERVIEW ---
-${get('overview')}
+  parts.push(
+`--- SECTIONS ---
+${sectionStatusLines()}`,
 
---- BUSINESS MODEL ---
-${get('model')}
+`--- FULL TRANSCRIPT ---
+${transcriptText()}`);
 
---- TEAM & OPERATIONS ---
-${get('ops')}
-
---- PAIN POINTS (their exact language) ---
-${get('pain')}
-
---- CURRENT TOOLS & AI USAGE ---
-${get('tools')}
-
---- FINANCIAL CONTEXT (hourly rate, tool spend, investment threshold) ---
-${get('financial')}
-
---- GOALS (90-day and 12-month) ---
-${get('goals')}
-
---- SECTION 9 (AI Readiness / Growth & Revenue / Message & Market) ---
-${get('ai_ready') !== '—' ? get('ai_ready') : get('growth') !== '—' ? get('growth') : get('message')}
-
---- KEY AI FINDINGS ---
-Blind Spot: ${r.blindSpot?.name} — ${r.blindSpot?.summary}
-Perceived: "${r.perceivedVsActual?.perceived}"
-Actual: "${r.perceivedVsActual?.actual}"
-Gap: "${r.perceivedVsActual?.gap||''}"
-Primary Focus: ${r.executiveSummary?.primaryFocus||'—'}
-
-BUILD:
-1. Blind Spot Report — internal debrief for Mike. What the assessment revealed. What the client can't see yet. The 3-4 questions to ask in the live call.
-2. Client Action Plan — Now / Soon / Later format. Written in Mike's voice. Personal to this client. Based on the 90-day goal and the primary focus area.`;
-}
-
-function copyCowork() {
-  if (!window._coworkPrompt) return;
-  navigator.clipboard.writeText(window._coworkPrompt).then(() => {
-    const c = document.getElementById('copy-confirm');
-    if(c){c.style.display='block';setTimeout(()=>c.style.display='none',3000);}
-  });
+  return parts.join('\n\n');
 }
 
 function dlTranscript() {
-  const answers = Object.entries(allAnswers).filter(([k])=>!k.endsWith('_p')).map(([k,v])=>`${k.toUpperCase()}:\n${v}`).join('\n\n---\n\n');
-  const blob = new Blob([`LOAM STRATEGY — ASSESSMENT TRANSCRIPT\nClient: ${window._clientName||'Client'}\nDate: ${new Date().toLocaleDateString()}\nFocus: ${({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Assessment'})[focusKey]}\n\n${answers}`],{type:'text/plain'});
+  const focusLabel = ({ai:'AI Tools',health:'Business Health',brand:'Brand Clarity',all:'Full Picture'})[focusKey];
+  const text = `LOAM STRATEGY — ASSESSMENT TRANSCRIPT
+Date: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
+Focus: ${focusLabel}
+
+${profileLines()}
+
+SECTIONS
+${sectionStatusLines()}
+
+${transcriptText()}`;
+  const blob = new Blob([text], {type:'text/plain'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = (window._clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
+  a.download = (window._clientName||clientName||'client').toLowerCase().replace(/\s+/g,'-') + '-transcript.txt';
   a.click();
 }
 
 
-// ── EMAIL NOTIFICATION ───────────────────────────────────
-async function sendReportEmail(r, coworkPrompt) {
-  try {
-    const config = getEmailConfig();
-    if (!config) { console.warn('Email not configured — no notification sent.'); return; }
-    await loadEmailJs(config.publicKey);
 
-    const reportSummary = [
-      'CLIENT: ' + (clientName || r.clientName || 'Unknown') + (clientEmail ? ' <' + clientEmail + '>' : ''),
-      'FOCUS: ' + (r.focusLabel || 'Full Assessment'),
-      'BLIND SPOT: ' + (r.blindSpot?.name || '—') + ' — ' + (r.blindSpot?.summary || ''),
-      'PERCEIVED: ' + (r.perceivedVsActual?.perceived || '—'),
-      'ACTUAL: ' + (r.perceivedVsActual?.actual || '—'),
-      'NOW: ' + (r.actionPlan?.now || []).join(' | '),
-      'SOON: ' + (r.actionPlan?.soon || []).join(' | '),
-      'CLOSING: ' + (r.closingNote || '')
-    ].join('\n\n');
-
-    await window.emailjs.send(config.serviceId, config.templateId, {
-      to_email:      config.toEmail,
-      client_name:   (clientName || r.clientName || 'Unknown') + (IS_TEST ? ' [TEST]' : ''),
-      client_email:  clientEmail || '',
-      focus:         r.focusLabel || 'Full Assessment',
-      report_summary: reportSummary,
-      cowork_prompt: (coworkPrompt || '').substring(0, 6000),
-      date:          new Date().toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'})
-    });
-    console.log('Report email sent');
-  } catch(e) {
-    console.warn('Email send failed:', e);
-  }
-}
-
-function renderFallback() {
-  document.getElementById('report-content').innerHTML = `<div class="loading-block"><div style="font-size:14px;color:var(--muted);">Something went wrong generating the report. Your answers are saved — refresh and try again.</div></div>`;
-}
 </script>
 </body>
 </html>

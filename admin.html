@@ -233,13 +233,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
     <!-- TEST LAUNCHERS -->
     <div class="admin-section">
       <div class="admin-section-title">Test & Preview</div>
-      <div class="admin-section-sub">Launch either tool in test mode — full experience, no real data saved or emails sent.</div>
+      <div class="admin-section-sub">Launch either tool in test mode. Full experience. Emails still send to you, tagged [TEST], and the payment step is skipped.</div>
       <div class="test-grid">
 
         <div class="test-card">
           <div class="test-card-icon">🎯</div>
           <div class="test-card-title">Business Clarity Quiz</div>
-          <div class="test-card-desc">8-question free quiz. Takes 3 minutes. Tests all four result types — Capacity Ceiling, Operations Gap, Growth Bottleneck, Clarity Gap.</div>
+          <div class="test-card-desc">12-question free quiz. Takes 3 to 4 minutes. Four result types: Capacity Ceiling, Operations Gap, Growth Bottleneck, Clarity Gap. The optional opt-in at the end emails you their answers, tagged [TEST].</div>
           <div class="test-card-actions">
             <a class="btn-test" href="quiz.html?test=true" target="_blank">
               Launch in Test Mode ↗
@@ -253,7 +253,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
         <div class="test-card">
           <div class="test-card-icon">📋</div>
           <div class="test-card-title">Full Business Assessment</div>
-          <div class="test-card-desc">Paid assessment tool. 20-30 min AI conversation. Tests all four focus areas — AI Tools, Business Health, Brand Clarity, Full Picture.</div>
+          <div class="test-card-desc">Paid assessment tool. 30 to 45 min AI conversation, 9 sections (10 for Full Picture). Tests all four focus areas — AI Tools, Business Health, Brand Clarity, Full Picture.</div>
           <div class="test-card-actions">
             <a class="btn-test" href="assessment.html?test=true" target="_blank">
               Launch in Test Mode ↗
@@ -404,7 +404,7 @@ function renderStatus() {
       label: 'Stripe payment link ($500 session)',
       ok: isRealLink(SITE.STRIPE_LINK),
       okText: SITE.STRIPE_LINK,
-      missingText: 'Not set — clients see an "Email Mike to Book" button instead. Add your Payment Link URL to config.js.'
+      missingText: 'Not set — clients see an "Email Us to Book" button instead. Add your Payment Link URL to config.js.'
     },
     {
       label: 'Calendly booking link',
@@ -545,10 +545,15 @@ function openSession(idx) {
   const fin = r.financial || {};
 
   const sectionLabels = {
-    at_bat:'At Bat', overview:'Business Overview', model:'Business Model',
-    ops:'Team & Operations', pain:'Pain Points', tools:'Tools & AI',
-    financial:'Financial Context', goals:'Goals',
-    ai_ready:'AI Readiness', growth:'Growth & Revenue', message:'Message & Market'
+    // Current sections
+    overview:'The Business', problem:"The Problem You'd Fix", customers:'How Customers Find You',
+    reputation:"What You're Known For", pricing:'Pricing & Money', week:'Where Your Week Goes',
+    known:'What You Already Know', repeat:'Repeat Work', team:'Team & Handoffs',
+    after:'After the Sale', competitors:"Who You're Up Against", market:'Message & Market',
+    team_tools:'Team & Tools', tools:'Tools & Tech', message:'Your Message',
+    // Older sessions
+    at_bat:'At Bat', model:'Business Model', ops:'Team & Operations', pain:'Pain Points',
+    financial:'Financial Context', goals:'Goals', ai_ready:'AI Readiness', growth:'Growth & Revenue'
   };
 
   const answerRows = Object.entries(s.answers || {}).map(([k, v]) => `
@@ -559,17 +564,31 @@ function openSession(idx) {
 
   const finVal = (str) => (str || '—').split(/\s*[—–]\s*/)[0].trim();
 
-  document.getElementById('session-modal-title').textContent =
-    `${s.clientName || 'Unknown'} · ${new Date(s.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
-
-  document.getElementById('session-modal-body').innerHTML = `
+  const esc = (v) => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const lst = (arr) => (Array.isArray(arr) && arr.length) ? arr.map(esc).join('<br>') : '—';
+  const b = s.business || {};
+  const rc = s.recap;
+  // Newer sessions have a "what we heard" recap. Older ones had an instant report.
+  const summaryHtml = (s.business || rc || !s.report) ? `
     <div class="detail-section">
-      <div class="detail-label">Contact</div>
+      <div class="detail-label">Business</div>
       <div class="detail-grid">
-        <div class="detail-field"><div class="detail-field-label">Name</div><div class="detail-field-val">${s.clientName || '—'}</div></div>
-        <div class="detail-field"><div class="detail-field-label">Email</div><div class="detail-field-val">${s.clientEmail ? `<a href="mailto:${s.clientEmail}" style="color:var(--amber);">${s.clientEmail}</a>` : '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Business</div><div class="detail-field-val">${esc(b.name) || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Website</div><div class="detail-field-val">${esc(b.site) || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">City or Area</div><div class="detail-field-val">${esc(b.location) || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Social</div><div class="detail-field-val">${esc(b.social) || '—'}</div></div>
       </div>
     </div>
+    <div class="detail-section">
+      <div class="detail-label">What We Heard (shown to the client)${s.transcriptSent === false ? ' · transcript email did NOT send' : ''}</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">What They Want Fixed</div><div class="detail-field-val">${rc ? esc(rc.statedProblem) || '—' : 'Recap did not build'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Their Theory</div><div class="detail-field-val">${rc ? esc(rc.theirTheory) || '—' : '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Working Well</div><div class="detail-field-val">${rc ? lst(rc.workingWell) : '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Already Know</div><div class="detail-field-val">${rc ? lst(rc.alreadyKnow) : '—'}</div></div>
+        <div class="detail-field" style="grid-column:1/-1;"><div class="detail-field-label">Their Numbers</div><div class="detail-field-val">${rc ? lst(rc.numbers) : '—'}</div></div>
+      </div>
+    </div>` : `
     <div class="detail-section">
       <div class="detail-label">Executive Summary</div>
       <div class="detail-grid">
@@ -597,7 +616,20 @@ function openSession(idx) {
         <div class="detail-field"><div class="detail-field-label">Monthly Tool Cost</div><div class="detail-field-val">${finVal(fin.monthlyToolCost)}</div></div>
         <div class="detail-field"><div class="detail-field-label">ROI Note</div><div class="detail-field-val">${fin.roiNote || '—'}</div></div>
       </div>
+    </div>`;
+
+  document.getElementById('session-modal-title').textContent =
+    `${s.clientName || 'Unknown'} · ${new Date(s.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+
+  document.getElementById('session-modal-body').innerHTML = `
+    <div class="detail-section">
+      <div class="detail-label">Contact</div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="detail-field-label">Name</div><div class="detail-field-val">${s.clientName || '—'}</div></div>
+        <div class="detail-field"><div class="detail-field-label">Email</div><div class="detail-field-val">${s.clientEmail ? `<a href="mailto:${s.clientEmail}" style="color:var(--amber);">${s.clientEmail}</a>` : '—'}</div></div>
+      </div>
     </div>
+${summaryHtml}
     <div class="detail-section">
       <div class="detail-label">Session Answers</div>
       <div class="detail-grid">${answerRows}</div>
@@ -629,10 +661,13 @@ function dlSessionTranscript() {
   if (!_activeSession) return;
   const s = _activeSession;
   const sectionLabels = {
-    at_bat:'AT BAT', overview:'BUSINESS OVERVIEW', model:'BUSINESS MODEL',
-    ops:'TEAM & OPERATIONS', pain:'PAIN POINTS', tools:'TOOLS & AI',
-    financial:'FINANCIAL CONTEXT', goals:'GOALS',
-    ai_ready:'AI READINESS', growth:'GROWTH & REVENUE', message:'MESSAGE & MARKET'
+    overview:'THE BUSINESS', problem:"THE PROBLEM YOU'D FIX", customers:'HOW CUSTOMERS FIND YOU',
+    reputation:"WHAT YOU'RE KNOWN FOR", pricing:'PRICING & MONEY', week:'WHERE YOUR WEEK GOES',
+    known:'WHAT YOU ALREADY KNOW', repeat:'REPEAT WORK', team:'TEAM & HANDOFFS',
+    after:'AFTER THE SALE', competitors:"WHO YOU'RE UP AGAINST", market:'MESSAGE & MARKET',
+    team_tools:'TEAM & TOOLS', tools:'TOOLS & TECH', message:'YOUR MESSAGE',
+    at_bat:'AT BAT', model:'BUSINESS MODEL', ops:'TEAM & OPERATIONS', pain:'PAIN POINTS',
+    financial:'FINANCIAL CONTEXT', goals:'GOALS', ai_ready:'AI READINESS', growth:'GROWTH & REVENUE'
   };
   const lines = Object.entries(s.answers || {}).map(([k,v]) => `${sectionLabels[k]||k.toUpperCase()}:\n${v}`).join('\n\n---\n\n');
   const blob = new Blob([
