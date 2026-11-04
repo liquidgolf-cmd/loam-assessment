@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blind Spot Assessment — Loam Strategy</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -28,9 +30,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* HEADER */
 .hdr{padding:22px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;color:var(--bg);}
-.logo-name{font-size:14px;font-weight:500;color:var(--cream);}
+.logo{display:flex;align-items:center;text-decoration:none;}
+.logo-img{height:32px;width:auto;display:block;}
 .hdr-right{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
 
 /* PROGRESS */
@@ -150,10 +151,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 </head>
 <body>
 <header class="hdr">
-  <div class="logo">
-    <div class="logo-mark">L</div>
-    <span class="logo-name">Loam Strategy</span>
-  </div>
+  <a class="logo" href="index.html">
+    <img src="assets/loam-logo.png" alt="Loam Strategy" class="logo-img">
+  </a>
   <span class="hdr-right">Blind Spot Assessment</span>
 </header>
 <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>

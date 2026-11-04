@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Loam Strategy</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -46,6 +48,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
   padding:48px 40px;width:100%;max-width:400px;text-align:center;
   box-shadow:0 24px 60px rgba(0,0,0,.4);
 }
+.login-mark-img{width:56px;height:56px;display:block;margin:0 auto 18px;}
 .login-mark{width:48px;height:48px;background:var(--amber);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:22px;color:var(--ink);margin:0 auto 20px;}
 .login-title{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--cream);margin-bottom:6px;}
 .login-sub{font-size:13px;color:var(--muted);margin-bottom:32px;}
@@ -194,7 +197,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-mark">L</div>
+    <img class="login-mark-img" src="assets/loam-mark.png" alt="Loam Strategy">
     <div class="login-title">Admin Access</div>
     <div class="login-sub">Loam Strategy · Internal Dashboard</div>
     <input class="login-input" type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')tryLogin()"/>

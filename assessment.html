@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business Assessment — Loam Strategy</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -42,7 +44,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 
 /* HEADER */
 .hdr{padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:50;background:hsl(220 15% 16% / 0.95);backdrop-filter:blur(10px);}
-.logo{display:flex;align-items:center;}
+.logo{display:flex;align-items:center;text-decoration:none;}
 .logo-img{height:32px;width:auto;display:block;}
 .hdr-phase{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);transition:all .3s;}
 .progress-bar{height:2px;background:var(--rule);}
@@ -100,7 +102,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 .msg{display:flex;gap:10px;animation:fadeUp .25s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .av{width:28px;height:28px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;}
-.av.coach{background:var(--amber);color:var(--bg);font-family:'Fraunces',serif;font-size:14px;}
+.av.coach{background:transparent;}
+.av.coach img{width:100%;height:100%;object-fit:contain;display:block;}
 .av.user{background:rgba(255,255,255,.08);color:var(--muted);}
 .msg-inner{}
 .msg-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px;}
@@ -230,9 +233,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--cream);mi
 <body>
 
 <header class="hdr">
-  <div class="logo">
+  <a class="logo" href="index.html">
     <img src="assets/loam-logo.png" alt="Loam Strategy" class="logo-img">
-  </div>
+  </a>
   <span class="hdr-phase" id="hdr-phase">Business Assessment</span>
 </header>
 <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
@@ -996,7 +999,7 @@ function addMsg(role, text) {
   const c = document.getElementById('chat-msgs');
   const d = document.createElement('div');
   d.className = 'msg ' + role;
-  d.innerHTML = `<div class="av ${role}">${role==='coach'?'L':'You'}</div><div class="msg-inner"><div class="msg-name">${role==='coach'?'Loam AI Coach':'You'}</div><div class="bubble">${escHtml(text).replace(/\n/g,'<br>')}</div></div>`;
+  d.innerHTML = `<div class="av ${role}">${role==='coach'?'<img src="assets/loam-mark.png" alt="">':'You'}</div><div class="msg-inner"><div class="msg-name">${role==='coach'?'Loam AI Coach':'You'}</div><div class="bubble">${escHtml(text).replace(/\n/g,'<br>')}</div></div>`;
   c.appendChild(d);
   c.scrollTop = c.scrollHeight;
 }
@@ -1004,7 +1007,7 @@ function showTyping() {
   const c = document.getElementById('chat-msgs');
   const d = document.createElement('div');
   d.className='msg coach';d.id='typing';
-  d.innerHTML=`<div class="av coach">L</div><div class="msg-inner"><div class="msg-name">Loam AI Coach</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  d.innerHTML=`<div class="av coach"><img src="assets/loam-mark.png" alt=""></div><div class="msg-inner"><div class="msg-name">Loam AI Coach</div><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
 function rmTyping(){const t=document.getElementById('typing');if(t)t.remove();}
