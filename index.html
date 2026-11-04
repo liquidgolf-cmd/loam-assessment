@@ -256,6 +256,7 @@ nav.scrolled{background:hsl(220 15% 16% / 0.95);backdrop-filter:blur(12px);borde
   display:flex;flex-direction:column;gap:20px;
 }
 .mike-card-top{display:flex;align-items:center;gap:16px;}
+.mike-photo{display:block;width:100%;height:auto;aspect-ratio:4/4.4;object-fit:cover;object-position:center 20%;border-radius:12px;margin-bottom:-4px;}
 .mike-avatar{
   width:64px;height:64px;border-radius:12px;
   background:linear-gradient(135deg,var(--amber) 0%,var(--primary-hover) 100%);
@@ -313,6 +314,32 @@ footer{background:var(--ink);border-top:1px solid var(--rule);padding:40px 48px;
 .reveal-delay-2{transition-delay:.2s;}
 .reveal-delay-3{transition-delay:.3s;}
 
+/* ── WHY LOAM ── */
+.loam-section{background:hsl(220,15%,13%);padding:100px 24px;border-top:1px solid var(--rule);}
+.loam-inner{max-width:1020px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:start;}
+.loam-story p{font-size:16px;line-height:1.8;color:var(--muted);margin-bottom:16px;font-weight:300;}
+.loam-story p.loam-turn{color:var(--cream);font-weight:400;}
+.loam-close{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,28px);font-weight:300;font-style:italic;line-height:1.35;color:var(--cream);margin:28px 0 24px;letter-spacing:-.01em;}
+.loam-close strong{font-weight:600;font-style:normal;color:var(--amber);}
+.loam-links{display:flex;gap:24px;flex-wrap:wrap;}
+.loam-links a{font-size:14px;font-weight:600;color:var(--amber);text-decoration:none;}
+.loam-links a:hover{color:var(--cream);}
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layers-cap{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px;}
+.layer{border-radius:14px;padding:18px 22px;color:#15181d;}
+.layer-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:3px;}
+.layer-desc{font-size:14px;line-height:1.55;}
+.layer.growth{background:#80937A;border-radius:22px 22px 14px 14px;}
+.layer.topsoil{background:#E6DCC5;}
+.layer.subsoil{background:#C4AB85;}
+.layer.bedrock{background:#9A8263;}
+.layers-rule{margin-top:14px;font-size:14px;line-height:1.6;color:var(--cream);border-left:2px solid var(--amber);padding-left:14px;}
+.loam-name{margin-top:28px;padding-top:24px;border-top:1px solid var(--rule);font-size:15px;line-height:1.75;color:var(--muted);}
+.loam-name strong{color:var(--cream);font-weight:600;}
+@media(max-width:860px){
+  .loam-inner{grid-template-columns:1fr;gap:40px;}
+  .loam-section{padding:72px 20px;}
+}
 @media(max-width:768px){
   nav{padding:16px 20px;}
   .nav-links{display:none;}
@@ -335,6 +362,7 @@ footer{background:var(--ink);border-top:1px solid var(--rule);padding:40px 48px;
     <img src="assets/loam-logo.png" alt="Loam Strategy" class="nav-logo-img">
   </a>
   <div class="nav-links">
+    <a class="nav-link" href="#why-loam">Why Loam</a>
     <a class="nav-link" href="#how-it-works">How it works</a>
     <a class="nav-link" href="#journey">The path</a>
     <a class="nav-link" href="#about">About</a>
@@ -462,32 +490,61 @@ footer{background:var(--ink);border-top:1px solid var(--rule);padding:40px 48px;
   </div>
 </section>
 
+<!-- WHY LOAM -->
+<section class="loam-section" id="why-loam">
+  <div class="loam-inner">
+    <div class="loam-story reveal">
+      <div class="section-eyebrow">Why Loam</div>
+      <h2 class="section-title">Growth is a soil problem<br><strong>before it's a plant problem.</strong></h2>
+      <p>Two neighbors plant tomatoes the same weekend. Same seeds, same sun. By July one row is heavy with fruit and the other is yellow and thin.</p>
+      <p>The second neighbor treats what he can see. More water. Then fertilizer. Then the expensive fertilizer. The leaves stay yellow.</p>
+      <p>The first neighbor pushes a shovel into the bed and lifts out a slice of dirt. Six inches down it's packed clay. The roots can't breathe, so nothing poured on top ever reaches them.</p>
+      <p class="loam-turn">The plant was never the problem. Neither was the effort.</p>
+      <p>That's most of the businesses we sit down with. The yellow leaves are "we need more leads." The fertilizer is another ad campaign, another course, another AI tool. The clay is six inches down, in a layer you can't see from where you're standing.</p>
+      <div class="loam-close">We don't start with the fertilizer.<br><strong>We start with the shovel.</strong></div>
+      <div class="loam-links">
+        <a href="quiz.html">Start with the free quiz →</a>
+        <a href="assessment.html">See the full assessment →</a>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="layers-cap">What we look at</div>
+      <div class="layers">
+        <div class="layer growth"><div class="layer-name">The growth</div><div class="layer-desc">What everyone sees. Sales, customers, momentum, or the lack of it.</div></div>
+        <div class="layer topsoil"><div class="layer-name">Topsoil</div><div class="layer-desc">What customers touch. Your message, your reviews, how they find you and buy.</div></div>
+        <div class="layer subsoil"><div class="layer-name">Subsoil</div><div class="layer-desc">How the business really runs. Pricing, process, time, team, tools.</div></div>
+        <div class="layer bedrock"><div class="layer-name">Bedrock</div><div class="layer-desc">You. Your why, your beliefs, and what you think your work is worth.</div></div>
+      </div>
+      <div class="layers-rule">The problem usually shows up one layer above where it starts. Slow sales point to the message. The message points to pricing or time. Pricing often points to you.</div>
+      <div class="loam-name"><strong>Why the name?</strong> Loam is the richest soil there is: the right balance of everything a plant needs, so roots can take hold. Real growth doesn't come from what you add on top. It comes from getting the ground right underneath.</div>
+    </div>
+  </div>
+</section>
+
 <!-- ABOUT MIKE -->
 <section class="mike-section" id="about">
   <div class="mike-inner">
     <div class="mike-text reveal">
       <div class="section-eyebrow">Our Founder</div>
       <div class="mike-quote">"Most businesses don't have a strategy problem. They have a <strong>clarity problem.</strong>"</div>
-      <p class="mike-bio">Mike Hill has spent 20+ years helping organizations simplify their message, fix their process, and figure out what to focus on. He's a brand strategist, storyteller, and problem-solver who leads with warmth and tells you the truth you need to hear — not the version that sounds good.</p>
+      <p class="mike-bio">Mike Hill has spent 20+ years helping organizations simplify their message, fix their process, and figure out what to focus on. He's a brand strategist, storyteller, and problem-solver who leads with warmth and tells you the truth you need to hear, not the version that sounds good.</p>
       <p class="mike-bio">Loam Strategy is built around one idea: that small businesses deserve the same quality of strategic thinking that big companies pay consultants millions for. Just without the fluff.</p>
       <div class="mike-credentials">
         <div class="mike-cred"><div class="cred-dot"></div>20+ years in marketing, design, and brand strategy</div>
         <div class="mike-cred"><div class="cred-dot"></div>Founder of the HomeRun Method for business clarity</div>
-        <div class="mike-cred"><div class="cred-dot"></div>Faith, family, and community-driven — always</div>
+        <div class="mike-cred"><div class="cred-dot"></div>Faith, family, and community-driven. Always.</div>
         <div class="mike-cred"><div class="cred-dot"></div>Grandfather, storyteller, and straight talker</div>
       </div>
     </div>
     <div class="reveal reveal-delay-2">
       <div class="mike-card">
-        <div class="mike-card-top">
-          <div class="mike-avatar">M</div>
-          <div>
-            <div class="mike-card-name">Mike Hill</div>
-            <div class="mike-card-role">Founder, Loam Strategy</div>
-          </div>
+        <img class="mike-photo" src="assets/mike-hill.jpg" alt="Mike Hill, founder of Loam Strategy" width="760" height="950" loading="lazy">
+        <div>
+          <div class="mike-card-name">Mike Hill</div>
+          <div class="mike-card-role">Founder, Loam Strategy</div>
         </div>
         <div style="font-size:13px;line-height:1.7;color:var(--muted);border-top:1px solid var(--rule);padding-top:18px;">
-          "I built this process because I kept watching good businesses fail not because the owner didn't work hard — but because nobody ever sat down with them and helped them see what was actually going on."
+          "I built this process because I kept watching good businesses fail not because the owner didn't work hard, but because nobody ever sat down with them and helped them see what was actually going on."
         </div>
         <div class="mike-card-stat">
           <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Years in strategy</div></div>
